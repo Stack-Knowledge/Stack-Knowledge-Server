@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class KnowledegeApplication
+class KnowledgeApplication
 
 fun main(args: Array<String>) {
-	runApplication<KnowledegeApplication>(*args)
+	runApplication<KnowledgeApplication>(*args)
 }
