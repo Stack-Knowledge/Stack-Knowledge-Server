@@ -1,6 +1,6 @@
-package com.stack.knowledege.domain.user.domain
+package com.stack.knowledege.domain.user.adapter.persistence.entity
 
-import com.stack.knowledege.domain.user.domain.constant.UserRole
+import com.stack.knowledege.domain.user.adapter.persistence.constant.UserRole
 import com.stack.knowledege.global.entity.BaseUuidEntity
 import java.util.*
 import javax.persistence.*

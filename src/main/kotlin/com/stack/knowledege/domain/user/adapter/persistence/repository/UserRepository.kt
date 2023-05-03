@@ -1,5 +1,6 @@
-package com.stack.knowledege.domain.user.domain
+package com.stack.knowledege.domain.user.adapter.persistence.repository
 
+import com.stack.knowledege.domain.user.adapter.persistence.entity.UserEntity
 import org.springframework.data.repository.CrudRepository
 import java.util.UUID
 

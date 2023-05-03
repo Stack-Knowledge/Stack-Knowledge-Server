@@ -1,6 +1,6 @@
 package com.stack.knowledege.global.security.auth
 
-import com.stack.knowledege.domain.user.domain.UserEntity
+import com.stack.knowledege.domain.user.adapter.persistence.entity.UserEntity
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
