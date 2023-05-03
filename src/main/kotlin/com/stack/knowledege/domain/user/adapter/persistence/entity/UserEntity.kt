@@ -25,6 +25,6 @@ class UserEntity(
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "UerRole", joinColumns = [JoinColumn(name = "user_id")])
-    var roles: MutableList<UserRole> = mutableListOf()
+    val roles: MutableList<UserRole> = mutableListOf()
 
 ): BaseUuidEntity(id)
