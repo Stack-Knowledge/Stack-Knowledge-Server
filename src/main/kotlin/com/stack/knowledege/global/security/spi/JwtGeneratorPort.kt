@@ -1,7 +1,7 @@
-package com.stack.knowledege.domain.user.application.spi
+package com.stack.knowledege.global.security.spi
 
 import com.stack.knowledege.domain.user.adapter.presentation.data.response.TokenResponse
 
-interface JwtPort {
+interface JwtGeneratorPort {
     fun receiveToken(email: String): TokenResponse
 }

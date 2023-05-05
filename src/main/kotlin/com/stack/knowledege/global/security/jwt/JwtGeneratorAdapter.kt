@@ -1,7 +1,7 @@
 package com.stack.knowledege.global.security.jwt
 
 import com.stack.knowledege.domain.user.adapter.presentation.data.response.TokenResponse
-import com.stack.knowledege.domain.user.application.spi.JwtPort
+import com.stack.knowledege.global.security.spi.JwtGeneratorPort
 import com.stack.knowledege.global.security.jwt.properties.JwtProperties
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
@@ -11,9 +11,9 @@ import java.time.ZonedDateTime
 import java.util.*
 
 @Component
-class JwtGenerateAdapter(
+class JwtGeneratorAdapter(
     private val jwtProperties: JwtProperties,
-): JwtPort {
+): JwtGeneratorPort {
 
     companion object {
         const val ACCESS_TYPE = "access"
