@@ -1,4 +1,4 @@
-package com.stack.knowledege.global.security.auth
+package com.stack.knowledege.global.security.principal
 
 import com.stack.knowledege.domain.user.adapter.persistence.repository.UserRepository
 import org.springframework.security.core.userdetails.UserDetails

@@ -1,6 +1,6 @@
 package com.stack.knowledege.global.security.jwt
 
-import com.stack.knowledege.global.security.auth.AuthDetailsService
+import com.stack.knowledege.global.security.principal.AuthDetailsService
 import com.stack.knowledege.global.security.jwt.properties.JwtProperties
 import com.stack.knowledege.global.security.spi.JwtParserPort
 import io.jsonwebtoken.Claims
