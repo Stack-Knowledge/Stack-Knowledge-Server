@@ -6,6 +6,7 @@ enum class ErrorCode(
 ) {
     USER_NOT_FOUND("존재하지 않는 유저입니다.", 404),
     EXPIRED_TOKEN("토큰 만료", 401),
+    FORBIDDEN("",401),
     INVALID_TOKEN("유효하지 않은 토큰", 401),
     UNAUTHORIZED("권한 없음", 401),
     INTERNAL_SERVER_ERROR("서버 내부 에러", 500),
