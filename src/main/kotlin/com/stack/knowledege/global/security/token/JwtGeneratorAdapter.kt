@@ -1,8 +1,8 @@
-package com.stack.knowledege.global.security.jwt
+package com.stack.knowledege.global.security.token
 
 import com.stack.knowledege.domain.user.adapter.presentation.data.response.TokenResponse
 import com.stack.knowledege.global.security.spi.JwtGeneratorPort
-import com.stack.knowledege.global.security.jwt.properties.JwtProperties
+import com.stack.knowledege.global.security.token.properties.JwtProperties
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.stereotype.Component

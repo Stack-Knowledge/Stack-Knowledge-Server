@@ -1,4 +1,4 @@
-package com.stack.knowledege.global.security.jwt.properties
+package com.stack.knowledege.global.security.token.properties
 
 import io.jsonwebtoken.security.Keys
 import org.springframework.boot.context.properties.ConfigurationProperties
