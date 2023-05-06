@@ -27,4 +27,4 @@ class UserEntity(
     @CollectionTable(name = "UerRole", joinColumns = [JoinColumn(name = "user_id")])
     val roles: MutableList<UserRole> = mutableListOf()
 
-): BaseUuidEntity(id)
+) : BaseUuidEntity(id)

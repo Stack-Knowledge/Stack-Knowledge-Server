@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional(readOnly = true, rollbackFor = [Exception::class])
 class AuthDetailsService(
     private val userRepository: UserRepository
-): UserDetailsService {
+) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails {
         val user = userRepository.findByEmail(username)
             ?: throw RuntimeException()

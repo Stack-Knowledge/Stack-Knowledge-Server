@@ -7,7 +7,7 @@ import org.springframework.security.web.AuthenticationEntryPoint
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class CustomAuthenticationEntryPoint: AuthenticationEntryPoint {
+class CustomAuthenticationEntryPoint : AuthenticationEntryPoint {
 
     private val log = LoggerFactory.getLogger(this.javaClass.simpleName)
 

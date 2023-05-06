@@ -13,7 +13,7 @@ import java.util.*
 @Component
 class JwtGeneratorAdapter(
     private val jwtProperties: JwtProperties,
-): JwtGeneratorPort {
+) : JwtGeneratorPort {
 
     companion object {
         const val ACCESS_TYPE = "access"

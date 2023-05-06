@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest
 class JwtParserAdapter(
     private val jwtProperties: JwtProperties,
     private val authDetailsService: AuthDetailsService
-): JwtParserPort {
+) : JwtParserPort {
     override fun parseAccessToken(request: HttpServletRequest): String? =
         request.getHeader(JwtProperties.tokenHeader)
             .let { it ?: return null }
