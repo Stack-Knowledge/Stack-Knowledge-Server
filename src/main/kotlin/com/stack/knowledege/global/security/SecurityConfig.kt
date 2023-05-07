@@ -1,5 +1,6 @@
 package com.stack.knowledege.global.security
 
+import com.stack.knowledege.global.config.FilterConfig
 import com.stack.knowledege.global.security.handler.CustomAccessDeniedHandler
 import com.stack.knowledege.global.security.handler.CustomAuthenticationEntryPoint
 import com.stack.knowledege.global.security.spi.JwtParserPort
@@ -37,6 +38,8 @@ class SecurityConfig(
             .accessDeniedHandler(CustomAccessDeniedHandler())
             .and()
 
+            .apply(FilterConfig(jwtParserPort))
+            .and()
             .build()
 
     @Bean
