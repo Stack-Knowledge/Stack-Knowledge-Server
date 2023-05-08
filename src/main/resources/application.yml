@@ -21,5 +21,6 @@ spring:
 
 jwt:
   accessSecret: ${JWT_ACCESS}
-
   refreshSecret: ${JWT_REFRESH}
+  accessExp: ${ACCESS_EXP}
+  refreshExp: ${REFRESH_EXP}
