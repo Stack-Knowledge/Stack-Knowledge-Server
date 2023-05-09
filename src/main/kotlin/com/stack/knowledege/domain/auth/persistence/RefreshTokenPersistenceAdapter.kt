@@ -7,12 +7,11 @@ import com.stack.knowledege.domain.auth.persistence.repository.RefreshTokenRepos
 import org.springframework.stereotype.Component
 
 @Component
-class RefreshTokenPersistence(
+class RefreshTokenPersistenceAdapter(
     private val refreshTokenRepository: RefreshTokenRepository,
     private val refreshTokenMapper: RefreshTokenMapper
 ) : RefreshTokenPort {
     override fun saveRefreshToken(refreshToken: RefreshToken) {
         refreshTokenRepository.save(refreshTokenMapper.toEntity(refreshToken))
     }
-
 }
