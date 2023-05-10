@@ -1,4 +1,4 @@
-package com.stack.knowledege.domain.user.adapter.persistence.constant
+package com.stack.knowledege.domain.user.domain.constant
 
 import org.springframework.security.core.GrantedAuthority
 

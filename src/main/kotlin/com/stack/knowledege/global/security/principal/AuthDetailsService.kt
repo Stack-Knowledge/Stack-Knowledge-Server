@@ -1,6 +1,6 @@
 package com.stack.knowledege.global.security.principal
 
-import com.stack.knowledege.domain.user.adapter.persistence.repository.UserRepository
+import com.stack.knowledege.domain.user.persistence.repository.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
