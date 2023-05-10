@@ -14,13 +14,14 @@ import java.util.*
 class UserPersistenceAdapter(
     private val userRepository: UserRepository,
     private val userMapper: UserMapper,
+    private val securityPort: SecurityPort
 ) : UserPort {
     override fun saveUser(user: User): User? =
         userMapper.toDomain(userRepository.save(userMapper.toEntity(user)))
 
-    override fun queryCurrentUser(): User {
-
-    }
+    override fun queryCurrentUser(): User =
+        userMapper.toDomain(userRepository.findByIdOrNull(securityPort.queryCurrentUserId()))
+            .let { it ?: throw UserNotFoundException() }
 
     override fun queryUserById(id: UUID): User? =
         userMapper.toDomain(userRepository.findByIdOrNull(id) ?: throw UserNotFoundException())
