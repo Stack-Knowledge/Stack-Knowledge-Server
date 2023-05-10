@@ -7,5 +7,4 @@ interface QueryUserPort {
     fun queryCurrentUser(): User
 
     fun queryUserById(id: UUID): User?
-
 }
