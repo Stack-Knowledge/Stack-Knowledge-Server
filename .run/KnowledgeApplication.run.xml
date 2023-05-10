@@ -1,0 +1,20 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="KnowledgeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ALTERNATIVE_JRE_PATH" value="11" />
+    <envs>
+      <env name="ACCESS_EXP" value="1800" />
+      <env name="DB_NAME" value="st" />
+      <env name="DB_PASSWORD" value="123456789a" />
+      <env name="DB_URL" value="localhost:3306" />
+      <env name="DB_USER" value="root" />
+      <env name="REFRESH_EXP" value="7200" />
+      <env name="JWT_ACCESS" value="c3RhY2s=c3RhY2s=c3RhY2s=c3RhY2s=" />
+      <env name="JWT_REFRESH" value="a25vd2xlZGdla25vd2xlZGdla25vd2xlZGdla25vd2xlZGdl" />
+    </envs>
+    <module name="knowledege.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.stack.knowledege.KnowledgeApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

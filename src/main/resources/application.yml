@@ -18,8 +18,11 @@ spring:
         max-file-size: 100MB
         max-request-size: 100MB
     open-in-view: false
+  main:
+    allow-bean-definition-overriding: true
 
 jwt:
   accessSecret: ${JWT_ACCESS}
-
   refreshSecret: ${JWT_REFRESH}
+  accessExp: ${ACCESS_EXP}
+  refreshExp: ${REFRESH_EXP}
