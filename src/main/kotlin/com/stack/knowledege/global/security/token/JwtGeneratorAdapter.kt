@@ -1,6 +1,6 @@
 package com.stack.knowledege.global.security.token
 
-import com.stack.knowledege.domain.user.adapter.presentation.data.response.TokenResponse
+import com.stack.knowledege.domain.user.presentation.data.response.TokenResponse
 import com.stack.knowledege.global.security.spi.JwtGeneratorPort
 import com.stack.knowledege.global.security.token.properties.JwtProperties
 import io.jsonwebtoken.Jwts

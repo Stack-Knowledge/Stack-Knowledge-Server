@@ -1,4 +1,4 @@
-package com.stack.knowledege.domain.user.adapter.presentation.data.response
+package com.stack.knowledege.domain.user.presentation.data.response
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.ZonedDateTime
