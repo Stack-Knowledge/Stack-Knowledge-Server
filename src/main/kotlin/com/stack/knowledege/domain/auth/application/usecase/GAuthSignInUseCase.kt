@@ -4,10 +4,12 @@ import com.stack.knowledege.domain.auth.presentation.data.response.TokenResponse
 import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.domain.user.domain.User
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
+import com.stack.knowledege.global.annotation.usecase.UseCase
 import com.stack.knowledege.global.security.spi.JwtGeneratorPort
 import com.stack.knowledege.thirdparty.gauth.spi.GAuthPort
 import java.util.*
 
+@UseCase
 class GAuthSignInUseCase(
     private val gAuthPort: GAuthPort,
     private val userPort: UserPort,
