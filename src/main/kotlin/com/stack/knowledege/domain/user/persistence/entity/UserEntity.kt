@@ -17,10 +17,10 @@ class UserEntity(
     val name: String,
 
     @Column(nullable = false)
-    val grade: String,
+    val grade: Int,
 
     @Column(nullable = false)
-    val number: String,
+    val number: Int,
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
