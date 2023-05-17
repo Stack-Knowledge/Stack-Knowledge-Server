@@ -20,8 +20,8 @@ class ItemPersistenceAdapter(
     override fun deleteItem(itemId: UUID) =
         itemRepository.deleteById(itemId)
 
-    override fun queryAllItem(): List<Item?> =
-        itemRepository.findAll().map { itemMapper.toDomain(it) }
+    override fun queryAllItem(): List<Item> =
+        itemRepository.findAll().map { itemMapper.toDomain(it)!! }
 
     override fun queryItemById(itemId: UUID): Item? =
         itemMapper.toDomain(itemRepository.findByIdOrNull(itemId))
