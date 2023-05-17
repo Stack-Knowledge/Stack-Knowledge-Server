@@ -18,7 +18,7 @@ class GAuthSignInUseCase(
     fun execute(code: String): TokenResponse {
         val gauthToken = gAuthPort.queryGAuthToken(code)
         val gauthUserInfo = gAuthPort.queryUserInfo(gauthToken.accessToken)
-        val role = userPort.queryUserRoleByEmail(gauthUserInfo.email)
+//        val role = userPort.queryUserRoleByEmail(gauthUserInfo.email)
 
         val user = createUser(
             userPort.queryExistByEmail(gauthUserInfo.email),
@@ -28,7 +28,7 @@ class GAuthSignInUseCase(
                 name = gauthUserInfo.name,
                 grade = gauthUserInfo.grade,
                 number = gauthUserInfo.num,
-                roles = mutableListOf(role)
+//                roles = mutableListOf(role)
             )
         )
 
