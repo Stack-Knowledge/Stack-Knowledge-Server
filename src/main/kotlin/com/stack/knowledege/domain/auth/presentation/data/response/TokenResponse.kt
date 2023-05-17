@@ -1,9 +1,9 @@
-package com.stack.knowledege.domain.user.presentation.data.response
+package com.stack.knowledege.domain.auth.presentation.data.response
 
 import com.fasterxml.jackson.annotation.JsonFormat
 import java.time.ZonedDateTime
 
-data class TokenResponse(
+data class TokenResponse (
     val accessToken: String,
     val refreshToken: String,
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH-mm-ss")

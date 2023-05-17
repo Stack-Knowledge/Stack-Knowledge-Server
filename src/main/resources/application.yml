@@ -26,3 +26,8 @@ jwt:
   refreshSecret: ${JWT_REFRESH}
   accessExp: ${ACCESS_EXP}
   refreshExp: ${REFRESH_EXP}
+
+gauth:
+  clientId: ${CLIENT_ID}
+  clientSecret: ${CLIENT_SECRET}
+  redirectUri: ${REDIRECT_URI}
