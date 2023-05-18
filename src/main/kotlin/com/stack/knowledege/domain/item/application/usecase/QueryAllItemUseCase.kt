@@ -11,7 +11,7 @@ class QueryAllItemUseCase(
     fun execute(): List<ItemResponse> =
         queryItemPort.queryAllItem()
             .map { ItemResponse(
-                id = it.id,
+                itemId = it.id,
                 name = it.name,
                 text = it.text,
                 price = it.price
