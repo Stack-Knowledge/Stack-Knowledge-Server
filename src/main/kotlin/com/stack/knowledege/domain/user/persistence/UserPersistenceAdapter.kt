@@ -6,6 +6,7 @@ import com.stack.knowledege.domain.user.domain.constant.UserRole
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
 import com.stack.knowledege.domain.user.persistence.mapper.UserMapper
 import com.stack.knowledege.domain.user.persistence.repository.UserRepository
+import com.stack.knowledege.global.error.exception.InvalidRoleException
 import com.stack.knowledege.global.security.spi.SecurityPort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
@@ -25,21 +26,24 @@ class UserPersistenceAdapter(
             return userMapper.toDomain(user)
     }
 
-
-//    override fun queryUserRoleByEmail(email: String): UserRole {
-//        val user = userRepository.findByEmail(email)
-//        return when () {
-//
-//        }
-//    }
+    override fun queryUserRoleByEmail(email: String, role: String): UserRole {
+        val user = userRepository.findByEmail(email) ?: return when (role) {
+            "ROLE_STUDENT" -> UserRole.ROLE_STUDENT
+            "ROLE_TEACHER" -> UserRole.ROLE_TEACHER
+            "ROLE_ADMIN" -> UserRole.ROLE_ADMIN
+            else -> { throw InvalidRoleException() }
+        }
+        return user.roles.firstOrNull() ?: throw UserNotFoundException()
+    }
 
     override fun queryUserByEmail(email: String): User? {
-        TODO("Not yet implemented")
+        val user = userRepository.findByEmail(email)
+        return userMapper.toDomain(user)
     }
 
-    override fun queryExistByEmail(email: String): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun queryExistByEmail(email: String): Boolean =
+        userRepository.existsByEmail(email)
+
 
     override fun queryCurrentUser(): User {
         return userMapper.toDomain(userRepository.findByIdOrNull(securityPort.queryCurrentUserId()))

@@ -15,6 +15,7 @@ enum class ErrorCode(
     NOT_VERIFIED_CODE("인증되지 않은 인증키입니다.", 401),
     ALREADY_EXIST_EMAIL("이미 존재하는 이메일입니다.", 409),
     MISMATCH_USER_PASSWORD("일치하지 않는 비밀번호입니다.", 400),
+    INVALID_ROLE("검증 되지 않은 권합입니다.", 401),
 
     // item
     ITEM_NOT_FOUND("존재하지 않는 상품입니다.", 404)

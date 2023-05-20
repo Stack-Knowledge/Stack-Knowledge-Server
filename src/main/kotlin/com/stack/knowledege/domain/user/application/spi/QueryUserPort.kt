@@ -6,7 +6,7 @@ import java.util.UUID
 
 interface QueryUserPort {
     fun queryUserById(id: UUID): User?
-//    fun queryUserRoleByEmail(email: String): UserRole
+    fun queryUserRoleByEmail(email: String, role: String): UserRole
     fun queryUserByEmail(email: String): User?
     fun queryExistByEmail(email: String): Boolean
     fun queryCurrentUser(): User
