@@ -6,7 +6,7 @@ enum class ErrorCode(
 ) {
     USER_NOT_FOUND("존재하지 않는 유저입니다.", 404),
     EXPIRED_TOKEN("토큰 만료", 401),
-    FORBIDDEN("",401),
+    FORBIDDEN("Forbidden",401),
     INVALID_TOKEN("유효하지 않은 토큰", 401),
     UNAUTHORIZED("권한 없음", 401),
     INTERNAL_SERVER_ERROR("서버 내부 에러", 500),
@@ -15,4 +15,7 @@ enum class ErrorCode(
     NOT_VERIFIED_CODE("인증되지 않은 인증키입니다.", 401),
     ALREADY_EXIST_EMAIL("이미 존재하는 이메일입니다.", 409),
     MISMATCH_USER_PASSWORD("일치하지 않는 비밀번호입니다.", 400),
+
+    // item
+    ITEM_NOT_FOUND("존재하지 않는 상품입니다.", 404)
 }

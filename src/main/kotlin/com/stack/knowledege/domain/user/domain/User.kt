@@ -5,7 +5,7 @@ import com.stack.knowledege.global.annotation.Aggregate
 import java.util.*
 
 @Aggregate
-data class User(
+class User(
     val id: UUID,
     val email: String,
     val name: String,

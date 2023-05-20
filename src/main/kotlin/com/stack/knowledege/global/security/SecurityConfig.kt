@@ -30,6 +30,9 @@ class SecurityConfig(
             .and()
 
             .authorizeRequests()
+
+            .antMatchers("/item/**").authenticated()
+
             .anyRequest().authenticated()
             .and()
 
