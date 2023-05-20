@@ -13,13 +13,6 @@ class ItemPersistenceAdapter(
     private val itemRepository: ItemRepository,
     private val itemMapper: ItemMapper
 ) : ItemPort {
-    override fun saveItem(item: Item): Item =
-        itemMapper.toDomain(itemRepository.save(itemMapper.toEntity(item)))!!
-
-
-    override fun deleteItem(itemId: UUID) =
-        itemRepository.deleteById(itemId)
-
     override fun queryAllItem(): List<Item> =
         itemRepository.findAll().map { itemMapper.toDomain(it)!! }
 

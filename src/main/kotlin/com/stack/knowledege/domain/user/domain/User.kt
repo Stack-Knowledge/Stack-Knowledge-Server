@@ -9,7 +9,7 @@ class User(
     val id: UUID,
     val email: String,
     val name: String,
-    val grade: String,
-    val number: String,
+    val grade: Int,
+    val number: Int,
     val roles: MutableList<UserRole> = mutableListOf()
 )
