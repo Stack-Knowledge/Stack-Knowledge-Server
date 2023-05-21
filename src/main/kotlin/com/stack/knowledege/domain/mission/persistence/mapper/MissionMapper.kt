@@ -1,13 +1,14 @@
 package com.stack.knowledege.domain.mission.persistence.mapper
 
 import com.stack.knowledege.domain.mission.domain.Mission
+import com.stack.knowledege.domain.mission.persistence.entity.MissionEntity
 import com.stack.knowledege.global.mapper.GenericMapper
 import org.springframework.stereotype.Component
 
 @Component
-class MissionMapper : GenericMapper<Mission, Mission> {
+class MissionMapper : GenericMapper<Mission, MissionEntity> {
 
-    override fun toDomain(entity: Mission?): Mission? =
+    override fun toDomain(entity: MissionEntity?): Mission? =
         entity?.let {
             Mission(
                 id = it.id,
@@ -19,9 +20,9 @@ class MissionMapper : GenericMapper<Mission, Mission> {
             )
         }
 
-    override fun toEntity(domain: Mission): Mission =
+    override fun toEntity(domain: Mission): MissionEntity =
         domain.let {
-            Mission(
+            MissionEntity(
                 id = it.id,
                 title = it.title,
                 content = it.content,
