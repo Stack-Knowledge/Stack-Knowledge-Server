@@ -51,4 +51,7 @@ class UserPersistenceAdapter(
                 it ?: throw UserNotFoundException()
             }
     }
+
+    override fun queryUserPointByEmail(email: String): Int =
+        userRepository.findUserPointByEmail(email)
 }
