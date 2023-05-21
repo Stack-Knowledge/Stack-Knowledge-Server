@@ -52,6 +52,7 @@ class UserPersistenceAdapter(
             }
     }
 
-    override fun queryUserPointByEmail(email: String): Int =
-        userRepository.findUserPointByEmail(email)
+    override fun queryUserPointByEmail(email: String): List<Int> =
+        userRepository.findAllPointByEmailDesc(email)
+//        userRepository.findUserPointByEmail(email)
 }
