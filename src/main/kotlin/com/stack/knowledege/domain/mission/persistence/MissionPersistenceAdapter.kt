@@ -13,8 +13,8 @@ class MissionPersistenceAdapter(
     private val missionRepository: MissionRepository,
     private val missionMapper: MissionMapper
 ) : MissionPort {
-    override fun queryAllMission(): List<Mission?> =
-        missionRepository.findAll().map { missionMapper.toDomain(it) }
+    override fun queryAllMission(): List<Mission> =
+        missionRepository.findAll().map { missionMapper.toDomain(it)!! }
 
     override fun queryMissionById(missionId: UUID): Mission? =
         missionMapper.toDomain(missionRepository.findByIdOrNull(missionId))
