@@ -16,7 +16,7 @@ class CustomAuthenticationEntryPoint : AuthenticationEntryPoint {
         response: HttpServletResponse?,
         authException: AuthenticationException?
     ) {
-        log.info("====== AuthenticationEntryPoint")
+        log.info("====== AuthenticationEntryPoint ======")
         throw ForbiddenException()
     }
 }
