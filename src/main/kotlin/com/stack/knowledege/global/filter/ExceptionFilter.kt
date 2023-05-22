@@ -21,7 +21,8 @@ class ExceptionFilter: OncePerRequestFilter() {
         } catch (e: Exception) {
             when (e) {
                 is BasicException -> sendError(response, e.errorCode)
-                is Exception -> sendError(response, ErrorCode.INTERNAL_SERVER_ERROR)
+//                is Exception -> sendError(response, ErrorCode.INTERNAL_SERVER_ERROR)
+                is Exception -> print(e.message)
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.stack.knowledege.domain.mission.domain
 
+import com.stack.knowledege.domain.user.presentation.data.response.UserResponse
 import com.stack.knowledege.global.annotation.Aggregate
 import java.util.UUID
 
@@ -10,5 +11,6 @@ class Mission(
     val content: String,
     val duration: Int,
     val timeLimit: Int,
-    val isSolved: Boolean
+    val isSolved: Boolean,
+    val user: UserResponse
 )

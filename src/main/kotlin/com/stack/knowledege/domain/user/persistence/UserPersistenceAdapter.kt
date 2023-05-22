@@ -45,10 +45,8 @@ class UserPersistenceAdapter(
         userRepository.existsByEmail(email)
 
 
-    override fun queryCurrentUser(): User {
-        return userMapper.toDomain(userRepository.findByIdOrNull(securityPort.queryCurrentUserId()))
-            .let {
-                it ?: throw UserNotFoundException()
-            }
-    }
+    override fun queryCurrentUser(): User =
+        userMapper.toDomain(userRepository.findByIdOrNull(securityPort.queryCurrentUserId()))
+            .let { it ?: throw UserNotFoundException() }
+
 }
