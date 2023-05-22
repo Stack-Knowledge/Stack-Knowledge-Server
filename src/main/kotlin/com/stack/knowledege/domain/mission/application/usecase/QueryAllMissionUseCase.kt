@@ -14,8 +14,8 @@ class QueryAllMissionUseCase(
                 MissionResponse(
                     id = it.id,
                     title = it.title,
+                    introduce = it.introduce,
                     content = it.content,
-                    duration = it.duration,
                     timeLimit = it.timeLimit,
                     isSolved = it.isSolved
                 )

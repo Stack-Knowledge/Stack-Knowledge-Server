@@ -5,6 +5,7 @@ import com.stack.knowledege.global.entity.BaseUuidEntity
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 
 @Entity
@@ -15,11 +16,11 @@ class MissionEntity(
     @Column(nullable = false)
     val title: String,
 
-    @Column(nullable = false)
-    val content: String,
+    @Column(nullable = false, length = 15)
+    val introduce: String,
 
     @Column(nullable = false)
-    val duration: Int,
+    val content: String,
 
     @Column(nullable = false)
     val timeLimit: Int,
@@ -28,6 +29,7 @@ class MissionEntity(
     val isSolved: Boolean,
 
     @ManyToOne
+    @JoinColumn(name = "user_Id")
     val user: UserEntity
 
 ) : BaseUuidEntity(id)

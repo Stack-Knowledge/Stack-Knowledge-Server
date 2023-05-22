@@ -18,9 +18,9 @@ class MissionMapper(
         entity?.let {
             Mission(
                 id = it.id,
+                introduce = it.introduce,
                 title = it.title,
                 content = it.content,
-                duration = it.duration,
                 timeLimit = it.timeLimit,
                 isSolved = it.isSolved,
                 user = UserResponse(
@@ -38,9 +38,9 @@ class MissionMapper(
         return domain.let {
             MissionEntity(
                 id = it.id,
+                introduce = it.introduce,
                 title = it.title,
                 content = it.content,
-                duration = it.duration,
                 timeLimit = it.timeLimit,
                 isSolved = it.isSolved,
                 user = user

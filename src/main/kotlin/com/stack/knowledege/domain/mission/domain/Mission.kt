@@ -8,8 +8,8 @@ import java.util.UUID
 class Mission(
     val id: UUID,
     val title: String,
+    val introduce: String,
     val content: String,
-    val duration: Int,
     val timeLimit: Int,
     val isSolved: Boolean,
     val user: UserResponse
