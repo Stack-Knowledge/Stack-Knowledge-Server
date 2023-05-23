@@ -23,12 +23,7 @@ class CreateMissionUseCase(
             content = createMissionRequest.content,
             timeLimit = createMissionRequest.timeLimit,
             isSolved = false,
-            user = UserResponse(
-                id = user.id,
-                name = user.name,
-                grade = user.grade,
-                number = user.number
-            )
+            userId = user.id
         )
 
         commandMissionPort.saveMission(mission)

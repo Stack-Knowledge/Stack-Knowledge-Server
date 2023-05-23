@@ -23,17 +23,12 @@ class MissionMapper(
                 content = it.content,
                 timeLimit = it.timeLimit,
                 isSolved = it.isSolved,
-                user = UserResponse(
-                    id = it.user.id,
-                    name = it.user.name,
-                    grade = it.user.grade,
-                    number = it.user.number
-                )
+                userId = it.user.id
             )
         }
 
     override fun toEntity(domain: Mission): MissionEntity {
-        val user = userRepository.findByIdOrNull(domain.user.id) ?: throw UserNotFoundException()
+        val user = userRepository.findByIdOrNull(domain.userId) ?: throw UserNotFoundException()
 
         return domain.let {
             MissionEntity(
