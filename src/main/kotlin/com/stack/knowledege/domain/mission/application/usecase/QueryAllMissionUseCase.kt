@@ -20,13 +20,12 @@ class QueryAllMissionUseCase(
                 id = it.id,
                 title = it.title,
                 introduce = it.introduce,
-                content = it.content,
-                timeLimit = it.timeLimit,
                 isSolved = it.isSolved,
                 user = UserResponse(
                     id = user.id,
                     name = user.name,
                     grade = user.grade,
+                    classes = user.classes,
                     number = user.number
                 )
             )

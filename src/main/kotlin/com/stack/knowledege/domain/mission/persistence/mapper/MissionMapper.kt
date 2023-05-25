@@ -21,6 +21,7 @@ class MissionMapper(
                 introduce = it.introduce,
                 title = it.title,
                 content = it.content,
+                duration = it.duration,
                 timeLimit = it.timeLimit,
                 isSolved = it.isSolved,
                 userId = it.user.id
@@ -36,6 +37,7 @@ class MissionMapper(
                 introduce = it.introduce,
                 title = it.title,
                 content = it.content,
+                duration = it.duration,
                 timeLimit = it.timeLimit,
                 isSolved = it.isSolved,
                 user = user

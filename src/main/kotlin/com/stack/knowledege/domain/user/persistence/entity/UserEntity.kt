@@ -20,6 +20,9 @@ class UserEntity(
     val grade: Int,
 
     @Column(nullable = false)
+    val classes: Int,
+
+    @Column(nullable = false)
     val number: Int,
 
     @Enumerated(EnumType.STRING)

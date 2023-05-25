@@ -10,6 +10,7 @@ class User(
     val email: String,
     val name: String,
     val grade: Int,
+    val classes: Int,
     val number: Int,
     val roles: MutableList<UserRole> = mutableListOf()
 )

@@ -23,6 +23,9 @@ class MissionEntity(
     val content: String,
 
     @Column(nullable = false)
+    val duration: Int,
+
+    @Column(nullable = false)
     val timeLimit: Int,
 
     @Column(nullable = false)

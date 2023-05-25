@@ -6,5 +6,6 @@ class UserResponse(
     val id: UUID,
     val name: String,
     val grade: Int,
+    val classes: Int,
     val number: Int
 )
