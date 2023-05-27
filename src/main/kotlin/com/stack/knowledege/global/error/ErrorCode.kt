@@ -22,5 +22,6 @@ enum class ErrorCode(
 
     // mission
     MISSION_NOT_FOUND("존재하지 않는 미션입니다.", 404),
-    FORBIDDEN_MISSION_COMMAND("미션을 제어할 권한이 없습니다.", 403)
+    FORBIDDEN_MISSION_COMMAND("미션을 제어할 권한이 없습니다.", 403),
+    ALREADY_SOLVED_MISSION("이미 푼 미션입니다.", 403)
 }
