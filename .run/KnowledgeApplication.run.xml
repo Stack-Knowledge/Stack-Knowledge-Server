@@ -11,7 +11,7 @@
       <env name="DB_USER" value="root" />
       <env name="JWT_ACCESS" value="c3RhY2s=c3RhY2s=c3RhY2s=c3RhY2s=" />
       <env name="JWT_REFRESH" value="a25vd2xlZGdla25vd2xlZGdla25vd2xlZGdla25vd2xlZGdl" />
-      <env name="REDIRECT_URI" value="http://localhost:8080" />
+      <env name="REDIRECT_URI" value="http://localhost:8080/login/oauth/code/gauth" />
       <env name="REFRESH_EXP" value="7200" />
     </envs>
     <module name="knowledege.main" />
