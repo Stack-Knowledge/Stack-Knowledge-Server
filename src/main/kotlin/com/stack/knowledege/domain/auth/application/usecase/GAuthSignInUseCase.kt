@@ -2,11 +2,8 @@ package com.stack.knowledege.domain.auth.application.usecase
 
 import com.stack.knowledege.domain.auth.presentation.data.request.GAuthSignInRequest
 import com.stack.knowledege.domain.auth.presentation.data.response.TokenResponse
-import com.stack.knowledege.domain.student.domain.Student
-import com.stack.knowledege.domain.teacher.domain.Teacher
 import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.domain.user.domain.User
-import com.stack.knowledege.domain.user.domain.constant.UserRole
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
 import com.stack.knowledege.global.annotation.usecase.UseCase
 import com.stack.knowledege.global.security.spi.JwtGeneratorPort
@@ -36,15 +33,7 @@ class GAuthSignInUseCase(
         return jwtGeneratorPort.receiveToken(user.email)
     }
 
-    private fun createStudent(user: User): User {
-        println(user.roles.firstOrNull())
-        return when (userPort.queryExistByEmail(user.email)) {
-            true -> userPort.queryUserByEmail(user.email) ?: throw UserNotFoundException()
-            false -> userPort.saveUser(user)
-        }
-    }
-
-    private fun createTeacher(user: User): User {
+    private fun createUser(user: User): User {
         println(user.roles.firstOrNull())
         return when (userPort.queryExistByEmail(user.email)) {
             true -> userPort.queryUserByEmail(user.email) ?: throw UserNotFoundException()
