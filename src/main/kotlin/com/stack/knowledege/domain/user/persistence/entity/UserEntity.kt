@@ -16,15 +16,6 @@ class UserEntity(
     @Column(nullable = false)
     val name: String,
 
-    @Column(nullable = false)
-    val grade: Int,
-
-    @Column(nullable = false)
-    val classes: Int,
-
-    @Column(nullable = false)
-    val number: Int,
-
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "UerRole", joinColumns = [JoinColumn(name = "user_id")])

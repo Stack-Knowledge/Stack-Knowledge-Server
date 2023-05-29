@@ -9,7 +9,7 @@ import javax.persistence.FetchType
 import javax.persistence.OneToOne
 
 @Entity
-class TeacherEntity(
+class TeacherJpaEntity(
 
     override val id: UUID,
 
