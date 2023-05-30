@@ -4,6 +4,7 @@ import com.stack.knowledege.domain.mission.application.spi.MissionPort
 import com.stack.knowledege.domain.mission.exception.AlreadySolvedMissionException
 import com.stack.knowledege.domain.mission.exception.NotFoundMissionException
 import com.stack.knowledege.domain.mission.presentation.data.response.MissionDetailsResponse
+import com.stack.knowledege.domain.teacher.presentation.data.response.TeacherResponse
 import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.domain.user.presentation.data.response.UserResponse
 import com.stack.knowledege.global.annotation.usecase.ReadOnlyUseCase
@@ -17,7 +18,7 @@ class QueryMissionDetailsUseCase(
     fun execute(id: UUID): MissionDetailsResponse {
         val mission = missionPort.queryMissionById(id)
             ?: throw NotFoundMissionException()
-        val user = queryUserPort.queryCurrentUser()
+        val user = queryUserPort.queryUserById(mission.userId)
 
         if (mission.isSolved) {
             throw AlreadySolvedMissionException()
@@ -27,12 +28,12 @@ class QueryMissionDetailsUseCase(
             title = mission.title,
             content = mission.content,
             timeLimit = mission.timeLimit,
-            user = UserResponse(
-                id = mission.userId,
+            teacher = TeacherResponse(
+                id = UUID.randomUUID(),
+                email = user.email,
                 name = user.name,
-                grade = user.grade,
-                classes = user.classes,
-                number = user.number
+                roles = user.roles,
+                subject = user
             )
         )
     }

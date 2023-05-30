@@ -29,7 +29,7 @@ class StudentMapper(
 
 
     override fun toEntity(domain: Student): StudentJpaEntity {
-        val user = userMapper.toEntity(queryUserPort.queryCurrentUser())
+        val user = userMapper.toEntity(queryUserPort.queryUserById(domain.id))
         return domain.let {
             StudentJpaEntity(
                 id = it.id,
