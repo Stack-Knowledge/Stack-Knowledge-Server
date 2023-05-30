@@ -4,21 +4,22 @@ import com.stack.knowledege.domain.mission.application.spi.MissionPort
 import com.stack.knowledege.domain.mission.exception.AlreadySolvedMissionException
 import com.stack.knowledege.domain.mission.exception.NotFoundMissionException
 import com.stack.knowledege.domain.mission.presentation.data.response.MissionDetailsResponse
+import com.stack.knowledege.domain.teacher.application.spi.QueryTeacherPort
 import com.stack.knowledege.domain.teacher.presentation.data.response.TeacherResponse
-import com.stack.knowledege.domain.user.application.spi.QueryUserPort
-import com.stack.knowledege.domain.user.presentation.data.response.UserResponse
+import com.stack.knowledege.domain.user.exception.UserNotFoundException
 import com.stack.knowledege.global.annotation.usecase.ReadOnlyUseCase
 import java.util.UUID
 
 @ReadOnlyUseCase
 class QueryMissionDetailsUseCase(
     private val missionPort: MissionPort,
-    private val queryUserPort: QueryUserPort
+    private val queryTeacherPort: QueryTeacherPort
 ) {
     fun execute(id: UUID): MissionDetailsResponse {
         val mission = missionPort.queryMissionById(id)
             ?: throw NotFoundMissionException()
-        val user = queryUserPort.queryUserById(mission.userId)
+        val teacher = queryTeacherPort.queryTeacherById(mission.userId)
+            ?: throw UserNotFoundException()
 
         if (mission.isSolved) {
             throw AlreadySolvedMissionException()
@@ -30,10 +31,10 @@ class QueryMissionDetailsUseCase(
             timeLimit = mission.timeLimit,
             teacher = TeacherResponse(
                 id = UUID.randomUUID(),
-                email = user.email,
-                name = user.name,
-                roles = user.roles,
-                subject = user
+                email = teacher.email,
+                name = teacher.name,
+                roles = teacher.roles,
+                subject = teacher.subject
             )
         )
     }

@@ -1,3 +1,3 @@
 package com.stack.knowledege.domain.teacher.application.spi
 
-interface QueryPort : CommandTeacherPort, QueryTeacherPort
+interface TeacherPort : CommandTeacherPort, QueryTeacherPort
