@@ -6,6 +6,7 @@ import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.FetchType
+import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
 
 @Entity
@@ -14,6 +15,7 @@ class StudentJpaEntity(
     override val id: UUID,
 
     @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     val user: UserEntity,
 
     @Column(nullable = false)
