@@ -20,7 +20,7 @@ class MissionPersistenceAdapter(
         missionMapper.toDomain(missionRepository.findByIdOrNull(missionId))
 
 
-    override fun saveMission(mission: Mission) {
+    override fun save(mission: Mission) {
         missionMapper.toDomain(missionRepository.save(missionMapper.toEntity(mission)))
     }
 }

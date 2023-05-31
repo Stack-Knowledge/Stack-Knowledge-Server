@@ -2,7 +2,7 @@ package com.stack.knowledege.domain.mission.application.usecase
 
 import com.stack.knowledege.domain.mission.application.spi.MissionPort
 import com.stack.knowledege.domain.mission.exception.AlreadySolvedMissionException
-import com.stack.knowledege.domain.mission.exception.NotFoundMissionException
+import com.stack.knowledege.domain.mission.exception.MissionNotFoundException
 import com.stack.knowledege.domain.mission.presentation.data.response.MissionDetailsResponse
 import com.stack.knowledege.domain.teacher.application.spi.QueryTeacherPort
 import com.stack.knowledege.domain.teacher.presentation.data.response.TeacherResponse
@@ -17,7 +17,7 @@ class QueryMissionDetailsUseCase(
 ) {
     fun execute(id: UUID): MissionDetailsResponse {
         val mission = missionPort.queryMissionById(id)
-            ?: throw NotFoundMissionException()
+            ?: throw MissionNotFoundException()
         val teacher = queryTeacherPort.queryTeacherById(mission.userId)
             ?: throw UserNotFoundException()
 

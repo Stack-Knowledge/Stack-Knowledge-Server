@@ -22,7 +22,7 @@ class ItemWebAdapter(
             .let { ResponseEntity.ok(it) }
 
     @GetMapping("/{item_id}")
-    fun queryItemById(@PathVariable(name = "item_id") itemId: UUID): ResponseEntity<ItemResponse> =
+    fun queryItemById(@PathVariable("item_id") itemId: UUID): ResponseEntity<ItemResponse> =
         queryItemByIdUseCase.execute(itemId)
             .let { ResponseEntity.ok(it) }
 }

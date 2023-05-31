@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 @Component
 class UserValidatorImpl : UserValidator {
     override fun validateUserTeacher(user: User) {
-        if (!user.roles.equals(UserRole.ROLE_TEACHER)) {
+        if (user.roles.firstOrNull() != UserRole.ROLE_TEACHER) {
             throw ForbiddenCommandMissionException()
         }
     }

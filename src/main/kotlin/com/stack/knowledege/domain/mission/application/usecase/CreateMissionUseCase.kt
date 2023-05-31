@@ -30,6 +30,6 @@ class CreateMissionUseCase(
             userId = user.id
         )
 
-        commandMissionPort.saveMission(mission)
+        commandMissionPort.save(mission)
     }
 }

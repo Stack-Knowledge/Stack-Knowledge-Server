@@ -37,7 +37,7 @@ class GAuthSignInUseCase(
         println(user.roles.firstOrNull())
         return when (userPort.queryExistByEmail(user.email)) {
             true -> userPort.queryUserByEmail(user.email) ?: throw UserNotFoundException()
-            false -> userPort.saveUser(user)
+            false -> userPort.save(user)
         }
     }
 }
