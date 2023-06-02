@@ -35,7 +35,7 @@ class SecurityConfig(
             .antMatchers("/mission/**").permitAll()
             .antMatchers("/item/**").authenticated()
 
-            .anyRequest().authenticated()
+            .anyRequest().permitAll()
             .and()
 
             .exceptionHandling()
