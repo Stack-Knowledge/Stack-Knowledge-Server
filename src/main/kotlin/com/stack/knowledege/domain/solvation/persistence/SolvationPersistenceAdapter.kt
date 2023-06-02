@@ -5,8 +5,10 @@ import com.stack.knowledege.domain.solvation.domain.Solvation
 import com.stack.knowledege.domain.solvation.persistence.mapper.SolvationMapper
 import com.stack.knowledege.domain.solvation.persistence.repository.SolvationRepository
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Component
 import java.util.*
 
+@Component
 class SolvationPersistenceAdapter(
     private val solvationRepository: SolvationRepository,
     private val solvationMapper: SolvationMapper
