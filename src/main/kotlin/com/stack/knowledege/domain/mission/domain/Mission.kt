@@ -4,7 +4,7 @@ import com.stack.knowledege.global.annotation.Aggregate
 import java.util.UUID
 
 @Aggregate
-class Mission(
+data class Mission(
     val id: UUID,
     val title: String,
     val introduce: String,

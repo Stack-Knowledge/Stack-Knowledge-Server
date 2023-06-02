@@ -7,7 +7,6 @@ import com.stack.knowledege.global.mapper.GenericMapper
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
-import com.stack.knowledege.domain.user.presentation.data.response.UserResponse
 
 @Component
 class MissionMapper(
