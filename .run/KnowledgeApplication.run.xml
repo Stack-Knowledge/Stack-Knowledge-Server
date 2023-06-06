@@ -13,6 +13,10 @@
       <env name="CLIENT_ID" value="e6e8ac7857c94ca7a24db504d33369078ab562d7a29a4c9db353204ae8080be9" />
       <env name="CLIENT_SECRET" value="892d14d1db4941ad83b20815f2d2ea82cbfa4f6c4fb645a8aa6bf3ddaf2e8bdf" />
       <env name="REDIRECT_URI" value="http://localhost:8080/login/oauth/code/gauth" />
+      <env name="S3_ACCESS_KEY" value="AKIA4VWSCQSFU3YALFFK" />
+      <env name="S3_BUCKET" value="idea-archive-bucket" />
+      <env name="S3_REGION" value="ap-northeast-2" />
+      <env name="S3_SECRET_KEY" value="tTkzhwlv5aowmWaFK2/48zEvo4bl4nFURM5hk2IL" />
     </envs>
     <module name="knowledege.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.stack.knowledege.KnowledgeApplication" />
