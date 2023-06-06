@@ -17,9 +17,9 @@ class AwsS3Adapter(
     private val awsS3Properties: AwsS3Properties
 ) : UploadImagePort {
 
-    override fun upload(multipartFile: MultipartFile) =
-        inputS3(multipartFile, multipartFile.name)
-            .run { getImageUrl(fileName = multipartFile.name) }
+    override fun upload(multipartFile: MultipartFile, fileName: String) =
+        inputS3(multipartFile, fileName)
+            .run { getImageUrl(fileName = fileName) }
 
     private fun inputS3(multipartFile: MultipartFile, fileName: String) {
         val objectMetadata = ObjectMetadata()

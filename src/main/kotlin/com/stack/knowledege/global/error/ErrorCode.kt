@@ -18,5 +18,8 @@ enum class ErrorCode(
     INVALID_ROLE("검증 되지 않은 권합입니다.", 401),
 
     // item
-    ITEM_NOT_FOUND("존재하지 않는 상품입니다.", 404)
+    ITEM_NOT_FOUND("존재하지 않는 상품입니다.", 404),
+
+    // image
+    MISMATCH_IMAGE_EXTENSION("이미지 파일이 아닙니다.", 400)
 }
