@@ -36,9 +36,6 @@ class GAuthSignInUseCase(
         when (user.roles.firstOrNull()) {
             UserRole.ROLE_STUDENT -> Student(
                 id = UUID.randomUUID(),
-                grade = gauthUserInfo.grade,
-                classes = gauthUserInfo.classNum,
-                number = gauthUserInfo.num,
                 point = 0,
                 user = user.id
             )

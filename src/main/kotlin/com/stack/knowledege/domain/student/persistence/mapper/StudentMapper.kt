@@ -3,7 +3,6 @@ package com.stack.knowledege.domain.student.persistence.mapper
 import com.stack.knowledege.domain.student.domain.Student
 import com.stack.knowledege.domain.student.persistence.entity.StudentJpaEntity
 import com.stack.knowledege.domain.user.application.spi.QueryUserPort
-import com.stack.knowledege.domain.user.exception.UserNotFoundException
 import com.stack.knowledege.domain.user.persistence.mapper.UserMapper
 import com.stack.knowledege.global.mapper.GenericMapper
 import org.springframework.stereotype.Component
@@ -17,9 +16,6 @@ class StudentMapper(
         entity?.let {
             Student(
                 id = it.id,
-                grade = it.grade,
-                classes = it.classes,
-                number = it.number,
                 point = it.point,
                 user = it.user.id
             )
@@ -32,9 +28,6 @@ class StudentMapper(
             StudentJpaEntity(
                 id = it.id,
                 user = user,
-                grade = it.grade,
-                classes = it.classes,
-                number = it.number,
                 point = it.point
             )
         }
