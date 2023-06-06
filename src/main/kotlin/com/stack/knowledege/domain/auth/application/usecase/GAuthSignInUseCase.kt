@@ -16,7 +16,9 @@ class GAuthSignInUseCase(
     private val jwtGeneratorPort: JwtGeneratorPort
 ) {
     fun execute(code: String): TokenResponse {
+        println("execute")
         val gauthToken = gAuthPort.queryGAuthToken(code)
+        println(gauthToken)
         val gauthUserInfo = gAuthPort.queryUserInfo(gauthToken.accessToken)
         val role = userPort.queryUserRoleByEmail(gauthUserInfo.email, gauthUserInfo.role)
 
@@ -32,6 +34,7 @@ class GAuthSignInUseCase(
             )
         )
 
+        println("return")
         return jwtGeneratorPort.receiveToken(user.email)
     }
 

@@ -33,6 +33,7 @@ class SecurityConfig(
 
             .antMatchers("/auth/**").permitAll()
             .antMatchers("/item/**").authenticated()
+            .antMatchers("/image/**").permitAll()
 
             .anyRequest().authenticated()
             .and()
