@@ -1,11 +1,10 @@
-package com.stack.knowledege.thirdparty.aws
+package com.stack.knowledege.thirdparty.aws.s3
 
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.context.properties.ConstructorBinding
 
-@ConfigurationPropertiesScan("cloud.aws.credentials")
+@ConfigurationPropertiesScan("cloud.aws.s3")
 @ConstructorBinding
-class AwsProperties(
-    val accessKey: String,
-    val secretKey: String
+class AwsS3Properties(
+    val bucket: String
 )
