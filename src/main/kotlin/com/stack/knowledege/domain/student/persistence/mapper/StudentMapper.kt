@@ -17,13 +17,11 @@ class StudentMapper(
         entity?.let {
             Student(
                 id = it.id,
-                email = it.user.email,
-                name = it.user.name,
-                roles = it.user.roles,
                 grade = it.grade,
                 classes = it.classes,
                 number = it.number,
-                point = it.point
+                point = it.point,
+                user = it.user.id
             )
         }
 

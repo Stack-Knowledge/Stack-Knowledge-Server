@@ -1,5 +1,6 @@
 package com.stack.knowledege.domain.solvation.persistence
 
+import com.stack.knowledege.domain.mission.domain.Mission
 import com.stack.knowledege.domain.solvation.application.spi.SolvationPort
 import com.stack.knowledege.domain.solvation.domain.Solvation
 import com.stack.knowledege.domain.solvation.persistence.mapper.SolvationMapper
@@ -22,4 +23,7 @@ class SolvationPersistenceAdapter(
 
     override fun querySolvationById(solvationId: UUID): Solvation? =
         solvationMapper.toDomain(solvationRepository.findByIdOrNull(solvationId))
+
+    override fun querySolvationByMission(mission: Mission): Solvation? =
+        solvationMapper.toDomain(solvationRepository.queryByMission(mission))
 }

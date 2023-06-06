@@ -18,7 +18,7 @@ class JwtGeneratorAdapter(
     companion object {
         const val ACCESS_TYPE = "access"
         const val REFRESH_TYPE = "refresh"
-        const val ACCESS_EXP = 60L * 15
+        const val ACCESS_EXP = 60L * 30
         const val REFRESH_EXP = 60L * 60 * 24 * 7
     }
 

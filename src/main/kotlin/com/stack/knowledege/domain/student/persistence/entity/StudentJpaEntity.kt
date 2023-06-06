@@ -19,15 +19,6 @@ class StudentJpaEntity(
     val user: UserEntity,
 
     @Column(nullable = false)
-    val grade: Int,
-
-    @Column(nullable = false)
-    val classes: Int,
-
-    @Column(nullable = false)
-    val number: Int,
-
-    @Column(nullable = false)
     val point: Int
 
 ) : BaseUuidEntity(id)
