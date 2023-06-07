@@ -12,14 +12,14 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    servlet:
-      multipart:
-        file-size-threshold: 1MB
-        max-file-size: 100MB
-        max-request-size: 100MB
     open-in-view: false
   main:
     allow-bean-definition-overriding: true
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
 
 jwt:
   accessSecret: ${JWT_ACCESS}
