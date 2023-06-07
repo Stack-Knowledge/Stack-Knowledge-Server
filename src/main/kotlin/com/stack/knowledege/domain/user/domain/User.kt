@@ -11,5 +11,6 @@ class User(
     val name: String,
     val grade: Int,
     val number: Int,
+    val profileImage: String,
     val roles: MutableList<UserRole> = mutableListOf()
 )
