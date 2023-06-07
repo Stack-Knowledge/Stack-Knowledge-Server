@@ -1,5 +1,6 @@
 package com.stack.knowledege.domain.auth.application.usecase
 
+import com.stack.knowledege.domain.auth.presentation.data.request.GAuthSignInRequest
 import com.stack.knowledege.domain.auth.presentation.data.response.TokenResponse
 import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.domain.user.domain.User
@@ -15,10 +16,8 @@ class GAuthSignInUseCase(
     private val userPort: UserPort,
     private val jwtGeneratorPort: JwtGeneratorPort
 ) {
-    fun execute(code: String): TokenResponse {
-        println("execute")
-        val gauthToken = gAuthPort.queryGAuthToken(code)
-        println(gauthToken)
+    fun execute(gauthSignInRequest: GAuthSignInRequest): TokenResponse {
+        val gauthToken = gAuthPort.queryGAuthToken(gauthSignInRequest.code)
         val gauthUserInfo = gAuthPort.queryUserInfo(gauthToken.accessToken)
         val role = userPort.queryUserRoleByEmail(gauthUserInfo.email, gauthUserInfo.role)
 
@@ -34,7 +33,6 @@ class GAuthSignInUseCase(
             )
         )
 
-        println("return")
         return jwtGeneratorPort.receiveToken(user.email)
     }
 
