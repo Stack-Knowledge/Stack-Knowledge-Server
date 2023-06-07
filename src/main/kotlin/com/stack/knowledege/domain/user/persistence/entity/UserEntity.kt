@@ -23,7 +23,7 @@ class UserEntity(
     val number: Int,
 
     @Column(nullable = false)
-    val profileImage: String,
+    val profileImage: String?,
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)

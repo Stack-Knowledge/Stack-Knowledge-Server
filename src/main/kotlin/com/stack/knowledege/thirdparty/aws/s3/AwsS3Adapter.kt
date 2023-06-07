@@ -17,7 +17,7 @@ class AwsS3Adapter(
     private val awsS3Properties: AwsS3Properties
 ) : UploadImagePort {
 
-    override fun upload(multipartFile: MultipartFile, fileName: String) =
+    override fun upload(multipartFile: MultipartFile, fileName: String): String =
         inputS3(multipartFile, fileName)
             .run { getImageUrl(fileName = fileName) }
 
@@ -37,7 +37,7 @@ class AwsS3Adapter(
         }
     }
 
-    override fun getImageUrl(fileName: String) {
+    override fun getImageUrl(fileName: String): String =
         amazonS3.getUrl(awsS3Properties.bucket, fileName).toString()
-    }
+
 }

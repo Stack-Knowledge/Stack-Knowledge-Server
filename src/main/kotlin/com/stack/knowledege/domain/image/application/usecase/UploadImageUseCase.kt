@@ -10,7 +10,7 @@ import java.util.*
 class UploadImageUseCase(
     private val uploadImagePort: UploadImagePort
 ) {
-    fun execute(multipartFile: MultipartFile) {
+    fun execute(multipartFile: MultipartFile): String {
         val extension = multipartFile.originalFilename!!.substring(multipartFile.originalFilename!!.lastIndexOf(".")).lowercase()
 
         if (extension !in listOf(".jpg", ".jpeg", ".png")) {
@@ -19,6 +19,6 @@ class UploadImageUseCase(
 
         val fileName = UUID.randomUUID().toString() + extension
 
-        uploadImagePort.upload(multipartFile, fileName)
+        return uploadImagePort.upload(multipartFile, fileName)
     }
 }
