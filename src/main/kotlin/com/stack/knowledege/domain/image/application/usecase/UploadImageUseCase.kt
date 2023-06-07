@@ -11,9 +11,9 @@ class UploadImageUseCase(
     private val uploadImagePort: UploadImagePort
 ) {
     fun execute(multipartFile: MultipartFile) {
-        val extension = multipartFile.name.substring(multipartFile.name.lastIndexOf(".")).lowercase()
+        val extension = multipartFile.originalFilename!!.substring(multipartFile.originalFilename!!.lastIndexOf(".")).lowercase()
 
-        if (extension !in listOf("jpg", "jpeg", "png")) {
+        if (extension !in listOf(".jpg", ".jpeg", ".png")) {
             throw MisMatchImageExtensionException()
         }
 
