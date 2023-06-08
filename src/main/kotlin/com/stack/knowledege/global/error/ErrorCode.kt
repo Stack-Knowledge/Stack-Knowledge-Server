@@ -21,5 +21,6 @@ enum class ErrorCode(
     ITEM_NOT_FOUND("존재하지 않는 상품입니다.", 404),
 
     // image
-    MISMATCH_IMAGE_EXTENSION("이미지 파일이 아닙니다.", 400)
+    MISMATCH_IMAGE_EXTENSION("이미지 파일이 아닙니다.", 400),
+    IMAGE_ALREADY_EXIST("이미 프로필 사진이 존재합니다.", 400)
 }
