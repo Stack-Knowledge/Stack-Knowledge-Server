@@ -2,9 +2,11 @@ package com.stack.knowledege.thirdparty.aws.s3
 
 import com.amazonaws.services.s3.AmazonS3
 import com.amazonaws.services.s3.model.CannedAccessControlList
+import com.amazonaws.services.s3.model.DeleteObjectRequest
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
-import com.stack.knowledege.domain.image.application.spi.UploadImagePort
+import com.stack.knowledege.domain.image.application.spi.CommandImagePort
+import com.stack.knowledege.domain.image.application.spi.ImagePort
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
@@ -15,7 +17,7 @@ import java.io.IOException
 class AwsS3Adapter(
     private val amazonS3: AmazonS3,
     private val awsS3Properties: AwsS3Properties
-) : UploadImagePort {
+) : ImagePort {
 
     override fun upload(multipartFile: MultipartFile, fileName: String): String =
         inputS3(multipartFile, fileName)
@@ -40,4 +42,6 @@ class AwsS3Adapter(
     override fun getImageUrl(fileName: String): String =
         amazonS3.getUrl(awsS3Properties.bucket, fileName).toString()
 
+    override fun deleteImageUrl(fileName: String) =
+        amazonS3.deleteObject(DeleteObjectRequest(awsS3Properties.bucket, fileName))
 }
