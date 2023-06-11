@@ -22,6 +22,9 @@ class UserEntity(
     @Column(nullable = false)
     val number: Int,
 
+    @Column(nullable = false)
+    val profileImage: String?,
+
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "UerRole", joinColumns = [JoinColumn(name = "user_id")])
