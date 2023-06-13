@@ -10,5 +10,6 @@ interface QueryUserPort {
     fun queryUserByEmail(email: String): User?
     fun queryExistByEmail(email: String): Boolean
     fun queryCurrentUser(): User
-    fun queryUserPointByEmail(email: String): List<Int>
+    fun queryAllUser(): List<User>
+    fun queryAllUserPointDesc(): List<Int>
 }

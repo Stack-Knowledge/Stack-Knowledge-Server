@@ -25,6 +25,9 @@ class UserEntity(
     @Column(nullable = false)
     val point: Int,
 
+    @Column(nullable = true)
+    val profileImage: String?,
+
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "UerRole", joinColumns = [JoinColumn(name = "user_id")])

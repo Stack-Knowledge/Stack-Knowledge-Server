@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.util.matcher.RequestMatcher
+import org.springframework.web.cors.CorsUtils
 
 @Configuration
 @EnableWebSecurity
@@ -28,11 +30,14 @@ class SecurityConfig(
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-
             .authorizeRequests()
+            .requestMatchers(RequestMatcher { request ->
+                CorsUtils.isPreFlightRequest(request)
+            }).permitAll()
 
             .antMatchers("/auth/**").permitAll()
             .antMatchers("/item/**").authenticated()
+            .antMatchers("/image/**").permitAll()
 
             .anyRequest().authenticated()
             .and()

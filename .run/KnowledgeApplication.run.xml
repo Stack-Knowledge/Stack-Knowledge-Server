@@ -3,16 +3,20 @@
     <option name="ALTERNATIVE_JRE_PATH" value="11" />
     <envs>
       <env name="ACCESS_EXP" value="1800" />
+      <env name="CLIENT_ID" value="e6e8ac7857c94ca7a24db504d33369078ab562d7a29a4c9db353204ae8080be9" />
+      <env name="CLIENT_SECRET" value="892d14d1db4941ad83b20815f2d2ea82cbfa4f6c4fb645a8aa6bf3ddaf2e8bdf" />
       <env name="DB_NAME" value="knowledge" />
       <env name="DB_PASSWORD" value="123456789a" />
       <env name="DB_URL" value="localhost:3306" />
       <env name="DB_USER" value="root" />
       <env name="JWT_ACCESS" value="c3RhY2s=c3RhY2s=c3RhY2s=c3RhY2s=" />
       <env name="JWT_REFRESH" value="a25vd2xlZGdla25vd2xlZGdla25vd2xlZGdla25vd2xlZGdl" />
-      <env name="REFRESH_EXP" value="7200" />
-      <env name="CLIENT_ID" value="e6e8ac7857c94ca7a24db504d33369078ab562d7a29a4c9db353204ae8080be9" />
-      <env name="CLIENT_SECRET" value="892d14d1db4941ad83b20815f2d2ea82cbfa4f6c4fb645a8aa6bf3ddaf2e8bdf" />
       <env name="REDIRECT_URI" value="http://localhost:8080/login/oauth/code/gauth" />
+      <env name="REFRESH_EXP" value="7200" />
+      <env name="S3_ACCESS_KEY" value="AKIA6PTY4GLJYBDO3T5D" />
+      <env name="S3_BUCKET" value="stack-knowledge" />
+      <env name="S3_REGION" value="ap-northeast-2" />
+      <env name="S3_SECRET_KEY" value="Xt+hv2ZFMMnEK3Nc7IjEUR+PSF1PER+nMc3DlT3F" />
     </envs>
     <module name="knowledege.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.stack.knowledege.KnowledgeApplication" />

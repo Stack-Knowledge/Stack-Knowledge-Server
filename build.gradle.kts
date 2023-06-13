@@ -32,6 +32,7 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
 	implementation("com.github.GSM-MSG:GAuth-SDK-Java:v2.0.0")
+	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE")
 }
 
 tasks.withType<KotlinCompile> {
