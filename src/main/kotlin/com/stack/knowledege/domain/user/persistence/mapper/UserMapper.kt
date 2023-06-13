@@ -15,6 +15,7 @@ class UserMapper : GenericMapper<User, UserEntity> {
                 name = it.name,
                 grade = it.grade,
                 number = it.number,
+                point = it.point,
                 profileImage = it.profileImage,
                 roles = it.roles
             )
@@ -28,6 +29,7 @@ class UserMapper : GenericMapper<User, UserEntity> {
                 name = it.name,
                 grade = it.grade,
                 number = it.number,
+                point = it.point,
                 profileImage = it.profileImage,
                 roles = it.roles
             )

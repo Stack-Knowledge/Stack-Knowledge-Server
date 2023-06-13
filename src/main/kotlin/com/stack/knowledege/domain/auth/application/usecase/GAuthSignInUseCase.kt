@@ -29,6 +29,7 @@ class GAuthSignInUseCase(
                 name = gauthUserInfo.name,
                 grade = gauthUserInfo.grade,
                 number = gauthUserInfo.num,
+                point = 0,
                 profileImage = gauthUserInfo.profileUrl,
                 roles = mutableListOf(role)
             )

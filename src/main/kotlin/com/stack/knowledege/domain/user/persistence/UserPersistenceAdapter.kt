@@ -51,4 +51,7 @@ class UserPersistenceAdapter(
                 it ?: throw UserNotFoundException()
             }
     }
+
+    override fun queryAllUser(): List<User> =
+        userRepository.findAll().map { userMapper.toDomain(it)!! }
 }

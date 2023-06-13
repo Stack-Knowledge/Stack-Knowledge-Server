@@ -23,6 +23,9 @@ class UserEntity(
     val number: Int,
 
     @Column(nullable = false)
+    val point: Int,
+
+    @Column(nullable = true)
     val profileImage: String?,
 
     @Enumerated(EnumType.STRING)
