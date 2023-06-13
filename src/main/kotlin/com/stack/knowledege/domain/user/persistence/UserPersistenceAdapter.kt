@@ -54,7 +54,4 @@ class UserPersistenceAdapter(
 
     override fun queryAllUser(): List<User> =
         userRepository.findAll().map { userMapper.toDomain(it)!! }
-
-    override fun queryAllUserPointDescByEmail(): List<Int> =
-        userRepository.findAllUserPointDesc()
 }
