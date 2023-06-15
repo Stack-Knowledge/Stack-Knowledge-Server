@@ -1,11 +1,13 @@
 package com.stack.knowledege.domain.user.presentation.data.response
 
-import java.util.UUID
+import java.util.*
 
-class UserResponse(
+data class AllUserRankResponse(
     val id: UUID,
     val email: String,
     val name: String,
-    val point: Int,
+//    val grade: Int,
+//    val number: Int,
+//    val point: Int,
     val profileImage: String?
 )

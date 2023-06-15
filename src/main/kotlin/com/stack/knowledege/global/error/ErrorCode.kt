@@ -19,9 +19,12 @@ enum class ErrorCode(
 
     // item
     ITEM_NOT_FOUND("존재하지 않는 상품입니다.", 404),
-
     // mission
     MISSION_NOT_FOUND("존재하지 않는 미션입니다.", 404),
     FORBIDDEN_MISSION_COMMAND("미션을 제어할 권한이 없습니다.", 403),
-    ALREADY_SOLVED_MISSION("이미 푼 미션입니다.", 403)
+    ALREADY_SOLVED_MISSION("이미 푼 미션입니다.", 403),
+
+    // image
+    MISMATCH_IMAGE_EXTENSION("이미지 파일이 아닙니다.", 400),
+    IMAGE_ALREADY_EXIST("이미 프로필 사진이 존재합니다.", 400)
 }

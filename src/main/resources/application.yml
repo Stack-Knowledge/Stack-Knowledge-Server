@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://${DB_URL}/${DB_NAME}?useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://${DB_URL:localhost:3306}/${DB_NAME:knowledge}?useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:123456789a}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -12,22 +12,34 @@ spring:
     properties:
       hibernate:
         format_sql: true
-    servlet:
-      multipart:
-        file-size-threshold: 1MB
-        max-file-size: 100MB
-        max-request-size: 100MB
     open-in-view: false
   main:
     allow-bean-definition-overriding: true
 
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
 jwt:
-  accessSecret: ${JWT_ACCESS}
-  refreshSecret: ${JWT_REFRESH}
-  accessExp: ${ACCESS_EXP}
-  refreshExp: ${REFRESH_EXP}
+  accessSecret: ${JWT_ACCESS:c3RhY2s=c3RhY2s=c3RhY2s=c3RhY2s=}
+  refreshSecret: ${JWT_REFRESH:a25vd2xlZGdla25vd2xlZGdla25vd2xlZGdla25vd2xlZGdl}
+  accessExp: ${ACCESS_EXP:1800}
+  refreshExp: ${REFRESH_EXP:7200}
 
 gauth:
   clientId: ${CLIENT_ID}
   clientSecret: ${CLIENT_SECRET}
   redirectUri: ${REDIRECT_URI}
+
+cloud:
+  aws:
+    s3:
+      bucket: ${S3_BUCKET}
+    region:
+      static: ${S3_REGION}
+    stack:
+      auto: false
+    credentials:
+      access-key: ${S3_ACCESS_KEY}
+      secret-key: ${S3_SECRET_KEY}

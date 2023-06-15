@@ -21,10 +21,8 @@ class UserPersistenceAdapter(
     override fun save(user: User): User =
         userMapper.toDomain(userRepository.save(userMapper.toEntity(user)))!!
 
-    override fun queryUserById(id: UUID): User {
-            val user = userRepository.findByIdOrNull(id)
-            return userMapper.toDomain(user)!!
-    }
+    override fun queryUserById(id: UUID): User =
+        userMapper.toDomain(userRepository.findByIdOrNull(id))!!
 
     override fun queryUserRoleByEmail(email: String, role: String): UserRole {
         val user = userRepository.findByEmail(email) ?: return when (role) {
@@ -36,16 +34,16 @@ class UserPersistenceAdapter(
         return user.roles.firstOrNull() ?: throw UserNotFoundException()
     }
 
-    override fun queryUserByEmail(email: String): User? {
-        val user = userRepository.findByEmail(email)
-        return userMapper.toDomain(user)
-    }
+    override fun queryUserByEmail(email: String): User? =
+        userMapper.toDomain(userRepository.findByEmail(email))
 
     override fun queryExistByEmail(email: String): Boolean =
         userRepository.existsByEmail(email)
 
-
     override fun queryCurrentUser(): User =
         userMapper.toDomain(userRepository.findByIdOrNull(securityPort.queryCurrentUserId()))
             .let { it ?: throw UserNotFoundException() }
+
+    override fun queryAllUser(): List<User> =
+        userRepository.findAll().map { userMapper.toDomain(it)!! }
 }
