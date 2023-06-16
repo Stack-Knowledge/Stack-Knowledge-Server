@@ -1,7 +1,7 @@
 package com.stack.knowledege.domain.mission.persistence.mapper
 
 import com.stack.knowledege.domain.mission.domain.Mission
-import com.stack.knowledege.domain.mission.persistence.entity.MissionEntity
+import com.stack.knowledege.domain.mission.persistence.entity.MissionJpaEntity
 import com.stack.knowledege.domain.user.persistence.repository.UserRepository
 import com.stack.knowledege.global.mapper.GenericMapper
 import org.springframework.data.repository.findByIdOrNull
@@ -11,9 +11,9 @@ import com.stack.knowledege.domain.user.exception.UserNotFoundException
 @Component
 class MissionMapper(
     private val userRepository: UserRepository
-) : GenericMapper<Mission, MissionEntity> {
+) : GenericMapper<Mission, MissionJpaEntity> {
 
-    override fun toDomain(entity: MissionEntity?): Mission? =
+    override fun toDomain(entity: MissionJpaEntity?): Mission? =
         entity?.let {
             Mission(
                 id = it.id,
@@ -27,11 +27,11 @@ class MissionMapper(
             )
         }
 
-    override fun toEntity(domain: Mission): MissionEntity {
+    override fun toEntity(domain: Mission): MissionJpaEntity {
         val user = userRepository.findByIdOrNull(domain.userId) ?: throw UserNotFoundException()
 
         return domain.let {
-            MissionEntity(
+            MissionJpaEntity(
                 id = it.id,
                 introduce = it.introduce,
                 title = it.title,

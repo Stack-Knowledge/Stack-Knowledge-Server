@@ -1,7 +1,7 @@
 package com.stack.knowledege.domain.solvation.persistence.entity
 
-import com.stack.knowledege.domain.mission.persistence.entity.MissionEntity
-import com.stack.knowledege.domain.user.persistence.entity.UserEntity
+import com.stack.knowledege.domain.mission.persistence.entity.MissionJpaEntity
+import com.stack.knowledege.domain.user.persistence.entity.UserJpaEntity
 import com.stack.knowledege.global.entity.BaseUuidEntity
 import java.util.*
 import javax.persistence.Column
@@ -19,10 +19,10 @@ class SolvationJpaEntity(
 
     @ManyToOne
     @JoinColumn(name = "mission_id")
-    val mission: MissionEntity,
+    val mission: MissionJpaEntity,
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    val user: UserEntity
+    val user: UserJpaEntity
 
 ) : BaseUuidEntity(id)

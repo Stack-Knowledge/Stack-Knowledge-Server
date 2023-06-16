@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.teacher.persistence.entity
 
-import com.stack.knowledege.domain.user.persistence.entity.UserEntity
+import com.stack.knowledege.domain.user.persistence.entity.UserJpaEntity
 import com.stack.knowledege.global.entity.BaseUuidEntity
 import java.util.*
 import javax.persistence.Column
@@ -14,7 +14,7 @@ class TeacherJpaEntity(
     override val id: UUID,
 
     @OneToOne(fetch = FetchType.LAZY)
-    val user: UserEntity,
+    val user: UserJpaEntity,
 
     @Column(nullable = false)
     val subject: String

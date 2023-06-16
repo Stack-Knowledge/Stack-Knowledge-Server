@@ -1,11 +1,11 @@
 package com.stack.knowledege.global.security.principal
 
-import com.stack.knowledege.domain.user.persistence.entity.UserEntity
+import com.stack.knowledege.domain.user.persistence.entity.UserJpaEntity
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class AuthDetails(
-    private val user: UserEntity
+    private val user: UserJpaEntity
 ):  UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> = user.roles
 

@@ -35,10 +35,9 @@ class GAuthSignInUseCase(
         return jwtGeneratorPort.receiveToken(user.email)
     }
 
-    private fun createUser(user: User): User {
-        return when (userPort.queryExistByEmail(user.email)) {
+    private fun createUser(user: User): User =
+        when (userPort.queryExistByEmail(user.email)) {
             true -> userPort.queryUserByEmail(user.email) ?: throw UserNotFoundException()
             false -> userPort.save(user)
         }
-    }
 }

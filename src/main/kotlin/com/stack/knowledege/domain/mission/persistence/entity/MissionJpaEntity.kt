@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.mission.persistence.entity
 
-import com.stack.knowledege.domain.user.persistence.entity.UserEntity
+import com.stack.knowledege.domain.user.persistence.entity.UserJpaEntity
 import com.stack.knowledege.global.entity.BaseUuidEntity
 import java.util.*
 import javax.persistence.Column
@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn
 import javax.persistence.ManyToOne
 
 @Entity
-class MissionEntity(
+class MissionJpaEntity(
 
     override val id: UUID,
 
@@ -33,6 +33,6 @@ class MissionEntity(
 
     @ManyToOne
     @JoinColumn(name = "user_Id")
-    val user: UserEntity
+    val user: UserJpaEntity
 
 ) : BaseUuidEntity(id)

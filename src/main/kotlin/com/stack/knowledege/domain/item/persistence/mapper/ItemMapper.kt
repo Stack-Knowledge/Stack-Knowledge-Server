@@ -1,7 +1,7 @@
 package com.stack.knowledege.domain.item.persistence.mapper
 
 import com.stack.knowledege.domain.item.domain.Item
-import com.stack.knowledege.domain.item.persistence.entity.ItemEntity
+import com.stack.knowledege.domain.item.persistence.entity.ItemJpaEntity
 import com.stack.knowledege.domain.item.persistence.repository.ItemRepository
 import com.stack.knowledege.global.mapper.GenericMapper
 import org.springframework.stereotype.Component
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component
 @Component
 class ItemMapper(
     private val itemRepository: ItemRepository
-) : GenericMapper<Item, ItemEntity> {
-    override fun toDomain(entity: ItemEntity?): Item? =
+) : GenericMapper<Item, ItemJpaEntity> {
+    override fun toDomain(entity: ItemJpaEntity?): Item? =
         entity?.let {
             Item(
                 id = it.id,
@@ -21,9 +21,9 @@ class ItemMapper(
         }
 
 
-    override fun toEntity(domain: Item): ItemEntity =
+    override fun toEntity(domain: Item): ItemJpaEntity =
         domain.let {
-            ItemEntity(
+            ItemJpaEntity(
                 id = it.id,
                 name = it.name,
                 text = it.text,

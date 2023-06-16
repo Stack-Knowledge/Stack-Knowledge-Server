@@ -1,13 +1,13 @@
 package com.stack.knowledege.domain.user.persistence.mapper
 
 import com.stack.knowledege.domain.user.domain.User
-import com.stack.knowledege.domain.user.persistence.entity.UserEntity
+import com.stack.knowledege.domain.user.persistence.entity.UserJpaEntity
 import com.stack.knowledege.global.mapper.GenericMapper
 import org.springframework.stereotype.Component
 
 @Component
-class UserMapper : GenericMapper<User, UserEntity> {
-    override fun toDomain(entity: UserEntity?): User? =
+class UserMapper : GenericMapper<User, UserJpaEntity> {
+    override fun toDomain(entity: UserJpaEntity?): User? =
         entity?.let {
             User(
                 id = it.id,
@@ -21,9 +21,9 @@ class UserMapper : GenericMapper<User, UserEntity> {
             )
         }
 
-    override fun toEntity(domain: User): UserEntity =
+    override fun toEntity(domain: User): UserJpaEntity =
         domain?.let {
-            UserEntity(
+            UserJpaEntity(
                 id = it.id,
                 email = it.email,
                 name = it.name,
