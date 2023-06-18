@@ -19,4 +19,7 @@ class StudentPersistenceAdapter(
 
     override fun queryStudentById(id: UUID): Student? =
         studentMapper.toDomain(studentJpaRepository.findByIdOrNull(id))
+
+    override fun queryStudentsPointDesc(): List<Student> =
+        studentJpaRepository.findAllByPointDesc().map { studentMapper.toDomain(it)!! }
 }

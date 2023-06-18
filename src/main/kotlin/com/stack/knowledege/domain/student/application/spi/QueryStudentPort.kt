@@ -5,4 +5,5 @@ import java.util.UUID
 
 interface QueryStudentPort {
     fun queryStudentById(id: UUID): Student?
+    fun queryStudentsPointDesc(): List<Student>
 }
