@@ -21,8 +21,8 @@ class UserPersistenceAdapter(
     override fun save(user: User): User =
         userMapper.toDomain(userRepository.save(userMapper.toEntity(user)))!!
 
-    override fun queryUserById(id: UUID): User =
-        userMapper.toDomain(userRepository.findByIdOrNull(id))!!
+    override fun queryUserById(id: UUID): User? =
+        userMapper.toDomain(userRepository.findByIdOrNull(id))
 
     override fun queryUserRoleByEmail(email: String, role: String): UserRole {
         val user = userRepository.findByEmail(email) ?: return when (role) {

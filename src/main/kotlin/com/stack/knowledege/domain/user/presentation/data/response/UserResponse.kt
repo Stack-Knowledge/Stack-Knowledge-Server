@@ -6,6 +6,5 @@ class UserResponse(
     val id: UUID,
     val email: String,
     val name: String,
-    val point: Int,
     val profileImage: String?
 )
