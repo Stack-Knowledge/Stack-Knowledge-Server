@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.stack.knowledege.global.error.ErrorCode
 import com.stack.knowledege.global.error.ErrorResponse
 import com.stack.knowledege.global.error.exception.BasicException
+import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class ExceptionFilter: OncePerRequestFilter() {
+    private val log = LoggerFactory.getLogger(javaClass)
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,

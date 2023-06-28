@@ -1,4 +1,4 @@
-package com.stack.knowledege.domain.student.application
+package com.stack.knowledege.domain.student.application.usecase
 
 import com.stack.knowledege.domain.student.application.spi.CommandStudentPort
 import com.stack.knowledege.domain.student.domain.Student
@@ -11,10 +11,17 @@ class CreateStudentUseCase(
     private val commandStudentPort: CommandStudentPort
 ) {
     fun execute(user: User) {
-        commandStudentPort.save(Student(
+        println(user.id)
+        val student = Student(
             id = UUID.randomUUID(),
             point = 0,
             user = user.id
-        ))
+        )
+        println(student.user)
+        println("asdfasdfasdfsdf")
+        commandStudentPort.save(
+            student
+        )
+
     }
 }

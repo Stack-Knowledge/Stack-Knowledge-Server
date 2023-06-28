@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 import java.util.UUID
 
 interface StudentJpaRepository : CrudRepository<StudentJpaEntity, UUID> {
-    fun findAllByPointDesc(): List<StudentJpaEntity>
+    fun findAllByOrderByPointDesc(): List<StudentJpaEntity>
 }

@@ -7,5 +7,5 @@ import java.util.*
 data class Student(
     val id: UUID,
     val point: Int,
-    val user: UUID
+    val user: UUID?
 )

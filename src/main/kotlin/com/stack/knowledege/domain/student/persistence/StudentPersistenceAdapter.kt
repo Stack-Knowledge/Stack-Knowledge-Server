@@ -12,14 +12,14 @@ import java.util.*
 class StudentPersistenceAdapter(
     private val studentJpaRepository: StudentJpaRepository,
     private val studentMapper: StudentMapper
-) : StudentPort{
-    override fun save(student: Student) {
-        studentJpaRepository.save(studentMapper.toEntity(student))
-    }
+) : StudentPort {
+
+    override fun save(student: Student): Student =
+        studentMapper.toDomain(studentJpaRepository.save(studentMapper.toEntity(student)))!!
 
     override fun queryStudentById(id: UUID): Student? =
         studentMapper.toDomain(studentJpaRepository.findByIdOrNull(id))
 
     override fun queryStudentsPointDesc(): List<Student> =
-        studentJpaRepository.findAllByPointDesc().map { studentMapper.toDomain(it)!! }
+        studentJpaRepository.findAllByOrderByPointDesc().map { studentMapper.toDomain(it)!! }
 }

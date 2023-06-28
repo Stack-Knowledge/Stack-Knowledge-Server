@@ -18,7 +18,7 @@ class queryAllStudentsRankUseCase(
                     id = it.id,
                     point = it.point,
                     user = UserResponse(
-                        id = it.user,
+                        id = it.user!!,
                         email = user.email,
                         name = user.name,
                         profileImage = user.profileImage
