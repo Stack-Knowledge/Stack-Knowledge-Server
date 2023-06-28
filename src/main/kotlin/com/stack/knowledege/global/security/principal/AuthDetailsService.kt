@@ -1,5 +1,6 @@
 package com.stack.knowledege.global.security.principal
 
+import com.stack.knowledege.domain.user.exception.UserNotFoundException
 import com.stack.knowledege.domain.user.persistence.repository.UserRepository
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -13,7 +14,7 @@ class AuthDetailsService(
 ) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails {
         val user = userRepository.findByEmail(username)
-            ?: throw RuntimeException()
+            ?: throw UserNotFoundException()
         return AuthDetails(user)
     }
 }
