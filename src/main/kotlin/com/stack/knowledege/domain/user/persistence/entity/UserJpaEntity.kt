@@ -17,7 +17,7 @@ class UserJpaEntity(
     val name: String,
 
     @Column(nullable = true)
-    val profileImage: String? = null,
+    val profileImage: String? = "",
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)

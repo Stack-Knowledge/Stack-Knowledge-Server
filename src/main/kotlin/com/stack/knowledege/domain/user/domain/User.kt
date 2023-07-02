@@ -9,6 +9,6 @@ data class User(
     val id: UUID,
     val email: String,
     val name: String,
-    val profileImage: String? = null,
+    val profileImage: String? = "",
     val roles: MutableList<UserRole> = mutableListOf()
 )
