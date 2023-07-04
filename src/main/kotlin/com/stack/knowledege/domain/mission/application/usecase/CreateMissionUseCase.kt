@@ -26,7 +26,6 @@ class CreateMissionUseCase(
             content = createMissionRequest.content,
             duration = createMissionRequest.duration,
             timeLimit = createMissionRequest.timeLimit,
-            isSolved = false,
             userId = user.id
         )
 

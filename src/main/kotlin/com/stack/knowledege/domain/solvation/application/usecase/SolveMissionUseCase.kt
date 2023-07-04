@@ -28,6 +28,5 @@ class SolveMissionUseCase(
         )
 
         solvationPort.save(solvation)
-        missionPort.save(mission.copy(isSolved = false))
     }
 }

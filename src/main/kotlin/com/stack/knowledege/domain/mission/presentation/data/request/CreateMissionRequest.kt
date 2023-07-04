@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.mission.presentation.data.request
 
-class CreateMissionRequest(
+data class CreateMissionRequest(
     val title: String,
     val introduce: String,
     val content: String,

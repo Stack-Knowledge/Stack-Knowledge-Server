@@ -21,10 +21,6 @@ class QueryMissionDetailsUseCase(
         val user = queryUserPort.queryUserById(mission.userId)
             ?: throw UserNotFoundException()
 
-        if (mission.isSolved) {
-            throw AlreadySolvedMissionException()
-        }
-
         return MissionDetailsResponse(
             title = mission.title,
             content = mission.content,

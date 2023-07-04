@@ -11,6 +11,5 @@ data class Mission(
     val content: String,
     val duration: Int,
     val timeLimit: Int,
-    val isSolved: Boolean,
     val userId: UUID
 )

@@ -16,7 +16,5 @@ class SolveMissionUseCasee(
         val mission = missionPort.queryMissionById(id)
             ?: throw MissionNotFoundException()
         val user = queryUserPort.queryCurrentUser()
-
-        missionPort.save(mission.copy(isSolved = false))
     }
 }

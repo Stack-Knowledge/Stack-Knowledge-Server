@@ -28,9 +28,6 @@ class MissionJpaEntity(
     @Column(nullable = false)
     val timeLimit: Int,
 
-    @Column(nullable = false)
-    val isSolved: Boolean,
-
     @ManyToOne
     @JoinColumn(name = "user_Id")
     val user: UserJpaEntity

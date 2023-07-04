@@ -22,7 +22,6 @@ class MissionMapper(
                 content = it.content,
                 duration = it.duration,
                 timeLimit = it.timeLimit,
-                isSolved = it.isSolved,
                 userId = it.user.id
             )
         }
@@ -38,7 +37,6 @@ class MissionMapper(
                 content = it.content,
                 duration = it.duration,
                 timeLimit = it.timeLimit,
-                isSolved = it.isSolved,
                 user = user
             )
         }

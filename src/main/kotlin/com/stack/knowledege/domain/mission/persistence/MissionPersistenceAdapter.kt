@@ -19,7 +19,6 @@ class MissionPersistenceAdapter(
     override fun queryMissionById(missionId: UUID): Mission? =
         missionMapper.toDomain(missionRepository.findByIdOrNull(missionId))
 
-
     override fun save(mission: Mission) {
         missionMapper.toDomain(missionRepository.save(missionMapper.toEntity(mission)))
     }
