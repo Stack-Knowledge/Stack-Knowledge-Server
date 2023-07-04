@@ -13,9 +13,9 @@ class QueryAllMissionUseCase(
     private val queryUserPort: QueryUserPort
 ) {
     fun execute(): List<MissionResponse> {
-        val notices = queryMissionPort.queryAllMission()
+        val missions = queryMissionPort.queryAllMission()
 
-        return notices.map{
+        return missions.map{
             val user = queryUserPort.queryUserById(it.userId)
                 ?: throw UserNotFoundException()
 
@@ -23,6 +23,7 @@ class QueryAllMissionUseCase(
                 id = it.id,
                 title = it.title,
                 introduce = it.introduce,
+                duration = it.duration,
                 user = UserResponse(
                     id = user.id,
                     email = user.email,

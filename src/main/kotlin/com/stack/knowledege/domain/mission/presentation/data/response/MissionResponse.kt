@@ -7,5 +7,6 @@ data class MissionResponse(
     val id: UUID,
     val title: String,
     val introduce: String,
+    val duration: Int,
     val user: UserResponse
 )
