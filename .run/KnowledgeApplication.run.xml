@@ -13,10 +13,13 @@
       <env name="JWT_REFRESH" value="a25vd2xlZGdla25vd2xlZGdla25vd2xlZGdla25vd2xlZGdl" />
       <env name="REDIRECT_URI" value="http://localhost:8080/login/oauth/code/gauth" />
       <env name="REFRESH_EXP" value="7200" />
+<<<<<<< HEAD
+=======
       <env name="S3_ACCESS_KEY" value="AKIA6PTY4GLJYBDO3T5D" />
       <env name="S3_BUCKET" value="stack-knowledge" />
       <env name="S3_REGION" value="ap-northeast-2" />
       <env name="S3_SECRET_KEY" value="Xt+hv2ZFMMnEK3Nc7IjEUR+PSF1PER+nMc3DlT3F" />
+>>>>>>> 86b2f6f1e45f943e666edc4ab9dcdb8acb22ca14
     </envs>
     <module name="knowledege.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.stack.knowledege.KnowledgeApplication" />

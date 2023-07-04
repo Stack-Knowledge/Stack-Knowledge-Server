@@ -11,7 +11,9 @@ class QueryItemByIdUseCase(
     private val queryItemPort: QueryItemPort
 ) {
     fun execute(id: UUID): ItemResponse {
-        val item = queryItemPort.queryItemById(id) ?: throw ItemNotFoundException()
+        val item = queryItemPort.queryItemById(id)
+            ?: throw ItemNotFoundException()
+
         return ItemResponse(
             itemId = item.id,
             name = item.name,

@@ -2,6 +2,9 @@ package com.stack.knowledege.domain.auth.application.usecase
 
 import com.stack.knowledege.domain.auth.presentation.data.request.GAuthSignInRequest
 import com.stack.knowledege.domain.auth.presentation.data.response.TokenResponse
+import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
+import com.stack.knowledege.domain.student.application.spi.StudentPort
+import com.stack.knowledege.domain.student.application.usecase.CreateStudentUseCase
 import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.domain.user.domain.User
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
@@ -14,35 +17,36 @@ import java.util.*
 class GAuthSignInUseCase(
     private val gAuthPort: GAuthPort,
     private val userPort: UserPort,
-    private val jwtGeneratorPort: JwtGeneratorPort
+    private val jwtGeneratorPort: JwtGeneratorPort,
+    private val createStudentUseCase: CreateStudentUseCase,
+    private val queryStudentPort: QueryStudentPort
 ) {
-    fun execute(gauthSignInRequest: GAuthSignInRequest): TokenResponse {
-        val gauthToken = gAuthPort.queryGAuthToken(gauthSignInRequest.code)
-        val gauthUserInfo = gAuthPort.queryUserInfo(gauthToken.accessToken)
-        val role = userPort.queryUserRoleByEmail(gauthUserInfo.email, gauthUserInfo.role)
+    fun execute(gAuthSignInRequest: GAuthSignInRequest): TokenResponse {
+
+        val gAuthToken = gAuthPort.queryGAuthToken(gAuthSignInRequest.code)
+        val gAuthUserInfo = gAuthPort.queryUserInfo(gAuthToken.accessToken)
+        val role = userPort.queryUserRoleByEmail(gAuthUserInfo.email, gAuthUserInfo.role)
 
         val user = createUser(
-            userPort.queryExistByEmail(gauthUserInfo.email),
             User(
                 id = UUID.randomUUID(),
-                email = gauthUserInfo.email,
-                name = gauthUserInfo.name,
-                grade = gauthUserInfo.grade,
-                number = gauthUserInfo.num,
-                point = 0,
-                profileImage = gauthUserInfo.profileUrl,
+                email = gAuthUserInfo.email,
+                name = gAuthUserInfo.name,
+                profileImage = "",
                 roles = mutableListOf(role)
             )
         )
 
+        if (!queryStudentPort.existStudentByUser(user)) {
+            createStudentUseCase.execute(user)
+        }
+
         return jwtGeneratorPort.receiveToken(user.email)
     }
 
-    private fun createUser(isExistUser: Boolean, user: User): User {
-        return if (isExistUser) {
-            userPort.queryUserByEmail(user.email) ?: throw UserNotFoundException()
-        } else {
-            userPort.saveUser(user)!!
+    private fun createUser(user: User): User =
+        when (userPort.queryExistByEmail(user.email)) {
+            true -> userPort.queryUserByEmail(user.email) ?: throw UserNotFoundException()
+            false -> userPort.save(user)
         }
-    }
 }

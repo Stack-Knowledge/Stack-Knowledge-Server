@@ -6,6 +6,7 @@ import com.stack.knowledege.global.security.handler.CustomAuthenticationEntryPoi
 import com.stack.knowledege.global.security.spi.JwtParserPort
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
@@ -35,12 +36,21 @@ class SecurityConfig(
                 CorsUtils.isPreFlightRequest(request)
             }).permitAll()
 
-            .antMatchers("/auth/**").permitAll()
-            .antMatchers("/item/**").authenticated()
-            .antMatchers("/image/**").permitAll()
-            .antMatchers("/user/**").authenticated()
+            // auth
+            .antMatchers(HttpMethod.POST, "/auth").permitAll()
 
-            .anyRequest().authenticated()
+            // item
+            .antMatchers(HttpMethod.GET , "/item").authenticated()
+            .antMatchers(HttpMethod.GET , "/item/{item_id}").authenticated()
+
+            // image
+            .antMatchers(HttpMethod.POST, "/image").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/image").permitAll()
+
+            // user
+            .antMatchers(HttpMethod.GET, "/user").authenticated()
+
+            .anyRequest().permitAll()
             .and()
 
             .exceptionHandling()
