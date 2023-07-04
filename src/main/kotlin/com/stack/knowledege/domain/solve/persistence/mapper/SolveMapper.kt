@@ -11,7 +11,7 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 
 @Component
-class SolvationMapper(
+class SolveMapper(
     private val missionRepository: MissionRepository,
     private val studentJpaRepository: StudentJpaRepository
 ) : GenericMapper<Solve, SolveJpaEntity> {

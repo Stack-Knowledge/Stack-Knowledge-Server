@@ -5,6 +5,6 @@ import com.stack.knowledege.domain.solve.persistence.entity.SolveJpaEntity
 import org.springframework.data.repository.CrudRepository
 import java.util.UUID
 
-interface SolvationRepository : CrudRepository<SolveJpaEntity, UUID> {
+interface SolveRepository : CrudRepository<SolveJpaEntity, UUID> {
     fun queryByMission(mission: Mission): SolveJpaEntity?
 }
