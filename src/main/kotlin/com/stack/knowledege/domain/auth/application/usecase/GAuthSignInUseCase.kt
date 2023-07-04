@@ -2,10 +2,11 @@ package com.stack.knowledege.domain.auth.application.usecase
 
 import com.stack.knowledege.domain.auth.presentation.data.request.GAuthSignInRequest
 import com.stack.knowledege.domain.auth.presentation.data.response.TokenResponse
+import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
+import com.stack.knowledege.domain.student.application.spi.StudentPort
 import com.stack.knowledege.domain.student.application.usecase.CreateStudentUseCase
 import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.domain.user.domain.User
-import com.stack.knowledege.domain.user.domain.constant.UserRole
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
 import com.stack.knowledege.global.annotation.usecase.UseCase
 import com.stack.knowledege.global.security.spi.JwtGeneratorPort
@@ -17,7 +18,8 @@ class GAuthSignInUseCase(
     private val gAuthPort: GAuthPort,
     private val userPort: UserPort,
     private val jwtGeneratorPort: JwtGeneratorPort,
-    private val createStudentUseCase: CreateStudentUseCase
+    private val createStudentUseCase: CreateStudentUseCase,
+    private val queryStudentPort: QueryStudentPort
 ) {
     fun execute(gAuthSignInRequest: GAuthSignInRequest): TokenResponse {
 
@@ -35,7 +37,7 @@ class GAuthSignInUseCase(
             )
         )
 
-        if (role == UserRole.ROLE_STUDENT) {
+        if (!queryStudentPort.existStudentByUser(user)) {
             createStudentUseCase.execute(user)
         }
 

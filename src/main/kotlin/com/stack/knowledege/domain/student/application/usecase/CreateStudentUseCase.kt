@@ -11,17 +11,11 @@ class CreateStudentUseCase(
     private val commandStudentPort: CommandStudentPort
 ) {
     fun execute(user: User) {
-        println(user.id)
         val student = Student(
             id = UUID.randomUUID(),
             point = 0,
             user = user.id
         )
-        println(student.user)
-        println("asdfasdfasdfsdf")
-        commandStudentPort.save(
-            student
-        )
-
+        commandStudentPort.save(student)
     }
 }

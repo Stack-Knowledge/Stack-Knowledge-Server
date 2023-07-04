@@ -29,4 +29,7 @@ class StudentPersistenceAdapter(
     override fun queryStudentByUser(user: User): Student =
         studentMapper.toDomain(studentJpaRepository.findByUser(userMapper.toEntity(user)))!!
 
+    override fun existStudentByUser(user: User): Boolean =
+        studentJpaRepository.existsByUser(userMapper.toEntity(user))
+
 }

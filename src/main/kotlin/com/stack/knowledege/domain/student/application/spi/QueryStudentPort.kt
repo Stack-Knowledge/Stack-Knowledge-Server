@@ -8,4 +8,5 @@ interface QueryStudentPort {
     fun queryStudentById(id: UUID): Student?
     fun queryStudentsPointDesc(): List<Student>
     fun queryStudentByUser(user: User): Student
+    fun existStudentByUser(user: User): Boolean
 }
