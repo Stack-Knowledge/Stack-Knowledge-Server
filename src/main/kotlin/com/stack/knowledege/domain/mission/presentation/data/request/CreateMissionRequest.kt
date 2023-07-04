@@ -5,6 +5,5 @@ data class CreateMissionRequest(
     val introduce: String,
     val content: String,
     val duration: Int,
-    val timeLimit: Int,
-    val isSolved: Boolean
+    val timeLimit: Int
 )
