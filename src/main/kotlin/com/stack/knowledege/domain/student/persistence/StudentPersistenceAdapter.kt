@@ -4,6 +4,8 @@ import com.stack.knowledege.domain.student.application.spi.StudentPort
 import com.stack.knowledege.domain.student.domain.Student
 import com.stack.knowledege.domain.student.persistence.mapper.StudentMapper
 import com.stack.knowledege.domain.student.persistence.repository.StudentJpaRepository
+import com.stack.knowledege.domain.user.domain.User
+import com.stack.knowledege.domain.user.persistence.mapper.UserMapper
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 import java.util.*
@@ -11,7 +13,8 @@ import java.util.*
 @Component
 class StudentPersistenceAdapter(
     private val studentJpaRepository: StudentJpaRepository,
-    private val studentMapper: StudentMapper
+    private val studentMapper: StudentMapper,
+    private val userMapper: UserMapper
 ) : StudentPort {
 
     override fun save(student: Student): Student =
@@ -22,4 +25,8 @@ class StudentPersistenceAdapter(
 
     override fun queryStudentsPointDesc(): List<Student> =
         studentJpaRepository.findAllByOrderByPointDesc().map { studentMapper.toDomain(it)!! }
+
+    override fun queryStudentByUser(user: User): Student =
+        studentMapper.toDomain(studentJpaRepository.findByUser(userMapper.toEntity(user)))!!
+
 }

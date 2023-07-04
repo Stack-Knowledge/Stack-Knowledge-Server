@@ -1,3 +1,3 @@
-package com.stack.knowledege.domain.solvation.application.spi
+package com.stack.knowledege.domain.solve.application.spi
 
 interface SolvationPort : CommandSolvationPort, QuerySolvationPort

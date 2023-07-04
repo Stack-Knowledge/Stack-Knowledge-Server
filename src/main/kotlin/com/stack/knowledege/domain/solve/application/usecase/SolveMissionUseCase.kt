@@ -1,10 +1,12 @@
-package com.stack.knowledege.domain.solvation.application.usecase
+package com.stack.knowledege.domain.solve.application.usecase
 
 import com.stack.knowledege.domain.mission.application.spi.MissionPort
 import com.stack.knowledege.domain.mission.exception.MissionNotFoundException
 import com.stack.knowledege.domain.mission.presentation.data.request.SolveMissionRequest
-import com.stack.knowledege.domain.solvation.application.spi.SolvationPort
-import com.stack.knowledege.domain.solvation.domain.Solvation
+import com.stack.knowledege.domain.solve.application.spi.SolvationPort
+import com.stack.knowledege.domain.solve.domain.Solve
+import com.stack.knowledege.domain.solve.domain.constant.SolveStatus
+import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.global.annotation.usecase.UseCase
 import java.util.UUID
@@ -12,21 +14,25 @@ import java.util.UUID
 @UseCase
 class SolveMissionUseCase(
     private val queryUserPort: QueryUserPort,
+    private val queryStudentPort: QueryStudentPort,
     private val missionPort: MissionPort,
     private val solvationPort: SolvationPort
 ) {
     fun execute(id: UUID, solveMissionRequest: SolveMissionRequest) {
         val mission = missionPort.queryMissionById(id)
             ?: throw MissionNotFoundException()
-        val user = queryUserPort.queryCurrentUser()
+        val student = queryUserPort.queryCurrentUser()
+            .let { queryStudentPort.queryStudentByUser(it) }
 
-        val solvation = Solvation(
+        val solve = Solve(
             id = UUID.randomUUID(),
-            answer = solveMissionRequest.answer,
-            user = user.id,
+            solvation = solveMissionRequest.answer,
+            isSolved = true,
+            solveStatus = SolveStatus.SCORING,
+            student = student.id,
             mission = mission.id
         )
 
-        solvationPort.save(solvation)
+        solvationPort.save(solve)
     }
 }
