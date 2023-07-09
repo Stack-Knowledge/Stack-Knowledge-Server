@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.student.presentation
 
-import com.stack.knowledege.domain.student.application.usecase.queryAllStudentsRankUseCase
+import com.stack.knowledege.domain.student.application.usecase.queryAllStudentsRankingUseCase
 import com.stack.knowledege.domain.student.presentation.data.response.AllStudentsRankResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/student")
 class StudentWebAdapter(
-    private val queryAllStudentsRankUseCase: queryAllStudentsRankUseCase
+    private val queryAllStudentsRankingUseCase: queryAllStudentsRankingUseCase
 ) {
-    @GetMapping("/rank")
+    @GetMapping("/ranking")
     fun execute(): ResponseEntity<List<AllStudentsRankResponse>> =
-        queryAllStudentsRankUseCase.execute()
+        queryAllStudentsRankingUseCase.execute()
             .let { ResponseEntity.ok(it) }
 }

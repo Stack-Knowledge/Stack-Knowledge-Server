@@ -3,7 +3,10 @@ package com.stack.knowledege.domain.auth.application.usecase
 import com.stack.knowledege.domain.auth.presentation.data.request.GAuthSignInRequest
 import com.stack.knowledege.domain.auth.presentation.data.response.TokenResponse
 import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
+<<<<<<< HEAD
+=======
 import com.stack.knowledege.domain.student.application.spi.StudentPort
+>>>>>>> e6f9ccbf8525fbb671503c6e605a817e68c02c80
 import com.stack.knowledege.domain.student.application.usecase.CreateStudentUseCase
 import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.domain.user.domain.User

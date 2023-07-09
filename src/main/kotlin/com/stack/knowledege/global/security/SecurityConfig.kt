@@ -38,6 +38,20 @@ class SecurityConfig(
 
             // auth
             .antMatchers(HttpMethod.POST, "/auth").permitAll()
+<<<<<<< HEAD
+
+            // item
+            .antMatchers(HttpMethod.GET , "/item").authenticated()
+            .antMatchers(HttpMethod.GET , "/item/{item_id}").authenticated()
+
+            // image
+            .antMatchers(HttpMethod.POST, "/image").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/image").permitAll()
+
+            // user
+            .antMatchers(HttpMethod.GET, "/user").authenticated()
+=======
+>>>>>>> e6f9ccbf8525fbb671503c6e605a817e68c02c80
 
             // item
             .antMatchers(HttpMethod.GET , "/item").authenticated()
