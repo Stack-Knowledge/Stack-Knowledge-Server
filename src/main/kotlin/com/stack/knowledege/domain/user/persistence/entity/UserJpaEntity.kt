@@ -6,7 +6,7 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
-class UserEntity(
+class UserJpaEntity(
 
     override val id: UUID,
 
@@ -16,17 +16,8 @@ class UserEntity(
     @Column(nullable = false)
     val name: String,
 
-    @Column(nullable = false)
-    val grade: Int,
-
-    @Column(nullable = false)
-    val number: Int,
-
-    @Column(nullable = false)
-    val point: Int,
-
     @Column(nullable = true)
-    val profileImage: String?,
+    val profileImage: String? = "",
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
