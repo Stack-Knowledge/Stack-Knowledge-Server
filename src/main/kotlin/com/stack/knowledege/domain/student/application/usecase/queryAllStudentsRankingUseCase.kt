@@ -7,7 +7,7 @@ import com.stack.knowledege.domain.user.presentation.data.response.UserResponse
 import com.stack.knowledege.global.annotation.usecase.UseCase
 
 @UseCase
-class queryAllStudentsRankingUseCase(
+class QueryAllStudentsRankingUseCase(
     private val queryUserPort: QueryUserPort,
     private val queryStudentPort: QueryStudentPort
 ) {
