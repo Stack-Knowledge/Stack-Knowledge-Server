@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.auth.persistence.repository
 
 import com.stack.knowledege.domain.auth.persistence.entity.RefreshTokenEntity
-import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.repository.CrudRepository
 
-interface RefreshTokenRepository: JpaRepository<RefreshTokenEntity, String>
+interface RefreshTokenRepository: CrudRepository<RefreshTokenEntity, String>
