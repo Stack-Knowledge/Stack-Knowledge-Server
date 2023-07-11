@@ -23,9 +23,6 @@ class MissionJpaEntity(
     val content: String,
 
     @Column(nullable = false)
-    val duration: Int,
-
-    @Column(nullable = false)
     val timeLimit: Int,
 
     @ManyToOne

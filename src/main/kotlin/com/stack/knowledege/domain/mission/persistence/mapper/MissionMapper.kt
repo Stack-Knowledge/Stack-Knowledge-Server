@@ -20,7 +20,6 @@ class MissionMapper(
                 introduce = it.introduce,
                 title = it.title,
                 content = it.content,
-                duration = it.duration,
                 timeLimit = it.timeLimit,
                 userId = it.user.id
             )
@@ -35,7 +34,6 @@ class MissionMapper(
                 introduce = it.introduce,
                 title = it.title,
                 content = it.content,
-                duration = it.duration,
                 timeLimit = it.timeLimit,
                 user = user
             )
