@@ -20,7 +20,6 @@ class SolveMapper(
             Solve(
                 id = it.id,
                 solvation = it.solvation,
-                isSolved = it.isSolved,
                 solveStatus = it.solveStatus,
                 student = it.student.id,
                 mission = it.mission.id
@@ -35,7 +34,6 @@ class SolveMapper(
             SolveJpaEntity(
                 id = it.id,
                 solvation = it.solvation,
-                isSolved = it.isSolved,
                 solveStatus = it.solveStatus,
                 student = student,
                 mission = mission
