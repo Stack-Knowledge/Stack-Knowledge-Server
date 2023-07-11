@@ -2,7 +2,7 @@ name: STACK_KNOWLEDGE_CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "*" ]
 
