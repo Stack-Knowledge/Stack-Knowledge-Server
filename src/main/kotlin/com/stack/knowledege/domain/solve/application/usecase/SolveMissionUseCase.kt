@@ -34,7 +34,6 @@ class SolveMissionUseCase(
         val solve = Solve(
             id = UUID.randomUUID(),
             solvation = solveMissionRequest.solvation,
-            isSolved = true,
             solveStatus = SolveStatus.SCORING,
             student = student.id,
             mission = mission.id

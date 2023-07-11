@@ -19,9 +19,6 @@ class SolveJpaEntity(
     val solvation: String,
 
     @Column(nullable = false)
-    val isSolved: Boolean,
-
-    @Column(nullable = false)
     val solveStatus: SolveStatus,
 
     @ManyToOne
