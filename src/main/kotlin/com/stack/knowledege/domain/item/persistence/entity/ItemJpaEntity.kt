@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.item.persistence.entity
 
-import com.stack.knowledege.global.entity.BaseUuidEntity
+import com.stack.knowledege.global.entity.BaseIdEntity
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -19,4 +19,4 @@ class ItemJpaEntity(
     @Column(nullable = false)
     val price: Int
 
-) : BaseUuidEntity(id)
+) : BaseIdEntity(id)

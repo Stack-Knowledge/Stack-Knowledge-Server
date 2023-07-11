@@ -3,7 +3,7 @@ package com.stack.knowledege.domain.solve.persistence.entity
 import com.stack.knowledege.domain.mission.persistence.entity.MissionJpaEntity
 import com.stack.knowledege.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledege.domain.student.persistence.entity.StudentJpaEntity
-import com.stack.knowledege.global.entity.BaseUuidEntity
+import com.stack.knowledege.global.entity.BaseIdEntity
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -29,4 +29,4 @@ class SolveJpaEntity(
     @JoinColumn(name = "student_id")
     val student: StudentJpaEntity
 
-) : BaseUuidEntity(id)
+) : BaseIdEntity(id)

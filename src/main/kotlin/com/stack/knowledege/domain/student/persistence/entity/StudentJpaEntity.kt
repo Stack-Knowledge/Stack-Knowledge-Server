@@ -1,7 +1,7 @@
 package com.stack.knowledege.domain.student.persistence.entity
 
 import com.stack.knowledege.domain.user.persistence.entity.UserJpaEntity
-import com.stack.knowledege.global.entity.BaseUuidEntity
+import com.stack.knowledege.global.entity.BaseIdEntity
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -21,4 +21,4 @@ class StudentJpaEntity(
     @JoinColumn(name = "user_id")
     val user: UserJpaEntity
 
-) : BaseUuidEntity(id)
+) : BaseIdEntity(id)
