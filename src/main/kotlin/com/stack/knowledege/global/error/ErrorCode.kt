@@ -25,5 +25,7 @@ enum class ErrorCode(
     IMAGE_ALREADY_EXIST("이미 프로필 사진이 존재합니다.", 400),
 
     // solve
-    ONLY_STUDENT_EXCEPTION("문제는 학생만이 풀 수 있습니다.", 403)
+    SOLVE_NOT_FOUND("존재하지 않는 풀이입니다.", 404),
+    ONLY_STUDENT("문제는 학생만이 풀 수 있습니다.", 403),
+    ALREADY_SCORED("이미 채점을 맨 문제입니다.", 403)
 }

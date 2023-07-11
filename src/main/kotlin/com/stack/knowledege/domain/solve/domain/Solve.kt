@@ -5,7 +5,7 @@ import com.stack.knowledege.global.annotation.Aggregate
 import java.util.*
 
 @Aggregate
-class Solve(
+data class Solve(
     val id: UUID,
     val solvation: String,
     val isSolved: Boolean,
