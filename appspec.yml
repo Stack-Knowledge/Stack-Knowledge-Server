@@ -1,0 +1,17 @@
+version: 0.0
+os: ubuntu
+files:
+  - source: /
+    destination: /home/ubuntu/Stack-Knowledge
+    overwrite: yes
+permissions:
+  - object: /home/ubuntu/Stack-Knowledge
+    pattern: "**"
+    owner: ubuntu
+    group: ubuntu
+    mode: 755
+hooks:
+  AfterInstall:
+    - location: deploy.sh
+      timeout: 60
+      runas: root
