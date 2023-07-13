@@ -8,7 +8,6 @@ import java.util.*
 data class Solve(
     val id: UUID,
     val solvation: String,
-    val isSolved: Boolean,
     val solveStatus: SolveStatus,
     val student: UUID,
     val mission: UUID

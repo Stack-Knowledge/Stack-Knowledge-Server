@@ -1,7 +1,7 @@
 package com.stack.knowledege.domain.user.persistence.entity
 
 import com.stack.knowledege.domain.user.domain.constant.UserRole
-import com.stack.knowledege.global.entity.BaseUuidEntity
+import com.stack.knowledege.global.entity.BaseIdEntity
 import java.util.*
 import javax.persistence.*
 
@@ -24,4 +24,4 @@ class UserJpaEntity(
     @CollectionTable(name = "UerRole", joinColumns = [JoinColumn(name = "user_id")])
     val roles: MutableList<UserRole> = mutableListOf()
 
-) : BaseUuidEntity(id)
+) : BaseIdEntity(id)

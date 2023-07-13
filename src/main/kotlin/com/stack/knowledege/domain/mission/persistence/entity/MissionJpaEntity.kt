@@ -1,7 +1,7 @@
 package com.stack.knowledege.domain.mission.persistence.entity
 
 import com.stack.knowledege.domain.user.persistence.entity.UserJpaEntity
-import com.stack.knowledege.global.entity.BaseUuidEntity
+import com.stack.knowledege.global.entity.BaseIdEntity
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -16,14 +16,8 @@ class MissionJpaEntity(
     @Column(nullable = false)
     val title: String,
 
-    @Column(nullable = false, length = 15)
-    val introduce: String,
-
     @Column(nullable = false)
     val content: String,
-
-    @Column(nullable = false)
-    val duration: Int,
 
     @Column(nullable = false)
     val timeLimit: Int,
@@ -32,4 +26,4 @@ class MissionJpaEntity(
     @JoinColumn(name = "user_Id")
     val user: UserJpaEntity
 
-) : BaseUuidEntity(id)
+) : BaseIdEntity(id)

@@ -7,9 +7,7 @@ import java.util.UUID
 data class Mission(
     val id: UUID,
     val title: String,
-    val introduce: String,
     val content: String,
-    val duration: Int,
     val timeLimit: Int,
     val userId: UUID
 )
