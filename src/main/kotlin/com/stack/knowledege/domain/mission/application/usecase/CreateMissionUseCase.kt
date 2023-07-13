@@ -21,10 +21,9 @@ class CreateMissionUseCase(
 
         val mission = Mission(
             id = UUID.randomUUID(),
-            introduce = createMissionRequest.introduce,
             title = createMissionRequest.title,
+            introduce = createMissionRequest.introduce,
             content = createMissionRequest.content,
-            duration = createMissionRequest.duration,
             timeLimit = createMissionRequest.timeLimit,
             userId = user.id
         )

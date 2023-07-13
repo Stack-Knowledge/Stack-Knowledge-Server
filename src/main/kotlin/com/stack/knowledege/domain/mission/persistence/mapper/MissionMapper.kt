@@ -17,10 +17,9 @@ class MissionMapper(
         entity?.let {
             Mission(
                 id = it.id,
-                introduce = it.introduce,
                 title = it.title,
+                introduce = it.introduce,
                 content = it.content,
-                duration = it.duration,
                 timeLimit = it.timeLimit,
                 userId = it.user.id
             )
@@ -32,10 +31,9 @@ class MissionMapper(
         return domain.let {
             MissionJpaEntity(
                 id = it.id,
-                introduce = it.introduce,
                 title = it.title,
+                introduce = it.introduce,
                 content = it.content,
-                duration = it.duration,
                 timeLimit = it.timeLimit,
                 user = user
             )
