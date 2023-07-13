@@ -9,7 +9,6 @@ data class Mission(
     val id: UUID,
     val title: String,
     val introduce: String,
-    val duration: LocalDateTime,
     val content: String,
     val timeLimit: Int,
     val userId: UUID

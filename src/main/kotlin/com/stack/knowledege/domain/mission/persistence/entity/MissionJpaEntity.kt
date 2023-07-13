@@ -2,8 +2,6 @@ package com.stack.knowledege.domain.mission.persistence.entity
 
 import com.stack.knowledege.domain.user.persistence.entity.UserJpaEntity
 import com.stack.knowledege.global.entity.BaseIdEntity
-import java.time.Duration
-import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
@@ -20,9 +18,6 @@ class MissionJpaEntity(
 
     @Column(nullable = false, length = 15)
     val introduce: String,
-
-    @Column(nullable = false)
-    val duration: LocalDateTime,
 
     @Column(nullable = false)
     val content: String,

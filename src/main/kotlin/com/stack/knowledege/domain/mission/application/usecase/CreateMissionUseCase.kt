@@ -23,7 +23,6 @@ class CreateMissionUseCase(
             id = UUID.randomUUID(),
             title = createMissionRequest.title,
             introduce = createMissionRequest.introduce,
-            duration = createMissionRequest.duration,
             content = createMissionRequest.content,
             timeLimit = createMissionRequest.timeLimit,
             userId = user.id
