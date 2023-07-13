@@ -5,7 +5,7 @@ files:
     destination: /home/ubuntu/Stack-Knowledge
     overwrite: yes
 permissions:
-  - object: /home/ubuntu/Stack-Knowledge
+  - object: /
     pattern: "**"
     owner: ubuntu
     group: ubuntu
