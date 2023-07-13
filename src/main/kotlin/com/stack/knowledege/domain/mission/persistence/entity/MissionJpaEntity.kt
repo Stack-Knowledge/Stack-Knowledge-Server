@@ -16,9 +16,6 @@ class MissionJpaEntity(
     @Column(nullable = false)
     val title: String,
 
-    @Column(nullable = false, length = 15)
-    val introduce: String,
-
     @Column(nullable = false)
     val content: String,
 

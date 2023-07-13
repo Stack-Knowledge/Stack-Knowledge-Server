@@ -22,7 +22,6 @@ class QueryAllMissionUseCase(
             MissionResponse(
                 id = it.id,
                 title = it.title,
-                introduce = it.introduce,
                 user = UserResponse(
                     id = user.id,
                     email = user.email,
