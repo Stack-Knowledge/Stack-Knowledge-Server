@@ -2,6 +2,7 @@ package com.stack.knowledege.domain.mission.application.usecase
 
 import com.stack.knowledege.domain.mission.application.spi.CommandMissionPort
 import com.stack.knowledege.domain.mission.domain.Mission
+import com.stack.knowledege.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledege.domain.mission.presentation.data.request.CreateMissionRequest
 import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.domain.user.application.validator.UserValidator
@@ -24,6 +25,7 @@ class CreateMissionUseCase(
             title = createMissionRequest.title,
             content = createMissionRequest.content,
             timeLimit = createMissionRequest.timeLimit,
+            missionStatus = MissionStatus.OPENED, // 회의로 결정
             userId = user.id
         )
 

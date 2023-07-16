@@ -20,6 +20,7 @@ class MissionMapper(
                 title = it.title,
                 content = it.content,
                 timeLimit = it.timeLimit,
+                missionStatus = it.missionStatus,
                 userId = it.user.id
             )
         }
@@ -33,6 +34,7 @@ class MissionMapper(
                 title = it.title,
                 content = it.content,
                 timeLimit = it.timeLimit,
+                missionStatus = it.missionStatus,
                 user = user
             )
         }

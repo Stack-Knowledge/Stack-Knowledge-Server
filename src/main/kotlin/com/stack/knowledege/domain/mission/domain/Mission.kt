@@ -1,5 +1,6 @@
 package com.stack.knowledege.domain.mission.domain
 
+import com.stack.knowledege.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledege.global.annotation.Aggregate
 import java.util.UUID
 
@@ -9,5 +10,6 @@ data class Mission(
     val title: String,
     val content: String,
     val timeLimit: Int,
+    val missionStatus: MissionStatus,
     val userId: UUID
 )
