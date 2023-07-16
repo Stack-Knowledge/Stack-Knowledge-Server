@@ -7,7 +7,9 @@ import com.stack.knowledege.domain.mission.presentation.data.request.CreateMissi
 import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.domain.user.application.validator.UserValidator
 import com.stack.knowledege.global.annotation.usecase.UseCase
-import java.util.UUID
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.util.*
 
 @UseCase
 class CreateMissionUseCase(
@@ -25,10 +27,19 @@ class CreateMissionUseCase(
             title = createMissionRequest.title,
             content = createMissionRequest.content,
             timeLimit = createMissionRequest.timeLimit,
-            missionStatus = MissionStatus.OPENED, // 회의로 결정
+            missionStatus = calculateMissionStatus(),
             userId = user.id
         )
 
         commandMissionPort.save(mission)
+    }
+
+    private fun calculateMissionStatus(): MissionStatus {
+        val time = LocalTime.now()
+        return if (time in LocalTime.of(12, 30)..LocalTime.of(19, 30)) {
+            MissionStatus.OPENED
+        } else {
+            MissionStatus.CLOSED
+        }
     }
 }
