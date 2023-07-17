@@ -28,7 +28,6 @@ class UserPersistenceAdapter(
         val user = userRepository.findByEmail(email) ?: return when (role) {
             "ROLE_STUDENT" -> UserRole.ROLE_STUDENT
             "ROLE_TEACHER" -> UserRole.ROLE_TEACHER
-            "ROLE_ADMIN" -> UserRole.ROLE_ADMIN
             else -> { throw InvalidRoleException() }
         }
         return user.roles.firstOrNull() ?: throw UserNotFoundException()
