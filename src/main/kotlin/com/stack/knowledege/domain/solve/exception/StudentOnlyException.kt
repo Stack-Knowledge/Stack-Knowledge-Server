@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.solve.exception
 
 import com.stack.knowledege.global.error.ErrorCode
-import com.stack.knowledege.global.error.exception.BasicException
+import com.stack.knowledege.global.error.exception.StackKnowledgeException
 
-class StudentOnlyException : BasicException(ErrorCode.ONLY_STUDENT)
+class StudentOnlyException : StackKnowledgeException(ErrorCode.ONLY_STUDENT)

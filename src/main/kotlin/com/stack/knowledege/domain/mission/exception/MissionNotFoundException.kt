@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.mission.exception
 
 import com.stack.knowledege.global.error.ErrorCode
-import com.stack.knowledege.global.error.exception.BasicException
+import com.stack.knowledege.global.error.exception.StackKnowledgeException
 
-class MissionNotFoundException : BasicException(ErrorCode.MISSION_NOT_FOUND)
+class MissionNotFoundException : StackKnowledgeException(ErrorCode.MISSION_NOT_FOUND)

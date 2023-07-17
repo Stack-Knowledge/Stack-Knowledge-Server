@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.solve.exception
 
 import com.stack.knowledege.global.error.ErrorCode
-import com.stack.knowledege.global.error.exception.BasicException
+import com.stack.knowledege.global.error.exception.StackKnowledgeException
 
-class AlreadyScoredException : BasicException(ErrorCode.ALREADY_SCORED)
+class AlreadyScoredException : StackKnowledgeException(ErrorCode.ALREADY_SCORED)
