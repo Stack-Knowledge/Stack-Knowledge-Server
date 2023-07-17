@@ -26,14 +26,14 @@ class CreateMissionUseCase(
             title = createMissionRequest.title,
             content = createMissionRequest.content,
             timeLimit = createMissionRequest.timeLimit,
-            missionStatus = calculateMissionStatus(),
+            missionStatus = queryMissionStatusBasedOnTime(),
             userId = user.id
         )
 
         commandMissionPort.save(mission)
     }
 
-    private fun calculateMissionStatus(): MissionStatus {
+    private fun queryMissionStatusBasedOnTime(): MissionStatus {
         val time = LocalTime.now()
         return if (time in LocalTime.of(12, 30)..LocalTime.of(19, 30)) {
             MissionStatus.OPENED
