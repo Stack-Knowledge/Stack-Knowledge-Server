@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 @RestControllerAdvice
 class GlobalExceptionHandler {
     @ExceptionHandler(StackKnowledgeException::class)
-    fun BasicExceptionHandler(e: StackKnowledgeException): ResponseEntity<ErrorResponse> {
+    fun StackKnowledgeExceptionHandler(e: StackKnowledgeException): ResponseEntity<ErrorResponse> {
         val errorCode = e.errorCode
         return ResponseEntity(
             ErrorResponse(message = errorCode.message, status = errorCode.status),
