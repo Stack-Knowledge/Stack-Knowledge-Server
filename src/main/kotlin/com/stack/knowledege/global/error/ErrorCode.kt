@@ -19,6 +19,7 @@ enum class ErrorCode(
     MISSION_NOT_FOUND("존재하지 않는 미션입니다.", 404),
     FORBIDDEN_MISSION_COMMAND("미션을 제어할 권한이 없습니다.", 403),
     ALREADY_SOLVED_MISSION("이미 푼 미션입니다.", 403),
+    MISSION_NOT_OPENED("미션은 12시 30분 ~ 7시 30분 사이에만 풀 수 있습니다.", 403),
 
     // image
     MISMATCH_IMAGE_EXTENSION("이미지 파일이 아닙니다.", 400),
