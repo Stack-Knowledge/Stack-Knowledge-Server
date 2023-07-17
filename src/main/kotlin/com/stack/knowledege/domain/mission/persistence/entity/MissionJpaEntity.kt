@@ -24,6 +24,9 @@ class MissionJpaEntity(
     val timeLimit: Int,
 
     @Column(nullable = false)
+    val point: Int,
+
+    @Column(nullable = false)
     val missionStatus: MissionStatus,
 
     @ManyToOne

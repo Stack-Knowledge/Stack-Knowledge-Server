@@ -6,5 +6,6 @@ import java.util.*
 data class MissionResponse(
     val id: UUID,
     val title: String,
+    val point: Int,
     val user: UserResponse
 )

@@ -10,6 +10,7 @@ data class Mission(
     val title: String,
     val content: String,
     val timeLimit: Int,
+    val point: Int,
     val missionStatus: MissionStatus,
     val userId: UUID
 )
