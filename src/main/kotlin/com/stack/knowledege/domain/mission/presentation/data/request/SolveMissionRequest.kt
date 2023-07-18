@@ -1,8 +1,8 @@
 package com.stack.knowledege.domain.mission.presentation.data.request
 
-import java.util.UUID
+import javax.validation.constraints.NotBlank
 
 data class SolveMissionRequest(
-    val solvation: String,
-    val userId: UUID
+    @field:NotBlank
+    val solvation: String
 )
