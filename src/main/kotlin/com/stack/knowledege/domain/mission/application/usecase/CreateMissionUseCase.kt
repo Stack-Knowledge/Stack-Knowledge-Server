@@ -39,7 +39,7 @@ class CreateMissionUseCase(
         return if (time in LocalTime.of(12, 30)..LocalTime.of(19, 30)) {
             MissionStatus.OPENED
         } else {
-            MissionStatus.CLOSED
+            MissionStatus.AVAILABLE_OPEN
         }
     }
 }

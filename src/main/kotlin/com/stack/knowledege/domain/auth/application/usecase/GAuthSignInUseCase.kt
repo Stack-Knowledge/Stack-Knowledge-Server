@@ -36,9 +36,8 @@ class GAuthSignInUseCase(
             )
         )
 
-        if (!queryStudentPort.existStudentByUser(user)) {
+        if (!queryStudentPort.existStudentByUser(user))
             createStudentUseCase.execute(user)
-        }
 
         return jwtGeneratorPort.receiveToken(user.email)
     }

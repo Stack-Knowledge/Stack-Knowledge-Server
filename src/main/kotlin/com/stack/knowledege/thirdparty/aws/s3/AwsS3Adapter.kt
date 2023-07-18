@@ -20,7 +20,7 @@ class AwsS3Adapter(
 
     override fun upload(multipartFile: MultipartFile, fileName: String): String =
         inputS3(multipartFile, fileName)
-            .run { getImageUrl(fileName = fileName) }
+            .run { queryImageUrl(fileName = fileName) }
 
     private fun inputS3(multipartFile: MultipartFile, fileName: String) {
         val objectMetadata = ObjectMetadata()
@@ -38,7 +38,7 @@ class AwsS3Adapter(
         }
     }
 
-    override fun getImageUrl(fileName: String): String =
+    override fun queryImageUrl(fileName: String): String =
         amazonS3.getUrl(awsS3Properties.bucket, fileName).toString()
 
     override fun deleteImageUrl(fileName: String) {

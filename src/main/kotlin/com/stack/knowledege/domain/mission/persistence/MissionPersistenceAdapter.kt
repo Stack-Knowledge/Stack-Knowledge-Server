@@ -2,6 +2,7 @@ package com.stack.knowledege.domain.mission.persistence
 
 import com.stack.knowledege.domain.mission.application.spi.MissionPort
 import com.stack.knowledege.domain.mission.domain.Mission
+import com.stack.knowledege.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledege.domain.mission.persistence.mapper.MissionMapper
 import com.stack.knowledege.domain.mission.persistence.repository.MissionRepository
 import com.stack.knowledege.domain.user.domain.User
@@ -24,6 +25,9 @@ class MissionPersistenceAdapter(
 
     override fun queryMissionByUser(user: User): Mission? =
         missionMapper.toDomain(missionRepository.findByUser(userMapper.toEntity(user)))
+
+    override fun queryMissionByMissionStatus(missionStatus: MissionStatus): List<Mission> =
+        missionRepository.findByMissionStatus(missionStatus).map { missionMapper.toDomain(it)!! }
 
     override fun save(mission: Mission) {
         missionMapper.toDomain(missionRepository.save(missionMapper.toEntity(mission)))
