@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.solve.presentation
 
-import com.stack.knowledege.domain.mission.presentation.data.request.SolveMissionRequest
+import com.stack.knowledege.domain.solve.presentation.data.request.SolveMissionRequest
 import com.stack.knowledege.domain.solve.application.usecase.SolveMissionUseCase
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

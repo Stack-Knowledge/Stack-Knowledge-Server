@@ -1,4 +1,4 @@
-package com.stack.knowledege.domain.mission.presentation.data.request
+package com.stack.knowledege.domain.solve.presentation.data.request
 
 import javax.validation.constraints.NotBlank
 

@@ -4,7 +4,7 @@ import com.stack.knowledege.domain.mission.application.spi.MissionPort
 import com.stack.knowledege.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledege.domain.mission.exception.MissionNotFoundException
 import com.stack.knowledege.domain.mission.exception.MissionNotOpenedException
-import com.stack.knowledege.domain.mission.presentation.data.request.SolveMissionRequest
+import com.stack.knowledege.domain.solve.presentation.data.request.SolveMissionRequest
 import com.stack.knowledege.domain.solve.application.spi.SolvePort
 import com.stack.knowledege.domain.solve.domain.Solve
 import com.stack.knowledege.domain.solve.domain.constant.SolveStatus
