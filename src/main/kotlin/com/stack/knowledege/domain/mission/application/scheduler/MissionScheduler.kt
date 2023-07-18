@@ -12,22 +12,22 @@ class MissionScheduler(
     @Scheduled(cron = "30 12 * * *", zone = "Asia/Seoul")
     fun openAllMission() = checkAndChangeMissionStatusOpened()
 
-    @Scheduled(cron = "30 7 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "30 19 * * *", zone = "Asia/Seoul")
     fun closeAllMission() = checkAndChangeMissionStatusClosed()
 
     private fun checkAndChangeMissionStatusOpened() {
-        val missions = missionPort.queryAllMission()
+        val missions = missionPort.queryMissionByMissionStatus(MissionStatus.AVAILABLE_OPEN)
 
         missions.map {
-            it.copy(missionStatus = MissionStatus.CLOSED)
+            it.copy(missionStatus = MissionStatus.OPENED)
         }
     }
 
     private fun checkAndChangeMissionStatusClosed() {
-        val missions = missionPort.queryAllMission()
+        val missions = missionPort.queryMissionByMissionStatus(MissionStatus.OPENED)
 
         missions.map {
-            it.copy(missionStatus = MissionStatus.OPENED)
+            it.copy(missionStatus = MissionStatus.CLOSED)
         }
     }
 }
