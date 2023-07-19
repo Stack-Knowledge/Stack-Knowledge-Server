@@ -1,5 +1,6 @@
 package com.stack.knowledege.domain.mission.persistence.entity
 
+import com.stack.knowledege.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledege.domain.user.persistence.entity.UserJpaEntity
 import com.stack.knowledege.global.entity.BaseIdEntity
 import java.util.*
@@ -21,6 +22,12 @@ class MissionJpaEntity(
 
     @Column(nullable = false)
     val timeLimit: Int,
+
+    @Column(nullable = false)
+    val point: Int,
+
+    @Column(nullable = false)
+    val missionStatus: MissionStatus,
 
     @ManyToOne
     @JoinColumn(name = "user_Id")

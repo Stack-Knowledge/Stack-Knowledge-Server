@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.user.exception
 
 import com.stack.knowledege.global.error.ErrorCode
-import com.stack.knowledege.global.error.exception.BasicException
+import com.stack.knowledege.global.error.exception.StackKnowledgeException
 
-class UserNotFoundException : BasicException(ErrorCode.USER_NOT_FOUND)
+class UserNotFoundException : StackKnowledgeException(ErrorCode.USER_NOT_FOUND)
