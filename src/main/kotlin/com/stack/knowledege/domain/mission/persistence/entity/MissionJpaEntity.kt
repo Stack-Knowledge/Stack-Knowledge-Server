@@ -14,7 +14,7 @@ class MissionJpaEntity(
 
     override val id: UUID,
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 20)
     val title: String,
 
     @Column(nullable = false)
