@@ -4,10 +4,7 @@ import com.stack.knowledege.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledege.domain.user.persistence.entity.UserJpaEntity
 import com.stack.knowledege.global.entity.BaseIdEntity
 import java.util.*
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
+import javax.persistence.*
 
 @Entity
 class MissionJpaEntity(
@@ -26,6 +23,7 @@ class MissionJpaEntity(
     @Column(nullable = false)
     val point: Int,
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     val missionStatus: MissionStatus,
 

@@ -17,6 +17,7 @@ class OrderJpaEntity(
     @Column(nullable = false)
     val price: Int,
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     val orderStatus: OrderStatus,
 
