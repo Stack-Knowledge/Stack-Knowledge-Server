@@ -1,0 +1,7 @@
+package com.stack.knowledege.domain.order.persistence.repository
+
+import com.stack.knowledege.domain.order.persistence.entity.OrderJpaEntity
+import org.springframework.data.repository.CrudRepository
+import java.util.UUID
+
+interface OrderRepository : CrudRepository<OrderJpaEntity, UUID>
