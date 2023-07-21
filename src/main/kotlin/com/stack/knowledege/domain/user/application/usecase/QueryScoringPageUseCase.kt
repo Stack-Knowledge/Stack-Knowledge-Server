@@ -9,7 +9,7 @@ class QueryScoringPageUseCase(
     private val querySolvePort: QuerySolvePort
 ) {
     fun execute(): List<AllScoringResponse> {
-        val solves = querySolvePort.queryAllSolvation()
+        val solves = querySolvePort.queryAllSolve()
 
         return solves.map {
             AllScoringResponse(
