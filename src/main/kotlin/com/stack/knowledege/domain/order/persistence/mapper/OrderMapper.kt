@@ -8,7 +8,9 @@ import com.stack.knowledege.domain.student.exception.StudentNotFoundException
 import com.stack.knowledege.domain.student.persistence.repository.StudentJpaRepository
 import com.stack.knowledege.global.mapper.GenericMapper
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.stereotype.Component
 
+@Component
 class OrderMapper(
     private val itemRepository: ItemRepository,
     private val studentJpaRepository: StudentJpaRepository
