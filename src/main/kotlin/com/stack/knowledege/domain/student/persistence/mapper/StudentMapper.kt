@@ -25,12 +25,10 @@ class StudentMapper(
 
     override fun toEntity(domain: Student): StudentJpaEntity {
         val user = userMapper.toEntity(queryUserPort.queryUserById(domain.user!!) ?: throw UserNotFoundException() )
-        return domain.let {
-            StudentJpaEntity(
-                id = it.id,
-                user = user,
-                point = it.point
-            )
-        }
+        return StudentJpaEntity(
+            id = domain.id,
+            point = domain.point,
+            user = user
+        )
     }
 }

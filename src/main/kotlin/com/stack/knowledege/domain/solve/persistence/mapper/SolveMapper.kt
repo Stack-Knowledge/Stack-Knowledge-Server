@@ -30,11 +30,10 @@ class SolveMapper(
     override fun toEntity(domain: Solve): SolveJpaEntity {
         val mission = missionRepository.findByIdOrNull(domain.mission) ?: throw MissionNotFoundException()
         val student = studentJpaRepository.findByIdOrNull(domain.student) ?: throw UserNotFoundException()
-        return domain.let {
-            SolveJpaEntity(
-                id = it.id,
-                solvation = it.solvation,
-                solveStatus = it.solveStatus,
+        return SolveJpaEntity(
+                id = domain.id,
+                solvation = domain.solvation,
+                solveStatus = domain.solveStatus,
                 student = student,
                 mission = mission
             )

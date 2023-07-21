@@ -29,14 +29,13 @@ class MissionMapper(
     override fun toEntity(domain: Mission): MissionJpaEntity {
         val user = userRepository.findByIdOrNull(domain.userId) ?: throw UserNotFoundException()
 
-        return domain.let {
-            MissionJpaEntity(
-                id = it.id,
-                title = it.title,
-                content = it.content,
-                timeLimit = it.timeLimit,
-                point = it.point,
-                missionStatus = it.missionStatus,
+        return MissionJpaEntity(
+                id = domain.id,
+                title = domain.title,
+                content = domain.content,
+                timeLimit = domain.timeLimit,
+                point = domain.point,
+                missionStatus = domain.missionStatus,
                 user = user
             )
         }
