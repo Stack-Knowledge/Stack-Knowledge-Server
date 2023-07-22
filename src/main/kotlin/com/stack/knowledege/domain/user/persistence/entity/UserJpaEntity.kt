@@ -21,7 +21,7 @@ class UserJpaEntity(
 
     @Enumerated(EnumType.STRING)
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "UerRole", joinColumns = [JoinColumn(name = "user_id")])
+    @CollectionTable(name = "roles", joinColumns = [JoinColumn(name = "user_id")])
     val roles: MutableList<UserRole> = mutableListOf()
 
 ) : BaseIdEntity(id)
