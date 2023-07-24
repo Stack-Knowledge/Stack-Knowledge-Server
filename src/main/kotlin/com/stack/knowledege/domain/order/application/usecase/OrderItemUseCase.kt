@@ -20,6 +20,6 @@ class OrderItemUseCase(
 
         val price = orderItemRequest.count * item.price
 
-        student.copy(point = student.point - price)
+        student.copy(currentPoint = student.currentPoint - price)
     }
 }

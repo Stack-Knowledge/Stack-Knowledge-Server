@@ -6,6 +6,7 @@ import java.util.*
 @Aggregate
 data class Student(
     val id: UUID,
-    val point: Int,
+    val currentPoint: Int,
+    val cumulatePoint: Int,
     val user: UUID?
 )
