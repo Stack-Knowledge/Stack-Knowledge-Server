@@ -4,8 +4,10 @@ import com.stack.knowledege.global.entity.BaseIdEntity
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.Table
 
 @Entity
+@Table(name = "item")
 class ItemJpaEntity(
 
     override val id: UUID,

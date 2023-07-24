@@ -8,6 +8,7 @@ import java.util.UUID
 import javax.persistence.*
 
 @Entity
+@Table(name = "order")
 class OrderJpaEntity(
 
     override val id: UUID,

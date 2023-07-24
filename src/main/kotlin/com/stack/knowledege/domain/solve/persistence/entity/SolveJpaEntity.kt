@@ -8,6 +8,7 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
+@Table(name = "solve")
 class SolveJpaEntity(
 
     override val id: UUID,

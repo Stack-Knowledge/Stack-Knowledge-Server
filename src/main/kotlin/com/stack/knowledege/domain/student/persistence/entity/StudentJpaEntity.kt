@@ -8,8 +8,10 @@ import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
+import javax.persistence.Table
 
 @Entity
+@Table(name = "student")
 class StudentJpaEntity(
 
     override val id: UUID,

@@ -6,6 +6,7 @@ import java.util.*
 import javax.persistence.*
 
 @Entity
+@Table(name = "user")
 class UserJpaEntity(
 
     override val id: UUID,
