@@ -25,7 +25,6 @@ class SolveMissionUseCase(
     fun execute(id: UUID, solveMissionRequest: SolveMissionRequest) {
         val mission = missionPort.queryMissionById(id)
             ?: throw MissionNotFoundException()
-
         val user = queryUserPort.queryCurrentUser()
 
         if (mission.missionStatus == MissionStatus.CLOSED)

@@ -29,6 +29,8 @@ enum class ErrorCode(
     SOLVE_NOT_FOUND("존재하지 않는 풀이입니다.", 404),
     ONLY_STUDENT("문제는 학생만이 풀 수 있습니다.", 403),
     ALREADY_SCORED("이미 채점을 맨 문제입니다.", 403),
+    FORBIDDEN_SOLVE_COMMAND("미션 풀이를 제어할 권한이 없습니다.", 403),
+    UNSUPPORTED_SOLVE_STATUS("지원하지 않는 문제 채점 방식입니다.", 400),
 
     // student
     STUDENT_NOT_FOUND("존재하지 않는 학생입니다.", 404)

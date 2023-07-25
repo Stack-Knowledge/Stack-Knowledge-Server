@@ -8,7 +8,5 @@ data class CreateMissionRequest(
     @field:NotBlank
     val content: String,
     @field:NotBlank
-    val timeLimit: Int,
-    @field:NotBlank
-    val point: Int
+    val timeLimit: Int
 )
