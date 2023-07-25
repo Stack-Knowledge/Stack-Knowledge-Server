@@ -15,6 +15,9 @@ enum class ErrorCode(
     // item
     ITEM_NOT_FOUND("존재하지 않는 상품입니다.", 404),
 
+    // order
+    LACK_POINT("포인트가 부족합니다.", 400),
+
     // mission
     MISSION_NOT_FOUND("존재하지 않는 미션입니다.", 404),
     FORBIDDEN_MISSION_COMMAND("미션을 제어할 권한이 없습니다.", 403),
