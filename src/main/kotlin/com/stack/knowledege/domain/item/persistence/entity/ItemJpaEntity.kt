@@ -16,9 +16,6 @@ class ItemJpaEntity(
     val name: String,
 
     @Column(nullable = false)
-    val text: String,
-
-    @Column(nullable = false)
     val price: Int
 
 ) : BaseIdEntity(id)

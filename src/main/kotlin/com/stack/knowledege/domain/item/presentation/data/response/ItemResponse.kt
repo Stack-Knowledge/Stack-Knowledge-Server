@@ -5,6 +5,5 @@ import java.util.*
 data class ItemResponse(
     val itemId: UUID,
     val name: String,
-    val text: String,
     val price: Int
 )
