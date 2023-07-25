@@ -23,15 +23,14 @@ class SolveMissionUseCase(
     private val commandSolvePort: CommandSolvePort
 ) {
     fun execute(id: UUID, solveMissionRequest: SolveMissionRequest) {
-        val mission = missionPort.queryMissionById(id)
-            ?: throw MissionNotFoundException()
+        val mission = missionPort.queryMissionById(id) ?: throw MissionNotFoundException()
         val user = queryUserPort.queryCurrentUser()
 
         if (mission.missionStatus == MissionStatus.CLOSED)
-            MissionNotOpenedException()
+            throw MissionNotOpenedException()
 
         if (user.roles.firstOrNull() != UserRole.ROLE_STUDENT)
-            StudentOnlyException()
+            throw StudentOnlyException()
 
         val student = queryStudentPort.queryStudentByUser(user)
 

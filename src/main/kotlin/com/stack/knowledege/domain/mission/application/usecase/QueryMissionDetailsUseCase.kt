@@ -15,10 +15,8 @@ class QueryMissionDetailsUseCase(
     private val queryUserPort: QueryUserPort
 ) {
     fun execute(id: UUID): MissionDetailsResponse {
-        val mission = missionPort.queryMissionById(id)
-            ?: throw MissionNotFoundException()
-        val user = queryUserPort.queryUserById(mission.userId)
-            ?: throw UserNotFoundException()
+        val mission = missionPort.queryMissionById(id) ?: throw MissionNotFoundException()
+        val user = queryUserPort.queryUserById(mission.userId) ?: throw UserNotFoundException()
 
         return MissionDetailsResponse(
             title = mission.title,
