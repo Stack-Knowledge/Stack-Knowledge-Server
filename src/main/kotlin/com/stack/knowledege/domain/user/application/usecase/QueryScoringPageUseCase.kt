@@ -13,6 +13,7 @@ class QueryScoringPageUseCase(
 
         return solves.map {
             AllScoringResponse(
+                solveId = it.id,
                 solveStatus = it.solveStatus,
                 student = it.student
             )

@@ -2,7 +2,6 @@ package com.stack.knowledege.domain.user.application.usecase
 
 import com.stack.knowledege.domain.mission.application.spi.QueryMissionPort
 import com.stack.knowledege.domain.mission.exception.MissionNotFoundException
-import com.stack.knowledege.domain.solve.application.spi.QuerySolvePort
 import com.stack.knowledege.domain.solve.application.spi.SolvePort
 import com.stack.knowledege.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledege.domain.solve.exception.AlreadyScoredException
@@ -20,7 +19,6 @@ import java.util.UUID
 
 @UseCase
 class ScoreSolveUseCase(
-    private val querySolvePort: QuerySolvePort,
     private val solvePort: SolvePort,
     private val queryUserPort: QueryUserPort,
     private val queryStudentPort: QueryStudentPort,
@@ -28,7 +26,7 @@ class ScoreSolveUseCase(
     private val queryMissionPort: QueryMissionPort
 ) {
     fun execute(solveId: UUID, scoreSolveRequest: ScoreSolveRequest) {
-        val solve = querySolvePort.querySolveById(solveId) ?: throw SolveNotFoundException()
+        val solve = solvePort.querySolveById(solveId) ?: throw SolveNotFoundException()
         val user = queryUserPort.queryCurrentUser()
         val student = queryStudentPort.queryStudentById(solve.student) ?: throw StudentNotFoundException()
         val mission = queryMissionPort.queryMissionById(solve.mission) ?: throw MissionNotFoundException()
