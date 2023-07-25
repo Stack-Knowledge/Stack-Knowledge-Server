@@ -19,7 +19,7 @@ class MissionScheduler(
         val missions = missionPort.queryMissionByMissionStatus(MissionStatus.AVAILABLE_OPEN)
 
         missions.map {
-            it.copy(missionStatus = MissionStatus.OPENED)
+            missionPort.save(it.copy(missionStatus = MissionStatus.OPENED))
         }
     }
 
@@ -27,7 +27,7 @@ class MissionScheduler(
         val missions = missionPort.queryMissionByMissionStatus(MissionStatus.OPENED)
 
         missions.map {
-            it.copy(missionStatus = MissionStatus.CLOSED)
+            missionPort.save(it.copy(missionStatus = MissionStatus.CLOSED))
         }
     }
 }
