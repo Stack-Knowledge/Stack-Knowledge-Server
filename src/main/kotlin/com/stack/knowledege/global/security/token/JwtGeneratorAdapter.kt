@@ -1,5 +1,7 @@
 package com.stack.knowledege.global.security.token
 
+import com.stack.knowledege.domain.auth.application.spi.CommandRefreshTokenPort
+import com.stack.knowledege.domain.auth.domain.RefreshToken
 import com.stack.knowledege.domain.auth.presentation.data.response.TokenResponse
 import com.stack.knowledege.global.security.spi.JwtGeneratorPort
 import com.stack.knowledege.global.security.token.properties.JwtProperties
@@ -13,6 +15,7 @@ import java.util.*
 @Component
 class JwtGeneratorAdapter(
     private val jwtProperties: JwtProperties,
+    private val commandRefreshTokenPort: CommandRefreshTokenPort
 ) : JwtGeneratorPort {
 
     companion object {
@@ -22,12 +25,15 @@ class JwtGeneratorAdapter(
         const val REFRESH_EXP = 60L * 60 * 24 * 7
     }
 
-    override fun receiveToken(email: String): TokenResponse =
-        TokenResponse(
+    override fun receiveToken(email: String): TokenResponse {
+        val refreshToken = generateRefreshToken(email)
+        commandRefreshTokenPort.saveRefreshToken(RefreshToken(email, refreshToken, jwtProperties.refreshExp))
+        return TokenResponse(
             accessToken = generateAccessToken(email),
-            refreshToken = generateRefreshToken(email),
+            refreshToken = refreshToken,
             expiredAt = getExpiredAtToken
         )
+    }
 
     private fun generateAccessToken(email: String): String =
         generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, ACCESS_EXP)
