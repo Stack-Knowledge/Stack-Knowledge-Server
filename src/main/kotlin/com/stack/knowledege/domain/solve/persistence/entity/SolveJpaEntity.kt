@@ -5,12 +5,10 @@ import com.stack.knowledege.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledege.domain.student.persistence.entity.StudentJpaEntity
 import com.stack.knowledege.global.entity.BaseIdEntity
 import java.util.*
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
+import javax.persistence.*
 
 @Entity
+@Table(name = "solve")
 class SolveJpaEntity(
 
     override val id: UUID,
@@ -18,6 +16,7 @@ class SolveJpaEntity(
     @Column(nullable = false)
     val solvation: String,
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     val solveStatus: SolveStatus,
 

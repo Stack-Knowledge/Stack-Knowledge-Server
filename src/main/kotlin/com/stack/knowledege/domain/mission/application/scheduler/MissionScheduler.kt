@@ -9,17 +9,17 @@ import org.springframework.stereotype.Component
 class MissionScheduler(
     private val missionPort: MissionPort
 ) {
-    @Scheduled(cron = "30 12 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 30 12 ? * 1-5", zone = "Asia/Seoul")
     fun openAllMission() = checkAndChangeMissionStatusOpened()
 
-    @Scheduled(cron = "30 19 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 30 19 ? * 1-5", zone = "Asia/Seoul")
     fun closeAllMission() = checkAndChangeMissionStatusClosed()
 
     private fun checkAndChangeMissionStatusOpened() {
         val missions = missionPort.queryMissionByMissionStatus(MissionStatus.AVAILABLE_OPEN)
 
         missions.map {
-            it.copy(missionStatus = MissionStatus.OPENED)
+            missionPort.save(it.copy(missionStatus = MissionStatus.OPENED))
         }
     }
 
@@ -27,7 +27,7 @@ class MissionScheduler(
         val missions = missionPort.queryMissionByMissionStatus(MissionStatus.OPENED)
 
         missions.map {
-            it.copy(missionStatus = MissionStatus.CLOSED)
+            missionPort.save(it.copy(missionStatus = MissionStatus.CLOSED))
         }
     }
 }

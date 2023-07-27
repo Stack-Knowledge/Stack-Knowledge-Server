@@ -16,7 +16,7 @@ class QueryAllStudentsRankingUseCase(
             return queryStudentPort.queryStudentsPointDesc().map {
                 AllStudentsRankingResponse(
                     id = it.id,
-                    point = it.point,
+                    cumulatePoint = it.cumulatePoint,
                     user = UserResponse(
                         id = it.user!!,
                         email = user.email,

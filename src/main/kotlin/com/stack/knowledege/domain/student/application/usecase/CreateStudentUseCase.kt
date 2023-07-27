@@ -13,7 +13,8 @@ class CreateStudentUseCase(
     fun execute(user: User) {
         val student = Student(
             id = UUID.randomUUID(),
-            point = 0,
+            currentPoint = 0,
+            cumulatePoint = 0,
             user = user.id
         )
         commandStudentPort.save(student)

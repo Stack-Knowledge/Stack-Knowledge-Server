@@ -5,6 +5,6 @@ import java.util.UUID
 
 data class AllStudentsRankingResponse(
     val id: UUID,
-    val point: Int,
+    val cumulatePoint: Int,
     val user: UserResponse
 )

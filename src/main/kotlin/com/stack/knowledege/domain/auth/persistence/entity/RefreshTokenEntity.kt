@@ -1,17 +1,17 @@
 package com.stack.knowledege.domain.auth.persistence.entity
 
-import com.stack.knowledege.global.security.token.JwtGeneratorAdapter
 import org.springframework.data.annotation.Id
 import org.springframework.data.redis.core.RedisHash
 import org.springframework.data.redis.core.TimeToLive
 import org.springframework.data.redis.core.index.Indexed
+import java.util.concurrent.TimeUnit
 
-@RedisHash(value = "refreshToken", timeToLive = JwtGeneratorAdapter.REFRESH_EXP)
-class RefreshTokenEntity(
+@RedisHash(value = "refreshToken")
+data class RefreshTokenEntity(
     @Id
-    val email: String,
-    @Indexed
     val refreshToken: String,
-    @TimeToLive
+    @Indexed
+    val email: String,
+    @TimeToLive(unit = TimeUnit.SECONDS)
     val expiredAt: Int
 )

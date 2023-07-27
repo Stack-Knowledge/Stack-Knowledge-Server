@@ -17,7 +17,8 @@ class StudentMapper(
         entity?.let {
             Student(
                 id = it.id,
-                point = it.point,
+                currentPoint = it.currentPoint,
+                cumulatePoint = it.cumulatePoint,
                 user = it.user.id
             )
         }
@@ -25,12 +26,11 @@ class StudentMapper(
 
     override fun toEntity(domain: Student): StudentJpaEntity {
         val user = userMapper.toEntity(queryUserPort.queryUserById(domain.user!!) ?: throw UserNotFoundException() )
-        return domain.let {
-            StudentJpaEntity(
-                id = it.id,
-                user = user,
-                point = it.point
-            )
-        }
+        return StudentJpaEntity(
+            id = domain.id,
+            currentPoint = domain.currentPoint,
+            cumulatePoint = domain.cumulatePoint,
+            user = user
+        )
     }
 }

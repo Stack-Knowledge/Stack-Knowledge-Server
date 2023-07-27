@@ -8,14 +8,19 @@ import javax.persistence.Entity
 import javax.persistence.FetchType
 import javax.persistence.JoinColumn
 import javax.persistence.OneToOne
+import javax.persistence.Table
 
 @Entity
+@Table(name = "student")
 class StudentJpaEntity(
 
     override val id: UUID,
 
     @Column(nullable = false)
-    val point: Int,
+    val currentPoint: Int,
+
+    @Column(nullable = false)
+    val cumulatePoint: Int,
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

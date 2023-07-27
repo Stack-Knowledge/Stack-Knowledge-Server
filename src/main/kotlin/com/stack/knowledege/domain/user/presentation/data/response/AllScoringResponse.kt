@@ -4,6 +4,7 @@ import com.stack.knowledege.domain.solve.domain.constant.SolveStatus
 import java.util.UUID
 
 data class AllScoringResponse(
+    val solveId: UUID,
     val solveStatus: SolveStatus,
     val student: UUID
 )

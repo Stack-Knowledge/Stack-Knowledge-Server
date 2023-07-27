@@ -6,5 +6,4 @@ data class MissionDetailsResponse(
     val title: String,
     val content: String,
     val timeLimit: Int,
-    val user: UserResponse
 )
