@@ -11,5 +11,5 @@ class IsOrderedItemResponse(
     val price: Int,
     val orderStatus: OrderStatus,
     val item: ItemResponse,
-    val userResponse: UserResponse
+    val user: UserResponse
 )

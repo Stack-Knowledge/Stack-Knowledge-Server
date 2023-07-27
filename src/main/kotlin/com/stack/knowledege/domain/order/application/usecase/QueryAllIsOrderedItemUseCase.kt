@@ -32,11 +32,11 @@ class QueryAllIsOrderedItemUseCase(
                 price = it.price,
                 orderStatus = it.orderStatus,
                 item = ItemResponse(
-                    itemId = it.itemId,
+                    id = it.itemId,
                     name = item.name,
                     price = item.price
                 ),
-                userResponse = UserResponse(
+                user = UserResponse(
                     id = user.id,
                     email = user.email,
                     name = user.name,

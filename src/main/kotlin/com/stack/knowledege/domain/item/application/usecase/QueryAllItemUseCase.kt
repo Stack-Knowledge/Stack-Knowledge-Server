@@ -12,7 +12,7 @@ class QueryAllItemUseCase(
         queryItemPort.queryAllItem()
             .map {
                 ItemResponse(
-                    itemId = it.id,
+                    id = it.id,
                     name = it.name,
                     price = it.price
                 )
