@@ -25,7 +25,7 @@ class UserWebAdapter(
         queryScoringPageUseCase.execute()
             .let { ResponseEntity.ok(it) }
 
-    @PostMapping("/{solve_id}")
+    @PostMapping("/scoring/{solve_id}")
     fun scoreSolve(@PathVariable("solve_id") solveId: UUID, @RequestBody scoreSolveRequest: ScoreSolveRequest): ResponseEntity<Void> =
         scoreSolveUseCase.execute(solveId, scoreSolveRequest)
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
