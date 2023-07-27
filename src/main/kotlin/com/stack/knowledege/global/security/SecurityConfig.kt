@@ -1,5 +1,6 @@
 package com.stack.knowledege.global.security
 
+import com.stack.knowledege.domain.user.domain.constant.UserRole
 import com.stack.knowledege.global.config.FilterConfig
 import com.stack.knowledege.global.security.handler.CustomAccessDeniedHandler
 import com.stack.knowledege.global.security.handler.CustomAuthenticationEntryPoint
@@ -50,7 +51,11 @@ class SecurityConfig(
             // user
             .antMatchers(HttpMethod.GET, "/user").authenticated()
 
-            .anyRequest().permitAll()
+            // order
+            .antMatchers(HttpMethod.POST, "/order/{item_id}").hasRole("TEACHER")
+            .antMatchers(HttpMethod.GET, "/order").hasRole("STUDENT")
+
+            .anyRequest().authenticated()
             .and()
 
             .exceptionHandling()
