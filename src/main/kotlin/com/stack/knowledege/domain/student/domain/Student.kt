@@ -8,5 +8,5 @@ data class Student(
     val id: UUID,
     val currentPoint: Int,
     val cumulatePoint: Int,
-    val user: UUID?
+    val user: UUID
 )
