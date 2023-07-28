@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/mission")
@@ -34,7 +35,7 @@ class MissionWebAdapter(
             .let { ResponseEntity.ok(it) }
 
     @PostMapping
-    fun createMission(@RequestBody createMissionRequest: CreateMissionRequest): ResponseEntity<Void> =
+    fun createMission(@RequestBody @Valid createMissionRequest: CreateMissionRequest): ResponseEntity<Void> =
         createMissionUseCase.execute(createMissionRequest)
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
 }

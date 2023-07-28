@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/user")
@@ -26,7 +27,7 @@ class UserWebAdapter(
             .let { ResponseEntity.ok(it) }
 
     @PostMapping("/scoring/{solve_id}")
-    fun scoreSolve(@PathVariable("solve_id") solveId: UUID, @RequestBody scoreSolveRequest: ScoreSolveRequest): ResponseEntity<Void> =
+    fun scoreSolve(@PathVariable("solve_id") solveId: UUID, @RequestBody @Valid scoreSolveRequest: ScoreSolveRequest): ResponseEntity<Void> =
         scoreSolveUseCase.execute(solveId, scoreSolveRequest)
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
 }

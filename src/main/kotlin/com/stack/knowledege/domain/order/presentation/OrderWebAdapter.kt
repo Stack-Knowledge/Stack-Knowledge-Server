@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import java.util.UUID
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/order")
@@ -21,7 +22,7 @@ class OrderWebAdapter(
     private val queryAllIsOrderedItemUseCase: QueryAllIsOrderedItemUseCase
 ) {
     @PostMapping("/{item_id}")
-    fun execute(@PathVariable("item_id") itemId: UUID, @RequestBody orderItemRequest: OrderItemRequest): ResponseEntity<Void> =
+    fun execute(@PathVariable("item_id") itemId: UUID, @RequestBody @Valid orderItemRequest: OrderItemRequest): ResponseEntity<Void> =
         orderItemUseCase.execute(itemId, orderItemRequest)
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
 
