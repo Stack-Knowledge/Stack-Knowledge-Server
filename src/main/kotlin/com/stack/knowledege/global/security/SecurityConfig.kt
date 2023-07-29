@@ -1,6 +1,5 @@
 package com.stack.knowledege.global.security
 
-import com.stack.knowledege.domain.user.domain.constant.UserRole
 import com.stack.knowledege.global.config.FilterConfig
 import com.stack.knowledege.global.security.handler.CustomAccessDeniedHandler
 import com.stack.knowledege.global.security.handler.CustomAuthenticationEntryPoint
@@ -21,6 +20,11 @@ import org.springframework.web.cors.CorsUtils
 class SecurityConfig(
     private val jwtParserPort: JwtParserPort
 ) {
+    companion object {
+        const val student = "STUDENT"
+        const val teacher = "TEACHER"
+    }
+
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
         http
@@ -39,21 +43,35 @@ class SecurityConfig(
 
             // auth
             .antMatchers(HttpMethod.POST, "/auth").permitAll()
+            .antMatchers(HttpMethod.PATCH, "/auth").authenticated()
 
             // item
-            .antMatchers(HttpMethod.GET , "/item").authenticated()
-            .antMatchers(HttpMethod.GET , "/item/{item_id}").authenticated()
+            .antMatchers(HttpMethod.GET , "/item").hasRole(student)
 
             // image
             .antMatchers(HttpMethod.POST, "/image").permitAll()
             .antMatchers(HttpMethod.PATCH, "/image").permitAll()
 
             // user
-            .antMatchers(HttpMethod.GET, "/user").authenticated()
+            .antMatchers(HttpMethod.GET, "/user/scoring").hasRole(student)
+            .antMatchers(HttpMethod.POST, "/user/scoring/{solve_id}").hasRole(student)
+
+            // student
+            .antMatchers(HttpMethod.GET, "/student/ranking").authenticated()
 
             // order
-            .antMatchers(HttpMethod.POST, "/order/{item_id}").hasRole("TEACHER")
-            .antMatchers(HttpMethod.GET, "/order").hasRole("STUDENT")
+            .antMatchers(HttpMethod.POST, "/order/{item_id}").hasRole(student)
+            .antMatchers(HttpMethod.GET, "/order").hasRole(teacher)
+
+            // mission
+
+            .antMatchers(HttpMethod.GET, "/mission").hasRole(student)
+            .antMatchers(HttpMethod.GET, "/mission/{mission_id}").hasRole(student)
+            .antMatchers(HttpMethod.POST, "/mission").hasRole(teacher)
+
+            // solve
+            .antMatchers(HttpMethod.POST, "/solve/{mission_id}").hasRole(student)
+
 
             .anyRequest().authenticated()
             .and()

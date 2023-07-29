@@ -8,6 +8,7 @@ import com.stack.knowledege.domain.order.domain.constant.OrderStatus
 import com.stack.knowledege.domain.order.exception.LackPointException
 import com.stack.knowledege.domain.order.presentation.data.request.OrderItemRequest
 import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
+import com.stack.knowledege.domain.student.exception.StudentNotFoundException
 import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.global.annotation.usecase.UseCase
 import java.util.UUID
@@ -20,7 +21,7 @@ class OrderItemUseCase(
     private val commandOrderPort: CommandOrderPort
 ) {
     fun execute(itemId: UUID, orderItemRequest: OrderItemRequest) {
-        val student = queryUserPort.queryCurrentUser().let { queryStudentPort.queryStudentByUser(it) }
+        val student = queryUserPort.queryCurrentUser().let { queryStudentPort.queryStudentByUser(it) ?: throw StudentNotFoundException() }
         val item = queryItemPort.queryItemById(itemId) ?: throw ItemNotFoundException()
 
         val price = orderItemRequest.count * item.price

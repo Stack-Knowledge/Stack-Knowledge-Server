@@ -26,7 +26,7 @@ class StudentPersistenceAdapter(
     override fun queryStudentsPointDesc(): List<Student> =
         studentJpaRepository.findAllByOrderByCumulatePointDesc().map { studentMapper.toDomain(it)!! }
 
-    override fun queryStudentByUser(user: User): Student =
+    override fun queryStudentByUser(user: User): Student? =
         studentMapper.toDomain(studentJpaRepository.findByUser(userMapper.toEntity(user)))!!
 
     override fun existStudentByUser(user: User): Boolean =

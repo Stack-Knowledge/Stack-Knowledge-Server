@@ -25,6 +25,8 @@ bin/
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+.run/KnowledgeApplication.run.xml
+application.yml
 
 ### NetBeans ###
 /nbproject/private/
