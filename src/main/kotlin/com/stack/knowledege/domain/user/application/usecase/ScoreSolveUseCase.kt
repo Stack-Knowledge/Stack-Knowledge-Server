@@ -12,7 +12,7 @@ import com.stack.knowledege.domain.student.application.spi.CommandStudentPort
 import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledege.domain.student.exception.StudentNotFoundException
 import com.stack.knowledege.domain.user.application.spi.QueryUserPort
-import com.stack.knowledege.domain.user.domain.constant.UserRole
+import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.domain.user.presentation.data.request.ScoreSolveRequest
 import com.stack.knowledege.global.annotation.usecase.UseCase
 import java.util.UUID
@@ -34,7 +34,7 @@ class ScoreSolveUseCase(
         if (solve.solveStatus != SolveStatus.SCORING)
             throw AlreadyScoredException()
 
-        if (user.roles.firstOrNull() != UserRole.ROLE_TEACHER)
+        if (user.authority != Authority.ROLE_TEACHER)
             throw ForBiddenCommandSolveException()
 
         val currentPoint = when (scoreSolveRequest.solveStatus) {

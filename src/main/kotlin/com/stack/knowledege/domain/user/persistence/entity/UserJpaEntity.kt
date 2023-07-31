@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.user.persistence.entity
 
-import com.stack.knowledege.domain.user.domain.constant.UserRole
+import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.global.entity.BaseIdEntity
 import java.util.*
 import javax.persistence.*
@@ -21,8 +21,7 @@ class UserJpaEntity(
     val profileImage: String? = "",
 
     @Enumerated(EnumType.STRING)
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "roles", joinColumns = [JoinColumn(name = "user_id")])
-    val roles: MutableList<UserRole> = mutableListOf()
+    @Column(nullable = false)
+    val authority: Authority
 
 ) : BaseIdEntity(id)

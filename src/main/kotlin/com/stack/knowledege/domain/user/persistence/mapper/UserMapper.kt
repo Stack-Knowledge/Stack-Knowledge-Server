@@ -14,7 +14,7 @@ class UserMapper : GenericMapper<User, UserJpaEntity> {
                 email = it.email,
                 name = it.name,
                 profileImage = it.profileImage!!,
-                roles = it.roles
+                authority = it.authority
             )
         }
 
@@ -25,7 +25,7 @@ class UserMapper : GenericMapper<User, UserJpaEntity> {
                 email = it.email,
                 name = it.name,
                 profileImage = it.profileImage,
-                roles = it.roles
+                authority = it.authority
             )
         }
 }

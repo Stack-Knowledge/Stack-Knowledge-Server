@@ -12,7 +12,7 @@ import com.stack.knowledege.domain.solve.exception.StudentOnlyException
 import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledege.domain.student.exception.StudentNotFoundException
 import com.stack.knowledege.domain.user.application.spi.QueryUserPort
-import com.stack.knowledege.domain.user.domain.constant.UserRole
+import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.global.annotation.usecase.UseCase
 import java.util.UUID
 
@@ -30,7 +30,7 @@ class SolveMissionUseCase(
         if (mission.missionStatus == MissionStatus.CLOSED)
             throw MissionNotOpenedException()
 
-        if (user.roles.firstOrNull() != UserRole.ROLE_STUDENT)
+        if (user.authority != Authority.ROLE_STUDENT)
             throw StudentOnlyException()
 
         val student = queryStudentPort.queryStudentByUser(user) ?: throw StudentNotFoundException()

@@ -24,7 +24,7 @@ class GAuthSignInUseCase(
 
         val gAuthToken = gAuthPort.queryGAuthToken(gAuthSignInRequest.code)
         val gAuthUserInfo = gAuthPort.queryUserInfo(gAuthToken.accessToken)
-        val role = userPort.queryUserRoleByEmail(gAuthUserInfo.email, gAuthUserInfo.role)
+        val authority = userPort.queryUserRoleByEmail(gAuthUserInfo.email, gAuthUserInfo.role)
 
         val user = createUser(
             User(
@@ -32,7 +32,7 @@ class GAuthSignInUseCase(
                 email = gAuthUserInfo.email,
                 name = gAuthUserInfo.name,
                 profileImage = "",
-                roles = mutableListOf(role)
+                authority = authority
             )
         )
 

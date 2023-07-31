@@ -3,7 +3,7 @@ package com.stack.knowledege.global.security.token
 import com.stack.knowledege.global.error.exception.InternalServerError
 import com.stack.knowledege.global.security.exception.ExpiredTokenException
 import com.stack.knowledege.global.security.exception.InvalidTokenException
-import com.stack.knowledege.global.security.principal.AuthDetailsService
+import com.stack.knowledege.global.security.principal.TeacherDetailsService
 import com.stack.knowledege.global.security.token.properties.JwtProperties
 import com.stack.knowledege.global.security.spi.JwtParserPort
 import io.jsonwebtoken.Claims
@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletRequest
 @Component
 class JwtParserAdapter(
     private val jwtProperties: JwtProperties,
-    private val authDetailsService: AuthDetailsService
+    private val teacherDetailsService: TeacherDetailsService
 ) : JwtParserPort {
     override fun parseAccessToken(request: HttpServletRequest): String? =
         request.getHeader(JwtProperties.tokenHeader)
@@ -31,7 +31,7 @@ class JwtParserAdapter(
         if (refreshToken.startsWith(JwtProperties.tokenPrefix)) refreshToken.replace(JwtProperties.tokenPrefix, "") else null
 
     override fun authentication(accessToken: String): Authentication =
-        authDetailsService.loadUserByUsername(getTokenBody(accessToken, jwtProperties.accessSecret).subject)
+        teacherDetailsService.loadUserByUsername(getTokenBody(accessToken, jwtProperties.accessSecret).subject)
             .let { UsernamePasswordAuthenticationToken(it, "", it.authorities) }
 
     private fun getTokenBody(token: String, secret: Key): Claims =
