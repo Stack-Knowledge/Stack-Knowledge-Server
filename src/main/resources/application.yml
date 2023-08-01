@@ -7,13 +7,13 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     database-platform: org.hibernate.dialect.MySQL8Dialect
     properties:
       hibernate:
         format_sql: true
     open-in-view: false
-    show-sql: true
+#    show-sql: true
   main:
     allow-bean-definition-overriding: true
 

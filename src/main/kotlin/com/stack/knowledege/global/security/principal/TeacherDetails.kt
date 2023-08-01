@@ -8,7 +8,7 @@ import java.util.UUID
 
 class TeacherDetails(
     private val teacherId: UUID
-) :  UserDetails {
+) : UserDetails {
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
         mutableListOf(SimpleGrantedAuthority(Authority.ROLE_TEACHER.name))
 

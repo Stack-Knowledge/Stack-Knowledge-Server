@@ -16,12 +16,13 @@ class JwtRequestFilter(
         filterChain: FilterChain
     ) {
         val accessToken = jwtParserPort.parseAccessToken(request)
+
         if (!accessToken.isNullOrBlank()) {
             val authentication = jwtParserPort.authentication(accessToken)
             SecurityContextHolder.clearContext()
-            val securityContext = SecurityContextHolder.getContext()
-            securityContext.authentication = authentication
+            SecurityContextHolder.getContext().authentication = authentication
         }
+
         filterChain.doFilter(request, response)
     }
 }
