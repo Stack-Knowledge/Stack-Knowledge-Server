@@ -72,7 +72,7 @@ class GAuthSignInUseCase(
         println(studentId)
 
         when (user.authority) {
-            Authority.ROLE_STUDENT -> return jwtGeneratorPort.receiveToken(studentId!!, user.authority)
+            Authority.ROLE_STUDENT -> return jwtGeneratorPort.receiveToken(student.id!!, user.authority)
             Authority.ROLE_TEACHER -> return jwtGeneratorPort.receiveToken(user.id, user.authority)
         }
 
