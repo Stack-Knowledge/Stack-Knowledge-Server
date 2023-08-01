@@ -2,13 +2,9 @@ package com.stack.knowledege.domain.auth.application.usecase
 
 import com.stack.knowledege.domain.auth.presentation.data.request.GAuthSignInRequest
 import com.stack.knowledege.domain.auth.presentation.data.response.TokenResponse
-import com.stack.knowledege.domain.student.application.spi.CommandStudentPort
 import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledege.domain.student.application.usecase.CreateStudentUseCase
-import com.stack.knowledege.domain.student.domain.Student
 import com.stack.knowledege.domain.student.exception.StudentNotFoundException
-import com.stack.knowledege.domain.student.persistence.mapper.StudentMapper
-import com.stack.knowledege.domain.student.persistence.repository.StudentJpaRepository
 import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.domain.user.domain.User
 import com.stack.knowledege.domain.user.domain.constant.Authority
@@ -24,10 +20,7 @@ class GAuthSignInUseCase(
     private val userPort: UserPort,
     private val jwtGeneratorPort: JwtGeneratorPort,
     private val createStudentUseCase: CreateStudentUseCase,
-    private val queryStudentPort: QueryStudentPort,
-    private val commandStudentPort: CommandStudentPort,
-    private val studentJpaRepository: StudentJpaRepository,
-    private val studentMapper: StudentMapper
+    private val queryStudentPort: QueryStudentPort
 ) {
     fun execute(gAuthSignInRequest: GAuthSignInRequest): TokenResponse {
 
@@ -45,17 +38,13 @@ class GAuthSignInUseCase(
             )
         )
 
-        val student = Student(
-            id = UUID.randomUUID(),
-            currentPoint = 0,
-            cumulatePoint = 0,
-            user = user.id
-        )
+        if (!queryStudentPort.existStudentByUser(user))
+            createStudentUseCase.execute(user)
 
-        commandStudentPort.save(student)
+        val student = queryStudentPort.queryStudentByUser(user) ?: throw StudentNotFoundException()
 
         when (user.authority) {
-            Authority.ROLE_STUDENT -> return jwtGeneratorPort.receiveToken(student.id!!, user.authority)
+            Authority.ROLE_STUDENT -> return jwtGeneratorPort.receiveToken(student.id, user.authority)
             Authority.ROLE_TEACHER -> return jwtGeneratorPort.receiveToken(user.id, user.authority)
         }
     }

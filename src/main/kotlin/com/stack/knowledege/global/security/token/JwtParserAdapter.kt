@@ -29,10 +29,14 @@ class JwtParserAdapter(
     override fun parseAccessToken(request: HttpServletRequest): String? =
         request.getHeader(JwtProperties.tokenHeader)
             .let { it ?: return null }
-            .let { if (it.startsWith(JwtProperties.tokenPrefix)) it.replace(JwtProperties.tokenPrefix, "") else null }
+            .let { if (it.startsWith(JwtProperties.tokenPrefix))
+                it.replace(JwtProperties.tokenPrefix, "")
+            else null }
 
     override fun parseRefreshToken(refreshToken: String): String? =
-        if (refreshToken.startsWith(JwtProperties.tokenPrefix)) refreshToken.replace(JwtProperties.tokenPrefix, "") else null
+        if (refreshToken.startsWith(JwtProperties.tokenPrefix))
+            refreshToken.replace(JwtProperties.tokenPrefix, "")
+        else null
 
     override fun authentication(accessToken: String): Authentication =
         getAuthority(getTokenBody(accessToken, jwtProperties.accessSecret))
@@ -40,7 +44,7 @@ class JwtParserAdapter(
 
     private fun getTokenBody(token: String, secret: Key): Claims =
         try {
-        Jwts.parserBuilder()
+            Jwts.parserBuilder()
             .setSigningKey(secret)
             .build()
             .parseClaimsJws(token)

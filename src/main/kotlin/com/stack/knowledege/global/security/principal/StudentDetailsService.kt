@@ -2,7 +2,6 @@ package com.stack.knowledege.global.security.principal
 
 import com.stack.knowledege.domain.student.persistence.repository.StudentJpaRepository
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
-import com.stack.knowledege.domain.user.persistence.repository.UserRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -13,7 +12,6 @@ import java.util.UUID
 @Service
 @Transactional(readOnly = true, rollbackFor = [Exception::class])
 class StudentDetailsService(
-//    private val userRepository: UserRepository
     private val studentJpaRepository: StudentJpaRepository
 ) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails =
