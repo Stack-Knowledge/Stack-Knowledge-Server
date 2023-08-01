@@ -1,17 +1,20 @@
 package com.stack.knowledege.global.security.principal
 
-import com.stack.knowledege.domain.user.persistence.entity.UserJpaEntity
+import com.stack.knowledege.domain.user.domain.constant.Authority
 import org.springframework.security.core.GrantedAuthority
+import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
+import java.util.UUID
 
-class AuthDetails(
-    private val user: UserJpaEntity
-):  UserDetails {
-    override fun getAuthorities(): MutableCollection<out GrantedAuthority> = user.roles
+class StudentDetails(
+    private val studentId: UUID
+) : UserDetails {
+    override fun getAuthorities(): MutableCollection<out GrantedAuthority> =
+        mutableListOf(SimpleGrantedAuthority(Authority.ROLE_STUDENT.name))
 
     override fun getPassword(): String? = null
 
-    override fun getUsername(): String = user.id.toString()
+    override fun getUsername(): String = studentId.toString()
 
     override fun isAccountNonExpired(): Boolean = false
 

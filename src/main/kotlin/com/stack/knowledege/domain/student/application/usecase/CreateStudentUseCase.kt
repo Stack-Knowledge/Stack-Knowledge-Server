@@ -10,13 +10,14 @@ import java.util.*
 class CreateStudentUseCase(
     private val commandStudentPort: CommandStudentPort
 ) {
-    fun execute(user: User) {
+    fun execute(user: User): Student {
         val student = Student(
             id = UUID.randomUUID(),
             currentPoint = 0,
             cumulatePoint = 0,
             user = user.id
         )
-        commandStudentPort.save(student)
+
+        return commandStudentPort.save(student)
     }
 }

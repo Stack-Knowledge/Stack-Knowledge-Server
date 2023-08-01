@@ -4,8 +4,10 @@ import com.stack.knowledege.domain.auth.presentation.data.request.GAuthSignInReq
 import com.stack.knowledege.domain.auth.presentation.data.response.TokenResponse
 import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledege.domain.student.application.usecase.CreateStudentUseCase
+import com.stack.knowledege.domain.student.exception.StudentNotFoundException
 import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.domain.user.domain.User
+import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
 import com.stack.knowledege.global.annotation.usecase.UseCase
 import com.stack.knowledege.global.security.spi.JwtGeneratorPort
@@ -24,7 +26,7 @@ class GAuthSignInUseCase(
 
         val gAuthToken = gAuthPort.queryGAuthToken(gAuthSignInRequest.code)
         val gAuthUserInfo = gAuthPort.queryUserInfo(gAuthToken.accessToken)
-        val role = userPort.queryUserRoleByEmail(gAuthUserInfo.email, gAuthUserInfo.role)
+        val authority = userPort.queryUserRoleByEmail(gAuthUserInfo.email, gAuthUserInfo.role)
 
         val user = createUser(
             User(
@@ -32,19 +34,25 @@ class GAuthSignInUseCase(
                 email = gAuthUserInfo.email,
                 name = gAuthUserInfo.name,
                 profileImage = "",
-                roles = mutableListOf(role)
+                authority = authority
             )
         )
 
         if (!queryStudentPort.existStudentByUser(user))
             createStudentUseCase.execute(user)
 
-        return jwtGeneratorPort.receiveToken(user.email)
+        val student = queryStudentPort.queryStudentByUser(user) ?: throw StudentNotFoundException()
+
+        when (user.authority) {
+            Authority.ROLE_STUDENT -> return jwtGeneratorPort.receiveToken(student.id, user.authority)
+            Authority.ROLE_TEACHER -> return jwtGeneratorPort.receiveToken(user.id, user.authority)
+        }
     }
 
-    private fun createUser(user: User): User =
-        when (userPort.queryExistByEmail(user.email)) {
+    private fun createUser(user: User): User {
+        return when (userPort.queryExistByEmail(user.email)) {
             true -> userPort.queryUserByEmail(user.email) ?: throw UserNotFoundException()
             false -> userPort.save(user)
         }
+    }
 }

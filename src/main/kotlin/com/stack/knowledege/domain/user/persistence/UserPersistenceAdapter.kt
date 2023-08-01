@@ -2,7 +2,7 @@ package com.stack.knowledege.domain.user.persistence
 
 import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.domain.user.domain.User
-import com.stack.knowledege.domain.user.domain.constant.UserRole
+import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
 import com.stack.knowledege.domain.user.persistence.mapper.UserMapper
 import com.stack.knowledege.domain.user.persistence.repository.UserRepository
@@ -24,13 +24,13 @@ class UserPersistenceAdapter(
     override fun queryUserById(id: UUID): User? =
         userMapper.toDomain(userRepository.findByIdOrNull(id))
 
-    override fun queryUserRoleByEmail(email: String, role: String): UserRole {
-        val user = userRepository.findByEmail(email) ?: return when (role) {
-            "ROLE_STUDENT" -> UserRole.ROLE_STUDENT
-            "ROLE_TEACHER" -> UserRole.ROLE_TEACHER
+    override fun queryUserRoleByEmail(email: String, authority: String): Authority {
+        val user = userRepository.findByEmail(email) ?: return when (authority) {
+            "ROLE_STUDENT" -> Authority.ROLE_STUDENT
+            "ROLE_TEACHER" -> Authority.ROLE_TEACHER
             else -> { throw InvalidRoleException() }
         }
-        return user.roles.firstOrNull() ?: throw UserNotFoundException()
+        return user.authority
     }
 
     override fun queryUserByEmail(email: String): User? =

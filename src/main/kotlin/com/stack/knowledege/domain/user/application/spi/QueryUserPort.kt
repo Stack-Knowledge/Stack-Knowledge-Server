@@ -1,12 +1,12 @@
 package com.stack.knowledege.domain.user.application.spi
 
 import com.stack.knowledege.domain.user.domain.User
-import com.stack.knowledege.domain.user.domain.constant.UserRole
+import com.stack.knowledege.domain.user.domain.constant.Authority
 import java.util.UUID
 
 interface QueryUserPort {
     fun queryUserById(id: UUID): User?
-    fun queryUserRoleByEmail(email: String, role: String): UserRole
+    fun queryUserRoleByEmail(email: String, authority: String): Authority
     fun queryUserByEmail(email: String): User?
     fun queryExistByEmail(email: String): Boolean
     fun queryCurrentUser(): User

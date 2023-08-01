@@ -3,12 +3,12 @@ package com.stack.knowledege.global.security.token
 import com.stack.knowledege.domain.auth.application.spi.CommandRefreshTokenPort
 import com.stack.knowledege.domain.auth.domain.RefreshToken
 import com.stack.knowledege.domain.auth.presentation.data.response.TokenResponse
+import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.global.security.spi.JwtGeneratorPort
 import com.stack.knowledege.global.security.token.properties.JwtProperties
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
 import org.springframework.stereotype.Component
-import java.security.Key
 import java.time.ZonedDateTime
 import java.util.*
 
@@ -18,40 +18,37 @@ class JwtGeneratorAdapter(
     private val commandRefreshTokenPort: CommandRefreshTokenPort
 ) : JwtGeneratorPort {
 
-    companion object {
-        const val ACCESS_TYPE = "access"
-        const val REFRESH_TYPE = "refresh"
-        const val ACCESS_EXP = 60L * 30
-        const val REFRESH_EXP = 60L * 60 * 24 * 7
-    }
-
-    override fun receiveToken(email: String): TokenResponse {
-        val refreshToken = generateRefreshToken(email)
-        commandRefreshTokenPort.saveRefreshToken(RefreshToken(email, refreshToken, jwtProperties.refreshExp))
+    override fun receiveToken(userId: UUID, authority: Authority): TokenResponse {
+        val refreshToken = generateRefreshToken(userId)
+        commandRefreshTokenPort.saveRefreshToken(RefreshToken(refreshToken, userId, jwtProperties.refreshExp))
         return TokenResponse(
-            accessToken = generateAccessToken(email),
+            accessToken = generateAccessToken(userId, authority),
             refreshToken = refreshToken,
-            expiredAt = getExpiredAtToken
+            expiredAt = getAccessTokenExpiredAt()
         )
     }
 
-    private fun generateAccessToken(email: String): String =
-        generateToken(email, ACCESS_TYPE, jwtProperties.accessSecret, ACCESS_EXP)
-
-
-    private fun generateRefreshToken(email: String): String =
-        generateToken(email, REFRESH_TYPE, jwtProperties.refreshSecret, REFRESH_EXP)
-
-
-    val getExpiredAtToken: ZonedDateTime
-        get() = ZonedDateTime.now().plusSeconds(ACCESS_EXP)
-
-    private fun generateToken(sub: String, type: String, secret: Key, exp: Long): String =
+    private fun generateAccessToken(userId: UUID, authority: Authority): String =
         Jwts.builder()
-            .signWith(secret, SignatureAlgorithm.HS256)
-            .setSubject(sub)
-            .claim("type", type)
+            .signWith(jwtProperties.accessSecret, SignatureAlgorithm.HS256)
+            .setSubject(userId.toString())
+            .claim("type", "access")
+            .claim("authority", authority.name)
             .setIssuedAt(Date())
-            .setExpiration(Date(System.currentTimeMillis() + exp * 1000))
+            .setExpiration(Date(System.currentTimeMillis() + jwtProperties.accessExp * 1000))
             .compact()
+
+
+    private fun generateRefreshToken(userId: UUID): String =
+        Jwts.builder()
+            .signWith(jwtProperties.refreshSecret, SignatureAlgorithm.HS256)
+            .setSubject(userId.toString())
+            .claim("type", "refresh")
+            .setIssuedAt(Date())
+            .setExpiration(Date(System.currentTimeMillis() + jwtProperties.refreshExp * 1000))
+            .compact()
+
+
+    private fun getAccessTokenExpiredAt(): ZonedDateTime =
+        ZonedDateTime.now().plusSeconds(jwtProperties.accessExp.toLong())
 }
