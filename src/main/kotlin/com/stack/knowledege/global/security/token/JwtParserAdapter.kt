@@ -34,39 +34,30 @@ class JwtParserAdapter(
     override fun parseRefreshToken(refreshToken: String): String? =
         if (refreshToken.startsWith(JwtProperties.tokenPrefix)) refreshToken.replace(JwtProperties.tokenPrefix, "") else null
 
-    override fun authentication(accessToken: String): Authentication {
-        return getAuthority(getTokenBody(accessToken, jwtProperties.accessSecret))
+    override fun authentication(accessToken: String): Authentication =
+        getAuthority(getTokenBody(accessToken, jwtProperties.accessSecret))
             .let { UsernamePasswordAuthenticationToken(it, "", it.authorities) }
-    }
-//        teacherDetailsService.loadUserByUsername(getTokenBody(accessToken, jwtProperties.accessSecret).subject)
-//            .let { UsernamePasswordAuthenticationToken(it, "", it.authorities) }
 
-    private fun getTokenBody(token: String, secret: Key): Claims {
-//        try {
-        print("token   ===============================")
-        println(token)
-        return Jwts.parserBuilder()
+    private fun getTokenBody(token: String, secret: Key): Claims =
+        try {
+        Jwts.parserBuilder()
             .setSigningKey(secret)
             .build()
             .parseClaimsJws(token)
             .body
-    }
-//        } catch (e: Exception) {
-//            when (e) {
-//                is ExpiredJwtException -> throw ExpiredTokenException()
-//                is InvalidClaimException -> throw InvalidTokenException()
-//                is JwtException -> throw InvalidTokenException()
-//                else -> throw InternalServerError()
-//            }
-//        }
+        } catch (e: Exception) {
+            when (e) {
+                is ExpiredJwtException -> throw ExpiredTokenException()
+                is InvalidClaimException -> throw InvalidTokenException()
+                is JwtException -> throw InvalidTokenException()
+                else -> throw InternalServerError()
+            }
+        }
 
-    private fun getAuthority(body: Claims): UserDetails {
-        print("subject ===== ")
-        println(body.subject)
-        return when (body.get(JwtProperties.authority, String::class.java)) {
+    private fun getAuthority(body: Claims): UserDetails =
+        when (body.get(JwtProperties.authority, String::class.java)) {
             Authority.ROLE_TEACHER.name -> teacherDetailsService.loadUserByUsername(body.subject)
             Authority.ROLE_STUDENT.name -> studentDetailsService.loadUserByUsername(body.subject)
             else -> throw InvalidTokenException()
         }
-    }
 }

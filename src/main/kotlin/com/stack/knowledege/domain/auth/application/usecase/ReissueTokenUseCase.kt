@@ -21,6 +21,7 @@ class ReissueTokenUseCase(
         val refreshToken = jwtParserPort.parseRefreshToken(refreshToken) ?: throw InvalidRefreshTokenException()
         val token = queryRefreshTokenPort.queryByRefreshToken(refreshToken) ?: throw RefreshTokenNotFoundException()
         val user = queryUserPort.queryUserById(token.userId) ?: throw UserNotFoundException()
+
         return jwtGeneratorPort.receiveToken(token.userId, user.authority)
     }
 }

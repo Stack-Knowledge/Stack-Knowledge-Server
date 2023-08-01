@@ -45,38 +45,19 @@ class GAuthSignInUseCase(
             )
         )
 
-        print("userId   ====================")
-        println(user.id)
-
-//        if (!queryStudentPort.existStudentByUser(user))
-//            val studentId = createStudentUseCase.execute(user)
-
         val student = Student(
             id = UUID.randomUUID(),
             currentPoint = 0,
             cumulatePoint = 0,
             user = user.id
         )
-        println(user.id)
-        print("studentId ================== ")
-        println(student.id)
-//        commandStudentPort.save(student)
-        studentJpaRepository.save(studentMapper.toEntity(student))
-        val studentId = queryStudentPort.queryStudentByUser(user)?.let { it.id }
-//            print("진짜 userId ================== ")
-//            println(it!!.id)
-//        }
 
-
-        print("찐 studentId==========================    ")
-        println(studentId)
+        commandStudentPort.save(student)
 
         when (user.authority) {
             Authority.ROLE_STUDENT -> return jwtGeneratorPort.receiveToken(student.id!!, user.authority)
             Authority.ROLE_TEACHER -> return jwtGeneratorPort.receiveToken(user.id, user.authority)
         }
-
-//        return jwtGeneratorPort.receiveToken(user.id)
     }
 
     private fun createUser(user: User): User {

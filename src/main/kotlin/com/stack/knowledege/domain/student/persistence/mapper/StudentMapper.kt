@@ -22,7 +22,6 @@ class StudentMapper(
             )
         }
 
-
     override fun toEntity(domain: Student): StudentJpaEntity {
         val user = userRepository.findByIdOrNull(domain.user) ?: throw UserNotFoundException()
 
