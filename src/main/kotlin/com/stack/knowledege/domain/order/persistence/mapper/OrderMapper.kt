@@ -1,7 +1,7 @@
 package com.stack.knowledege.domain.order.persistence.mapper
 
 import com.stack.knowledege.domain.item.exception.ItemNotFoundException
-import com.stack.knowledege.domain.item.persistence.repository.ItemRepository
+import com.stack.knowledege.domain.item.persistence.repository.ItemJpaRepository
 import com.stack.knowledege.domain.order.domain.Order
 import com.stack.knowledege.domain.order.persistence.entity.OrderJpaEntity
 import com.stack.knowledege.domain.student.exception.StudentNotFoundException
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class OrderMapper(
-    private val itemRepository: ItemRepository,
+    private val itemJpaRepository: ItemJpaRepository,
     private val studentJpaRepository: StudentJpaRepository
 ) : GenericMapper<Order, OrderJpaEntity> {
     override fun toDomain(entity: OrderJpaEntity?): Order? =
@@ -28,7 +28,7 @@ class OrderMapper(
         }
 
     override fun toEntity(domain: Order): OrderJpaEntity {
-        val item = itemRepository.findByIdOrNull(domain.itemId) ?: throw ItemNotFoundException()
+        val item = itemJpaRepository.findByIdOrNull(domain.itemId) ?: throw ItemNotFoundException()
         val student = studentJpaRepository.findByIdOrNull(domain.studentId) ?: throw StudentNotFoundException()
 
         return OrderJpaEntity(
