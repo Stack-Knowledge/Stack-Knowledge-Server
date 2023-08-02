@@ -30,6 +30,7 @@ class UserPersistenceAdapter(
             "ROLE_TEACHER" -> Authority.ROLE_TEACHER
             else -> { throw InvalidRoleException() }
         }
+
         return user.authority
     }
 
