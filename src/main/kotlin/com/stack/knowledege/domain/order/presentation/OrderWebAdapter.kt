@@ -1,9 +1,9 @@
 package com.stack.knowledege.domain.order.presentation
 
 import com.stack.knowledege.domain.order.application.usecase.OrderItemUseCase
-import com.stack.knowledege.domain.order.application.usecase.QueryAllIsOrderedItemUseCase
+import com.stack.knowledege.domain.order.application.usecase.QueryIsOrderedOrderUseCase
 import com.stack.knowledege.domain.order.presentation.data.request.OrderItemRequest
-import com.stack.knowledege.domain.order.presentation.data.response.IsOrderedItemResponse
+import com.stack.knowledege.domain.order.presentation.data.response.IsOrderedOrderResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -19,7 +19,7 @@ import javax.validation.Valid
 @RequestMapping("/order")
 class OrderWebAdapter(
     private val orderItemUseCase: OrderItemUseCase,
-    private val queryAllIsOrderedItemUseCase: QueryAllIsOrderedItemUseCase
+    private val queryIsOrderedOrderUseCase: QueryIsOrderedOrderUseCase
 ) {
     @PostMapping("/{item_id}")
     fun execute(@PathVariable("item_id") itemId: UUID, @RequestBody @Valid orderItemRequest: OrderItemRequest): ResponseEntity<Void> =
@@ -27,7 +27,7 @@ class OrderWebAdapter(
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
 
     @GetMapping
-    fun execute(): ResponseEntity<List<IsOrderedItemResponse>> =
-        queryAllIsOrderedItemUseCase.execute()
+    fun execute(): ResponseEntity<List<IsOrderedOrderResponse>> =
+        queryIsOrderedOrderUseCase.execute()
             .let { ResponseEntity.ok(it) }
 }
