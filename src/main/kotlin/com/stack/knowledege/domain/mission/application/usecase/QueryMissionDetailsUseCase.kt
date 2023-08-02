@@ -3,7 +3,7 @@ package com.stack.knowledege.domain.mission.application.usecase
 import com.stack.knowledege.domain.mission.application.spi.MissionPort
 import com.stack.knowledege.domain.mission.exception.MissionNotFoundException
 import com.stack.knowledege.domain.mission.presentation.data.response.MissionDetailsResponse
-import com.stack.knowledege.global.annotation.usecase.ReadOnlyUseCase
+import com.stack.knowledege.domain.common.annotation.usecase.ReadOnlyUseCase
 import java.util.UUID
 
 @ReadOnlyUseCase

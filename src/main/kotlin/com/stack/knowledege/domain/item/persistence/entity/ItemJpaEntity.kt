@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.item.persistence.entity
 
-import com.stack.knowledege.global.entity.BaseIdEntity
+import com.stack.knowledege.domain.common.entity.BaseIdEntity
 import java.util.*
 import javax.persistence.Column
 import javax.persistence.Entity

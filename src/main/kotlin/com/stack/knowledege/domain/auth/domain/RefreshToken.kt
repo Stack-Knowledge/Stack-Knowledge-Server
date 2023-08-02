@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.auth.domain
 
-import com.stack.knowledege.global.annotation.Aggregate
+import com.stack.knowledege.domain.common.annotation.Aggregate
 import java.util.UUID
 
 @Aggregate

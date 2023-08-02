@@ -11,7 +11,7 @@ import com.stack.knowledege.domain.student.exception.StudentNotFoundException
 import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
 import com.stack.knowledege.domain.user.presentation.data.response.UserResponse
-import com.stack.knowledege.global.annotation.usecase.UseCase
+import com.stack.knowledege.domain.common.annotation.usecase.UseCase
 
 @UseCase
 class QueryAllIsOrderedItemUseCase(

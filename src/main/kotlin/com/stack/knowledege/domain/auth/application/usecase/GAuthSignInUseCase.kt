@@ -9,7 +9,7 @@ import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.domain.user.domain.User
 import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
-import com.stack.knowledege.global.annotation.usecase.UseCase
+import com.stack.knowledege.domain.common.annotation.usecase.UseCase
 import com.stack.knowledege.global.security.spi.JwtGeneratorPort
 import com.stack.knowledege.thirdparty.gauth.spi.GAuthPort
 import java.util.*
@@ -43,16 +43,15 @@ class GAuthSignInUseCase(
 
         val student = queryStudentPort.queryStudentByUser(user) ?: throw StudentNotFoundException()
 
-        when (user.authority) {
-            Authority.ROLE_STUDENT -> return jwtGeneratorPort.receiveToken(student.id, user.authority)
-            Authority.ROLE_TEACHER -> return jwtGeneratorPort.receiveToken(user.id, user.authority)
+        return when (user.authority) {
+            Authority.ROLE_STUDENT -> jwtGeneratorPort.receiveToken(student.id, user.authority)
+            Authority.ROLE_TEACHER -> jwtGeneratorPort.receiveToken(user.id, user.authority)
         }
     }
 
-    private fun createUser(user: User): User {
-        return when (userPort.queryExistByEmail(user.email)) {
+    private fun createUser(user: User): User =
+        when (userPort.queryExistByEmail(user.email)) {
             true -> userPort.queryUserByEmail(user.email) ?: throw UserNotFoundException()
             false -> userPort.save(user)
         }
-    }
 }

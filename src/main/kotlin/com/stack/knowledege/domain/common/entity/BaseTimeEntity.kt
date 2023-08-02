@@ -1,4 +1,4 @@
-package com.stack.knowledege.global.entity
+package com.stack.knowledege.domain.common.entity
 
 import java.time.LocalDateTime
 import javax.persistence.Column

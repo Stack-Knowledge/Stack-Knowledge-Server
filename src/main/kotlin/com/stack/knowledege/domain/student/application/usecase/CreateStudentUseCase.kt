@@ -3,14 +3,14 @@ package com.stack.knowledege.domain.student.application.usecase
 import com.stack.knowledege.domain.student.application.spi.CommandStudentPort
 import com.stack.knowledege.domain.student.domain.Student
 import com.stack.knowledege.domain.user.domain.User
-import com.stack.knowledege.global.annotation.usecase.UseCase
+import com.stack.knowledege.domain.common.annotation.usecase.UseCase
 import java.util.*
 
 @UseCase
 class CreateStudentUseCase(
     private val commandStudentPort: CommandStudentPort
 ) {
-    fun execute(user: User): Student {
+    fun execute(user: User) {
         val student = Student(
             id = UUID.randomUUID(),
             currentPoint = 0,
@@ -18,6 +18,6 @@ class CreateStudentUseCase(
             user = user.id
         )
 
-        return commandStudentPort.save(student)
+        commandStudentPort.save(student)
     }
 }
