@@ -3,7 +3,7 @@ package com.stack.knowledege.domain.student.application.usecase
 import com.stack.knowledege.domain.student.application.spi.CommandStudentPort
 import com.stack.knowledege.domain.student.domain.Student
 import com.stack.knowledege.domain.user.domain.User
-import com.stack.knowledege.domain.common.annotation.usecase.UseCase
+import com.stack.knowledege.common.annotation.usecase.UseCase
 import java.util.*
 
 @UseCase

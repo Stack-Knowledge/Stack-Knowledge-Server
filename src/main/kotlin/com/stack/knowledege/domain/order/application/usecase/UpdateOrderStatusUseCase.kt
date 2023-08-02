@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.order.application.usecase
 
-import com.stack.knowledege.domain.common.annotation.usecase.ReadOnlyUseCase
+import com.stack.knowledege.common.annotation.usecase.ReadOnlyUseCase
 import com.stack.knowledege.domain.order.application.spi.OrderPort
 import com.stack.knowledege.domain.order.domain.constant.OrderStatus
 import com.stack.knowledege.domain.order.exception.AlreadyCompletedOrderException

@@ -2,7 +2,7 @@ package com.stack.knowledege.domain.mission.persistence.entity
 
 import com.stack.knowledege.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledege.domain.user.persistence.entity.UserJpaEntity
-import com.stack.knowledege.domain.common.entity.BaseIdEntity
+import com.stack.knowledege.common.entity.BaseIdEntity
 import java.util.*
 import javax.persistence.*
 

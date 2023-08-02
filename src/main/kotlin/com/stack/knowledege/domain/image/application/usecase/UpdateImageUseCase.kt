@@ -3,7 +3,7 @@ package com.stack.knowledege.domain.image.application.usecase
 import com.stack.knowledege.domain.image.application.spi.CommandImagePort
 import com.stack.knowledege.domain.image.application.validator.ImageValidator
 import com.stack.knowledege.domain.user.application.spi.UserPort
-import com.stack.knowledege.domain.common.annotation.usecase.UseCase
+import com.stack.knowledege.common.annotation.usecase.UseCase
 import org.springframework.web.multipart.MultipartFile
 import java.util.*
 

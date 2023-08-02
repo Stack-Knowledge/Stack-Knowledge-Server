@@ -14,7 +14,7 @@ import com.stack.knowledege.domain.student.exception.StudentNotFoundException
 import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.domain.user.presentation.data.request.ScoreSolveRequest
-import com.stack.knowledege.domain.common.annotation.usecase.UseCase
+import com.stack.knowledege.common.annotation.usecase.UseCase
 import java.util.UUID
 
 @UseCase
