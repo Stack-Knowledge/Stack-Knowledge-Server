@@ -3,7 +3,7 @@ package com.stack.knowledege.domain.order.persistence.entity
 import com.stack.knowledege.domain.item.persistence.entity.ItemJpaEntity
 import com.stack.knowledege.domain.order.domain.constant.OrderStatus
 import com.stack.knowledege.domain.student.persistence.entity.StudentJpaEntity
-import com.stack.knowledege.global.entity.BaseIdEntity
+import com.stack.knowledege.domain.common.entity.BaseIdEntity
 import java.util.UUID
 import javax.persistence.*
 

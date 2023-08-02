@@ -9,7 +9,7 @@ import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.domain.user.domain.User
 import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
-import com.stack.knowledege.global.annotation.usecase.UseCase
+import com.stack.knowledege.domain.common.annotation.usecase.UseCase
 import com.stack.knowledege.global.security.spi.JwtGeneratorPort
 import com.stack.knowledege.thirdparty.gauth.spi.GAuthPort
 import java.util.*

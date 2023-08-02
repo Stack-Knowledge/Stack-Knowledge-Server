@@ -1,4 +1,4 @@
-package com.stack.knowledege.global.annotation.usecase
+package com.stack.knowledege.domain.common.annotation.usecase
 
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional

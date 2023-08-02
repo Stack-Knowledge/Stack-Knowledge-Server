@@ -1,7 +1,7 @@
 package com.stack.knowledege.domain.mission.domain
 
 import com.stack.knowledege.domain.mission.domain.constant.MissionStatus
-import com.stack.knowledege.global.annotation.Aggregate
+import com.stack.knowledege.domain.common.annotation.Aggregate
 import java.util.UUID
 
 @Aggregate

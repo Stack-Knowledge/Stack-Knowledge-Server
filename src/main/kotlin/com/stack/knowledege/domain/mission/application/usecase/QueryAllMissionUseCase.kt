@@ -5,7 +5,7 @@ import com.stack.knowledege.domain.mission.presentation.data.response.MissionRes
 import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
 import com.stack.knowledege.domain.user.presentation.data.response.UserResponse
-import com.stack.knowledege.global.annotation.usecase.ReadOnlyUseCase
+import com.stack.knowledege.domain.common.annotation.usecase.ReadOnlyUseCase
 
 @ReadOnlyUseCase
 class QueryAllMissionUseCase(

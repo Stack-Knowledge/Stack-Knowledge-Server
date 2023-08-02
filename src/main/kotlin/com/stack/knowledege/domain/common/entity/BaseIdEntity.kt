@@ -1,4 +1,4 @@
-package com.stack.knowledege.global.entity
+package com.stack.knowledege.domain.common.entity
 
 import org.hibernate.annotations.GenericGenerator
 import java.util.UUID
