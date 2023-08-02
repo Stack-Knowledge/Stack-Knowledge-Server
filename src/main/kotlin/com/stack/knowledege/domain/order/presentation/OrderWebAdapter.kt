@@ -26,12 +26,12 @@ class OrderWebAdapter(
     private val updateOrderStatusUseCase: UpdateOrderStatusUseCase
 ) {
     @PostMapping("/{item_id}")
-    fun execute(@PathVariable("item_id") itemId: UUID, @RequestBody @Valid orderItemRequest: OrderItemRequest): ResponseEntity<Void> =
+    fun orderItem(@PathVariable("item_id") itemId: UUID, @RequestBody @Valid orderItemRequest: OrderItemRequest): ResponseEntity<Void> =
         orderItemUseCase.execute(itemId, orderItemRequest)
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
 
     @GetMapping
-    fun execute(): ResponseEntity<List<IsOrderedOrderResponse>> =
+    fun queryIsOrderedOrder(): ResponseEntity<List<IsOrderedOrderResponse>> =
         queryIsOrderedOrderUseCase.execute()
             .let { ResponseEntity.ok(it) }
 
