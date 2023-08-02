@@ -1,6 +1,5 @@
 package com.stack.knowledege.global.security
 
-import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.global.config.FilterConfig
 import com.stack.knowledege.global.security.handler.CustomAccessDeniedHandler
 import com.stack.knowledege.global.security.handler.CustomAuthenticationEntryPoint
