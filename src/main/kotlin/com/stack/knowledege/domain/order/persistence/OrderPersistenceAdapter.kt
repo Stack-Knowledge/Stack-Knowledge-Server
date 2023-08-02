@@ -5,7 +5,9 @@ import com.stack.knowledege.domain.order.domain.Order
 import com.stack.knowledege.domain.order.domain.constant.OrderStatus
 import com.stack.knowledege.domain.order.persistence.mapper.OrderMapper
 import com.stack.knowledege.domain.order.persistence.repository.OrderJpaRepository
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
+import java.util.UUID
 
 @Component
 class OrderPersistenceAdapter(
@@ -15,6 +17,9 @@ class OrderPersistenceAdapter(
     override fun save(order: Order) {
         orderJpaRepository.save(orderMapper.toEntity(order))
     }
+
+    override fun queryOrderById(orderId: UUID): Order? =
+        orderMapper.toDomain(orderJpaRepository.findByIdOrNull(orderId))
 
     override fun queryAllOder(): List<Order> =
         orderJpaRepository.findAll().map { orderMapper.toDomain(it)!! }

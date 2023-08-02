@@ -1,6 +1,7 @@
 package com.stack.knowledege.domain.order.presentation
 
 import com.stack.knowledege.domain.order.application.usecase.OrderItemUseCase
+import com.stack.knowledege.domain.order.application.usecase.UpdateOrderStatusUseCase
 import com.stack.knowledege.domain.order.application.usecase.QueryIsOrderedOrderUseCase
 import com.stack.knowledege.domain.order.presentation.data.request.OrderItemRequest
 import com.stack.knowledege.domain.order.presentation.data.response.IsOrderedOrderResponse
@@ -19,7 +20,8 @@ import javax.validation.Valid
 @RequestMapping("/order")
 class OrderWebAdapter(
     private val orderItemUseCase: OrderItemUseCase,
-    private val queryIsOrderedOrderUseCase: QueryIsOrderedOrderUseCase
+    private val queryIsOrderedOrderUseCase: QueryIsOrderedOrderUseCase,
+    private val updateOrderStatusUseCase: UpdateOrderStatusUseCase
 ) {
     @PostMapping("/{item_id}")
     fun execute(@PathVariable("item_id") itemId: UUID, @RequestBody @Valid orderItemRequest: OrderItemRequest): ResponseEntity<Void> =
