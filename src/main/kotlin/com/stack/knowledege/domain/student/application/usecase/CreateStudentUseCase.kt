@@ -10,7 +10,7 @@ import java.util.*
 class CreateStudentUseCase(
     private val commandStudentPort: CommandStudentPort
 ) {
-    fun execute(user: User): Student {
+    fun execute(user: User) {
         val student = Student(
             id = UUID.randomUUID(),
             currentPoint = 0,
@@ -18,6 +18,6 @@ class CreateStudentUseCase(
             user = user.id
         )
 
-        return commandStudentPort.save(student)
+        commandStudentPort.save(student)
     }
 }
