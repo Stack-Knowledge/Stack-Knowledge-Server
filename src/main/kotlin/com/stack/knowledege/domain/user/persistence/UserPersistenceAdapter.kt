@@ -40,10 +40,9 @@ class UserPersistenceAdapter(
     override fun queryExistByEmail(email: String): Boolean =
         userJpaRepository.existsByEmail(email)
 
-    override fun queryCurrentUser(): User {
+    override fun queryCurrentUser(): User =
         userMapper.toDomain(userJpaRepository.findByIdOrNull(securityPort.queryCurrentUserId()))
             .let { it ?: throw UserNotFoundException() }
-    }
 
     override fun queryAllUser(): List<User> =
         userJpaRepository.findAll().map { userMapper.toDomain(it)!! }
