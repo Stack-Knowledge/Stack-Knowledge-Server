@@ -38,7 +38,7 @@ class GAuthSignInUseCase(
             )
         )
 
-        if (queryStudentPort.existStudentByUser(user))
+        if (!queryStudentPort.existStudentByUser(user) && user.authority == Authority.ROLE_STUDENT)
             createStudentUseCase.execute(user)
 
         val student = queryStudentPort.queryStudentByUser(user) ?: throw StudentNotFoundException()

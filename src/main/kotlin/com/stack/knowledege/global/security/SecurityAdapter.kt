@@ -7,6 +7,8 @@ import java.util.*
 
 @Component
 class SecurityAdapter: SecurityPort {
-    override fun queryCurrentUserId(): UUID =
-        UUID.fromString(SecurityContextHolder.getContext().authentication.name)
+    override fun queryCurrentUserId(): UUID {
+        println(UUID.fromString(SecurityContextHolder.getContext().authentication.name))
+        return UUID.fromString(SecurityContextHolder.getContext().authentication.name)
+    }
 }
