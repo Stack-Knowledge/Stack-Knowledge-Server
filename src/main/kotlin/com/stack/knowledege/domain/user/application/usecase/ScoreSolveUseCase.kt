@@ -15,6 +15,9 @@ import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.domain.user.presentation.data.request.ScoreSolveRequest
 import com.stack.knowledege.common.annotation.usecase.UseCase
+import com.stack.knowledege.common.service.SecurityService
+import com.stack.knowledege.domain.user.exception.UserNotFoundException
+import com.stack.knowledege.global.security.exception.InvalidRoleException
 import java.util.UUID
 
 @UseCase
@@ -23,11 +26,21 @@ class ScoreSolveUseCase(
     private val queryUserPort: QueryUserPort,
     private val queryStudentPort: QueryStudentPort,
     private val commandStudentPort: CommandStudentPort,
-    private val queryMissionPort: QueryMissionPort
+    private val queryMissionPort: QueryMissionPort,
+    private val securityService: SecurityService
 ) {
     fun execute(solveId: UUID, scoreSolveRequest: ScoreSolveRequest) {
         val solve = solvePort.querySolveById(solveId) ?: throw SolveNotFoundException()
-        val user = queryUserPort.queryCurrentUser()
+        val user = when (securityService.queryCurrentUserAuthority()) {
+            Authority.ROLE_STUDENT.name -> {
+                val student = queryStudentPort.queryStudentById(securityService.queryCurrentUserId()) ?: throw UserNotFoundException()
+                queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
+            }
+            Authority.ROLE_TEACHER.name -> {
+                queryUserPort.queryUserById(securityService.queryCurrentUserId()) ?: throw UserNotFoundException()
+            }
+            else -> throw InvalidRoleException()
+        }
         val student = queryStudentPort.queryStudentById(solve.student) ?: throw StudentNotFoundException()
         val mission = queryMissionPort.queryMissionById(solve.mission) ?: throw MissionNotFoundException()
 
