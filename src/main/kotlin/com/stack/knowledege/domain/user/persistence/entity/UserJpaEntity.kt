@@ -1,7 +1,7 @@
 package com.stack.knowledege.domain.user.persistence.entity
 
 import com.stack.knowledege.domain.user.domain.constant.Authority
-import com.stack.knowledege.domain.common.entity.BaseIdEntity
+import com.stack.knowledege.common.entity.BaseIdEntity
 import java.util.*
 import javax.persistence.*
 

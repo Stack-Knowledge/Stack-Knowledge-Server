@@ -3,7 +3,7 @@ package com.stack.knowledege.domain.solve.persistence.entity
 import com.stack.knowledege.domain.mission.persistence.entity.MissionJpaEntity
 import com.stack.knowledege.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledege.domain.student.persistence.entity.StudentJpaEntity
-import com.stack.knowledege.domain.common.entity.BaseIdEntity
+import com.stack.knowledege.common.entity.BaseIdEntity
 import java.util.*
 import javax.persistence.*
 

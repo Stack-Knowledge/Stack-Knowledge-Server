@@ -13,7 +13,7 @@ class StudentWebAdapter(
     private val queryAllStudentsRankingUseCase: QueryAllStudentsRankingUseCase
 ) {
     @GetMapping("/ranking")
-    fun execute(): ResponseEntity<List<AllStudentsRankingResponse>> =
+    fun queryAllStudentsRanking(): ResponseEntity<List<AllStudentsRankingResponse>> =
         queryAllStudentsRankingUseCase.execute()
             .let { ResponseEntity.ok(it) }
 }

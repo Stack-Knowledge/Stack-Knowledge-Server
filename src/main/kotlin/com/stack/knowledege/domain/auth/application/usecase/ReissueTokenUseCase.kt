@@ -6,7 +6,7 @@ import com.stack.knowledege.domain.auth.exception.RefreshTokenNotFoundException
 import com.stack.knowledege.domain.auth.presentation.data.response.TokenResponse
 import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
-import com.stack.knowledege.domain.common.annotation.usecase.UseCase
+import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.global.security.spi.JwtGeneratorPort
 import com.stack.knowledege.global.security.spi.JwtParserPort
 

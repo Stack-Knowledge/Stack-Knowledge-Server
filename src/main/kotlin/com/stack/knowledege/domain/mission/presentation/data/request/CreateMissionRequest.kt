@@ -7,6 +7,5 @@ data class CreateMissionRequest(
     val title: String,
     @field:NotBlank
     val content: String,
-    @field:NotBlank
     val timeLimit: Int
 )

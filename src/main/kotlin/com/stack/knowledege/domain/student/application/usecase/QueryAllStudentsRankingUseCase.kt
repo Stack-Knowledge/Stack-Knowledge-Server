@@ -4,7 +4,7 @@ import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledege.domain.student.presentation.data.response.AllStudentsRankingResponse
 import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.domain.user.presentation.data.response.UserResponse
-import com.stack.knowledege.domain.common.annotation.usecase.UseCase
+import com.stack.knowledege.common.annotation.usecase.UseCase
 
 @UseCase
 class QueryAllStudentsRankingUseCase(

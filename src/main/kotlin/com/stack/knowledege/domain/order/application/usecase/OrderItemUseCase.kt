@@ -9,19 +9,19 @@ import com.stack.knowledege.domain.order.exception.LackPointException
 import com.stack.knowledege.domain.order.presentation.data.request.OrderItemRequest
 import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledege.domain.student.exception.StudentNotFoundException
-import com.stack.knowledege.domain.user.application.spi.QueryUserPort
-import com.stack.knowledege.domain.common.annotation.usecase.UseCase
+import com.stack.knowledege.common.annotation.usecase.UseCase
+import com.stack.knowledege.common.service.SecurityService
 import java.util.UUID
 
 @UseCase
 class OrderItemUseCase(
     private val queryItemPort: QueryItemPort,
-    private val queryUserPort: QueryUserPort,
+    private val securityService: SecurityService,
     private val queryStudentPort: QueryStudentPort,
     private val commandOrderPort: CommandOrderPort
 ) {
     fun execute(itemId: UUID, orderItemRequest: OrderItemRequest) {
-        val student = queryUserPort.queryCurrentUser().let { queryStudentPort.queryStudentByUser(it) ?: throw StudentNotFoundException() }
+        val student = securityService.queryCurrentUserId().let { queryStudentPort.queryStudentById(it) ?: throw StudentNotFoundException() }
         val item = queryItemPort.queryItemById(itemId) ?: throw ItemNotFoundException()
 
         val price = orderItemRequest.count * item.price

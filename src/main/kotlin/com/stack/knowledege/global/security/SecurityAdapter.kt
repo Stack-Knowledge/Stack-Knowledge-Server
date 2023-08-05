@@ -1,6 +1,6 @@
 package com.stack.knowledege.global.security
 
-import com.stack.knowledege.global.security.spi.SecurityPort
+import com.stack.knowledege.common.spi.SecurityPort
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
 import java.util.*
@@ -9,4 +9,7 @@ import java.util.*
 class SecurityAdapter: SecurityPort {
     override fun queryCurrentUserId(): UUID =
         UUID.fromString(SecurityContextHolder.getContext().authentication.name)
+
+    override fun queryCurrentUserAuthority(): String =
+        SecurityContextHolder.getContext().authentication.authorities.first().authority
 }

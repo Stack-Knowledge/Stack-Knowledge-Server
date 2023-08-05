@@ -1,7 +1,7 @@
 package com.stack.knowledege.domain.solve.domain
 
 import com.stack.knowledege.domain.solve.domain.constant.SolveStatus
-import com.stack.knowledege.domain.common.annotation.Aggregate
+import com.stack.knowledege.common.annotation.Aggregate
 import java.util.*
 
 @Aggregate

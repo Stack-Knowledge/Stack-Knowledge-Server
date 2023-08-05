@@ -5,7 +5,7 @@ import com.stack.knowledege.domain.order.domain.constant.OrderStatus
 import com.stack.knowledege.domain.user.presentation.data.response.UserResponse
 import java.util.*
 
-class IsOrderedItemResponse(
+class IsOrderedOrderResponse(
     val id: UUID,
     val count: Int,
     val price: Int,

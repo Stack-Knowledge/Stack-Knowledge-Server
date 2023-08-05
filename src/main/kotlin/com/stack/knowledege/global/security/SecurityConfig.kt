@@ -1,6 +1,5 @@
 package com.stack.knowledege.global.security
 
-import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.global.config.FilterConfig
 import com.stack.knowledege.global.security.handler.CustomAccessDeniedHandler
 import com.stack.knowledege.global.security.handler.CustomAuthenticationEntryPoint
@@ -63,9 +62,9 @@ class SecurityConfig(
             // order
             .antMatchers(HttpMethod.POST, "/order/{item_id}").hasRole(student)
             .antMatchers(HttpMethod.GET, "/order").hasRole(teacher)
+            .antMatchers(HttpMethod.PATCH, "/order/{order_id}").hasRole(teacher)
 
             // mission
-
             .antMatchers(HttpMethod.GET, "/mission").hasRole(student)
             .antMatchers(HttpMethod.GET, "/mission/{mission_id}").hasRole(student)
             .antMatchers(HttpMethod.POST, "/mission").hasRole(teacher)

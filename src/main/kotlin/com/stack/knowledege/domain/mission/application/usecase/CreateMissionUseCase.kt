@@ -4,22 +4,34 @@ import com.stack.knowledege.domain.mission.application.spi.CommandMissionPort
 import com.stack.knowledege.domain.mission.domain.Mission
 import com.stack.knowledege.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledege.domain.mission.presentation.data.request.CreateMissionRequest
-import com.stack.knowledege.domain.user.application.spi.UserPort
-import com.stack.knowledege.domain.user.application.validator.UserValidator
-import com.stack.knowledege.domain.common.annotation.usecase.UseCase
+import com.stack.knowledege.common.annotation.usecase.UseCase
+import com.stack.knowledege.common.service.SecurityService
+import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
+import com.stack.knowledege.domain.user.application.spi.QueryUserPort
+import com.stack.knowledege.domain.user.domain.constant.Authority
+import com.stack.knowledege.domain.user.exception.UserNotFoundException
+import com.stack.knowledege.global.security.exception.InvalidRoleException
 import java.time.LocalTime
 import java.util.*
 
 @UseCase
 class CreateMissionUseCase(
-    private val userPort: UserPort,
     private val commandMissionPort: CommandMissionPort,
-    private val userValidator: UserValidator
+    private val securityService: SecurityService,
+    private val queryStudentPort: QueryStudentPort,
+    private val queryUserPort: QueryUserPort
 ) {
     fun execute(createMissionRequest: CreateMissionRequest) {
-        val user = userPort.queryCurrentUser()
-
-        userValidator.validateUserTeacher(user)
+        val user = when (securityService.queryCurrentUserAuthority()) {
+            Authority.ROLE_STUDENT.name -> {
+                val student = queryStudentPort.queryStudentById(securityService.queryCurrentUserId()) ?: throw UserNotFoundException()
+                queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
+            }
+            Authority.ROLE_TEACHER.name -> {
+                queryUserPort.queryUserById(securityService.queryCurrentUserId()) ?: throw UserNotFoundException()
+            }
+            else -> throw InvalidRoleException()
+        }
 
         val mission = Mission(
             id = UUID.randomUUID(),

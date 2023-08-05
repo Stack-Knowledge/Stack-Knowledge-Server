@@ -1,4 +1,4 @@
-package com.stack.knowledege.domain.common.annotation
+package com.stack.knowledege.common.annotation
 
 @Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.CLASS)

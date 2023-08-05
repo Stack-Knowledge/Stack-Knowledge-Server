@@ -1,6 +1,6 @@
 package com.stack.knowledege.domain.item.domain
 
-import com.stack.knowledege.domain.common.annotation.Aggregate
+import com.stack.knowledege.common.annotation.Aggregate
 import java.util.*
 
 @Aggregate
