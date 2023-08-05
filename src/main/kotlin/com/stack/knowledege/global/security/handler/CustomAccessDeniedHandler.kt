@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse
 class CustomAccessDeniedHandler : AccessDeniedHandler {
 
     private val log = LoggerFactory.getLogger(this.javaClass.simpleName)
+
     override fun handle(
         request: HttpServletRequest?,
         response: HttpServletResponse?,

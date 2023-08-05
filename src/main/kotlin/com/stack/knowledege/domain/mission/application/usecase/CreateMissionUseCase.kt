@@ -35,8 +35,6 @@ class CreateMissionUseCase(
             else -> throw InvalidRoleException()
         }
 
-        userValidator.validateUserTeacher(user)
-
         val mission = Mission(
             id = UUID.randomUUID(),
             title = createMissionRequest.title,
