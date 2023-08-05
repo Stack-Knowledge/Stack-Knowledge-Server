@@ -4,7 +4,6 @@ import com.stack.knowledege.domain.mission.application.spi.CommandMissionPort
 import com.stack.knowledege.domain.mission.domain.Mission
 import com.stack.knowledege.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledege.domain.mission.presentation.data.request.CreateMissionRequest
-import com.stack.knowledege.domain.user.application.validator.UserValidator
 import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.common.service.SecurityService
 import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
@@ -18,7 +17,6 @@ import java.util.*
 @UseCase
 class CreateMissionUseCase(
     private val commandMissionPort: CommandMissionPort,
-    private val userValidator: UserValidator,
     private val securityService: SecurityService,
     private val queryStudentPort: QueryStudentPort,
     private val queryUserPort: QueryUserPort
