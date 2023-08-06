@@ -26,13 +26,20 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	runtimeOnly("mysql:mysql-connector-java:8.0.20")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	implementation("io.jsonwebtoken:jjwt-api:0.11.2")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
 	implementation("com.github.GSM-MSG:GAuth-SDK-Java:v2.0.0")
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE")
+
+	/* test */
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.kotest:kotest-runner-junit5-jvm:4.4.3")
+	testImplementation("io.kotest:kotest-assertions-core-jvm:4.4.3")
+	implementation("io.kotest:kotest-extensions-spring:4.4.3")
+	testImplementation("io.mockk:mockk:1.12.0")
+
 }
 
 tasks.withType<KotlinCompile> {
