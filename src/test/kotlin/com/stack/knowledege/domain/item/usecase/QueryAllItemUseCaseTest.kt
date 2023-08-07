@@ -4,6 +4,7 @@ import com.stack.knowledege.domain.item.application.spi.QueryItemPort
 import com.stack.knowledege.domain.item.application.usecase.QueryAllItemUseCase
 import com.stack.knowledege.domain.item.domain.Item
 import com.stack.knowledege.domain.item.presentation.data.response.ItemResponse
+import com.stack.knowledege.global.annotation.StackKnowledgeTest
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
@@ -16,9 +17,7 @@ import org.springframework.cache.CacheManager
 import java.util.UUID
 
 
-//@Target(AnnotationTarget.CLASS)
-//@Retention(AnnotationRetention.RUNTIME)
-@ExtendWith(MockitoExtension::class)
+@StackKnowledgeTest
 class QueryAllItemUseCaseTest : BehaviorSpec({
     val queryItemPort = mockk<QueryItemPort>()
     val cacheManager = mockk<CacheManager>()
