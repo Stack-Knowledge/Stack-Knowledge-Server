@@ -9,7 +9,7 @@ import org.springframework.cache.annotation.Cacheable
 class QueryAllItemUseCase(
     private val queryItemPort: QueryItemPort
 ) {
-    @Cacheable(value = ["missions"])
+    @Cacheable(cacheNames = ["missions"])
     fun execute(): List<ItemResponse> =
         queryItemPort.queryAllItem()
             .map {
