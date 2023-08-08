@@ -1,5 +1,6 @@
 package com.stack.knowledege.domain.order.application.usecase
 
+import com.stack.knowledege.common.annotation.usecase.ReadOnlyUseCase
 import com.stack.knowledege.domain.item.application.spi.QueryItemPort
 import com.stack.knowledege.domain.item.exception.ItemNotFoundException
 import com.stack.knowledege.domain.item.presentation.data.response.ItemResponse
@@ -11,9 +12,8 @@ import com.stack.knowledege.domain.student.exception.StudentNotFoundException
 import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
 import com.stack.knowledege.domain.user.presentation.data.response.UserResponse
-import com.stack.knowledege.common.annotation.usecase.UseCase
 
-@UseCase
+@ReadOnlyUseCase
 class QueryIsOrderedOrderUseCase(
     private val queryOrderPort: QueryOrderPort,
     private val queryItemPort: QueryItemPort,
