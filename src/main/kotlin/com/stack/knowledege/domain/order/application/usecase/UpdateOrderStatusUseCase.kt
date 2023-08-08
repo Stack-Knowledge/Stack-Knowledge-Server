@@ -16,7 +16,7 @@ class UpdateOrderStatusUseCase(
         val order = orderPort.queryOrderById(orderId) ?: throw OrderNotFoundException()
 
         if (order.orderStatus == OrderStatus.COMPLETED)
-            AlreadyCompletedOrderException()
+            throw AlreadyCompletedOrderException()
 
         orderPort.save(order.copy(orderStatus = updateOrderStatusRequest.orderStatus))
     }
