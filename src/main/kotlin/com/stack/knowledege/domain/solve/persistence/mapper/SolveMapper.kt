@@ -26,7 +26,6 @@ class SolveMapper(
             )
         }
 
-
     override fun toEntity(domain: Solve): SolveJpaEntity {
         val mission = missionJpaRepository.findByIdOrNull(domain.mission) ?: throw MissionNotFoundException()
         val student = studentJpaRepository.findByIdOrNull(domain.student) ?: throw UserNotFoundException()
