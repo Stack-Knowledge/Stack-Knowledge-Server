@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
 	id("org.springframework.boot") version "2.7.5"
@@ -35,6 +34,9 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
 	implementation("com.github.GSM-MSG:GAuth-SDK-Java:v2.0.0")
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE")
+
+	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
 
 	// map struct
 	implementation("org.mapstruct:mapstruct:1.5.1.Final")
