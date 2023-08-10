@@ -2,34 +2,19 @@ package com.stack.knowledege.domain.student.persistence.mapper
 
 import com.stack.knowledege.domain.student.domain.Student
 import com.stack.knowledege.domain.student.persistence.entity.StudentJpaEntity
-import com.stack.knowledege.domain.user.exception.UserNotFoundException
-import com.stack.knowledege.domain.user.persistence.repository.UserJpaRepository
-import com.stack.knowledege.global.mapper.GenericMapper
-import org.springframework.data.repository.findByIdOrNull
+import org.mapstruct.InjectionStrategy
+import org.mapstruct.Mapper
+import org.mapstruct.MappingConstants
+import org.mapstruct.ReportingPolicy
 import org.springframework.stereotype.Component
 
+@Mapper(
+    componentModel = MappingConstants.ComponentModel.SPRING,
+    injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+    unmappedTargetPolicy = ReportingPolicy.IGNORE
+)
 @Component
-class StudentMapper(
-    private val userJpaRepository: UserJpaRepository
-) : GenericMapper<Student, StudentJpaEntity> {
-    override fun toDomain(entity: StudentJpaEntity?): Student? =
-        entity?.let {
-            Student(
-                id = it.id,
-                currentPoint = it.currentPoint,
-                cumulatePoint = it.cumulatePoint,
-                user = it.user.id
-            )
-        }
-
-    override fun toEntity(domain: Student): StudentJpaEntity {
-        val user = userJpaRepository.findByIdOrNull(domain.user) ?: throw UserNotFoundException()
-
-        return StudentJpaEntity(
-            id = domain.id,
-            currentPoint = domain.currentPoint,
-            cumulatePoint = domain.cumulatePoint,
-            user = user
-        )
-    }
+interface StudentMapper {
+    fun toDomain(entity: StudentJpaEntity?): Student?
+    fun toEntity(domain: Student): StudentJpaEntity
 }

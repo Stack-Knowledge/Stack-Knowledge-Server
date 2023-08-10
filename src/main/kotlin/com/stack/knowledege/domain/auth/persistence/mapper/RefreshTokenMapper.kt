@@ -15,8 +15,6 @@ import org.springframework.stereotype.Component
 )
 @Component
 interface RefreshTokenMapper {
-
     fun toDomain(refreshTokenEntity: RefreshTokenEntity?): RefreshToken?
     fun toEntity(refreshToken: RefreshToken): RefreshTokenEntity
-
 }
