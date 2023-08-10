@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
 	id("org.springframework.boot") version "2.7.5"
@@ -6,6 +7,7 @@ plugins {
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("plugin.jpa") version "1.6.21"
+	kotlin("kapt") version "1.6.21"
 }
 
 group = "com.stack"
@@ -33,6 +35,11 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
 	implementation("com.github.GSM-MSG:GAuth-SDK-Java:v2.0.0")
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE")
+
+	// map struct
+	implementation("org.mapstruct:mapstruct:1.5.1.Final")
+	kapt("org.mapstruct:mapstruct-processor:1.5.1.Final")
+	kaptTest("org.mapstruct:mapstruct-processor:1.5.1.Final")
 }
 
 tasks.withType<KotlinCompile> {
