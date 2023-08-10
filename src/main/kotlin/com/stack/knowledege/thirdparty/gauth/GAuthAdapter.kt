@@ -1,6 +1,6 @@
 package com.stack.knowledege.thirdparty.gauth
 
-import com.stack.knowledege.thirdparty.gauth.spi.GAuthPort
+import com.stack.knowledege.domain.auth.application.spi.GAuthPort
 import gauth.GAuth
 import gauth.GAuthToken
 import gauth.GAuthUserInfo

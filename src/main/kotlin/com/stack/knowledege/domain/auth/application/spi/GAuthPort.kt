@@ -1,4 +1,4 @@
-package com.stack.knowledege.thirdparty.gauth.spi
+package com.stack.knowledege.domain.auth.application.spi
 
 import gauth.GAuthToken
 import gauth.GAuthUserInfo
