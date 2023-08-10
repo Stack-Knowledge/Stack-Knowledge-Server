@@ -5,6 +5,9 @@ spring:
     password: ${DB_PASSWORD:123456789a}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  profiles:
+    active: local
+
   jpa:
     hibernate:
       ddl-auto: update
