@@ -1,4 +1,4 @@
-package com.stack.knowledege.thirdparty.gauth
+package com.stack.knowledege.thirdparty.gauth.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding

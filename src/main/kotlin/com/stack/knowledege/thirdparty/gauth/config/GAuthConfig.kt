@@ -1,4 +1,4 @@
-package com.stack.knowledege.thirdparty.gauth
+package com.stack.knowledege.thirdparty.gauth.config
 
 import gauth.GAuth
 import gauth.impl.GAuthImpl
