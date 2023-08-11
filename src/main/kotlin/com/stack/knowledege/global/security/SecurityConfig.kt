@@ -43,7 +43,7 @@ class SecurityConfig(
 
             // auth
             .antMatchers(HttpMethod.POST, "/auth").permitAll()
-            .antMatchers(HttpMethod.PATCH, "/auth").authenticated()
+            .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
 
             // item
             .antMatchers(HttpMethod.GET , "/item").hasRole(student)
