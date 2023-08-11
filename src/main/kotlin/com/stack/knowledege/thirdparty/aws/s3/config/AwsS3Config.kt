@@ -1,4 +1,4 @@
-package com.stack.knowledege.thirdparty.aws.s3
+package com.stack.knowledege.thirdparty.aws.s3.config
 
 import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.AWSStaticCredentialsProvider
