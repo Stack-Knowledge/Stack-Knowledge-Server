@@ -16,6 +16,8 @@ import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.domain.user.presentation.data.request.ScoreSolveRequest
 import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.common.service.SecurityService
+import com.stack.knowledege.domain.mission.domain.Mission
+import com.stack.knowledege.domain.student.domain.Student
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
 import com.stack.knowledege.global.security.exception.InvalidRoleException
 import java.util.UUID
@@ -50,19 +52,24 @@ class ScoreSolveUseCase(
         if (user.authority != Authority.ROLE_TEACHER)
             throw ForBiddenCommandSolveException()
 
-        val currentPoint = when (scoreSolveRequest.solveStatus) {
-            SolveStatus.CORRECT_ANSWER -> student.currentPoint.plus(mission.point)
-            SolveStatus.WRONG_ANSWER -> student.currentPoint
-            else -> { throw UnsupportedSolveStatusException() }
-        }
+        val currentPoint = queryCurrentPoint(scoreSolveRequest.solveStatus, student, mission)
+        val cumulatePoint = queryCumulatePoint(scoreSolveRequest.solveStatus, student, mission)
 
-        val cumulatePoint = when (scoreSolveRequest.solveStatus) {
+        commandStudentPort.save(student.copy(currentPoint = currentPoint, cumulatePoint = cumulatePoint))
+        solvePort.save(solve.copy(solveStatus = scoreSolveRequest.solveStatus))
+    }
+
+    private fun queryCumulatePoint(solveStatus: SolveStatus, student: Student, mission: Mission) =
+        when (solveStatus) {
             SolveStatus.CORRECT_ANSWER -> student.cumulatePoint.plus(mission.point)
             SolveStatus.WRONG_ANSWER -> student.cumulatePoint
             else -> { throw UnsupportedSolveStatusException() }
         }
 
-        commandStudentPort.save(student.copy(currentPoint = currentPoint, cumulatePoint = cumulatePoint))
-        solvePort.save(solve.copy(solveStatus = scoreSolveRequest.solveStatus))
-    }
+    private fun queryCurrentPoint(solveStatus: SolveStatus, student: Student, mission: Mission) =
+        when (solveStatus) {
+            SolveStatus.CORRECT_ANSWER -> student.currentPoint.plus(mission.point)
+            SolveStatus.WRONG_ANSWER -> student.currentPoint
+            else -> { throw UnsupportedSolveStatusException() }
+        }
 }
