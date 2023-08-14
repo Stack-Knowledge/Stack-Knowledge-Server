@@ -6,6 +6,7 @@ import com.amazonaws.services.s3.model.DeleteObjectRequest
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
 import com.stack.knowledege.domain.image.application.spi.ImagePort
+import com.stack.knowledege.thirdparty.aws.s3.config.properties.AwsS3Properties
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
