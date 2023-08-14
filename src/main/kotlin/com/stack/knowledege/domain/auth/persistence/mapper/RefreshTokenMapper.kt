@@ -2,19 +2,26 @@ package com.stack.knowledege.domain.auth.persistence.mapper
 
 import com.stack.knowledege.domain.auth.domain.RefreshToken
 import com.stack.knowledege.domain.auth.persistence.entity.RefreshTokenEntity
-import org.mapstruct.InjectionStrategy
-import org.mapstruct.Mapper
-import org.mapstruct.MappingConstants
-import org.mapstruct.ReportingPolicy
+import com.stack.knowledege.global.mapper.GenericMapper
 import org.springframework.stereotype.Component
 
-@Mapper(
-    componentModel = MappingConstants.ComponentModel.SPRING,
-    injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-    unmappedTargetPolicy = ReportingPolicy.IGNORE
-)
 @Component
-interface RefreshTokenMapper {
-    fun toDomain(refreshTokenEntity: RefreshTokenEntity?): RefreshToken?
-    fun toEntity(refreshToken: RefreshToken): RefreshTokenEntity
+class RefreshTokenMapper() : GenericMapper<RefreshToken, RefreshTokenEntity> {
+    override fun toDomain(entity: RefreshTokenEntity?): RefreshToken? =
+        entity?.let {
+            RefreshToken(
+                refreshToken = it.refreshToken,
+                userId = it.userId,
+                expiredAt = it.expiredAt
+            )
+        }
+
+    override fun toEntity(domain: RefreshToken): RefreshTokenEntity =
+        domain?.let {
+            RefreshTokenEntity(
+                refreshToken = it.refreshToken,
+                userId = it.userId,
+                expiredAt = it.expiredAt
+            )
+        }
 }

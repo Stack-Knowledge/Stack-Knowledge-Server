@@ -36,12 +36,6 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE")
 
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-
-
-	// map struct
-	implementation("org.mapstruct:mapstruct:1.5.1.Final")
-	kapt("org.mapstruct:mapstruct-processor:1.5.1.Final")
-	kaptTest("org.mapstruct:mapstruct-processor:1.5.1.Final")
 }
 
 tasks.withType<KotlinCompile> {

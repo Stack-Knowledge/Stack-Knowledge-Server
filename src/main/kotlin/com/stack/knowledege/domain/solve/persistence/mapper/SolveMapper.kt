@@ -1,20 +1,42 @@
 package com.stack.knowledege.domain.solve.persistence.mapper
 
+import com.stack.knowledege.domain.mission.exception.MissionNotFoundException
+import com.stack.knowledege.domain.mission.persistence.repository.MissionJpaRepository
 import com.stack.knowledege.domain.solve.domain.Solve
 import com.stack.knowledege.domain.solve.persistence.entity.SolveJpaEntity
-import org.mapstruct.InjectionStrategy
-import org.mapstruct.Mapper
-import org.mapstruct.MappingConstants
-import org.mapstruct.ReportingPolicy
+import com.stack.knowledege.domain.student.persistence.repository.StudentJpaRepository
+import com.stack.knowledege.domain.user.exception.UserNotFoundException
+import com.stack.knowledege.global.mapper.GenericMapper
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 
-@Mapper(
-    componentModel = MappingConstants.ComponentModel.SPRING,
-    injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-    unmappedTargetPolicy = ReportingPolicy.IGNORE
-)
 @Component
-interface SolveMapper {
-    fun toDomain(entity: SolveJpaEntity?): Solve?
-    fun toEntity(domain: Solve): SolveJpaEntity
+class SolveMapper(
+    private val missionJpaRepository: MissionJpaRepository,
+    private val studentJpaRepository: StudentJpaRepository
+) : GenericMapper<Solve, SolveJpaEntity> {
+    override fun toDomain(entity: SolveJpaEntity?): Solve? =
+        entity?.let {
+            Solve(
+                id = it.id,
+                solvation = it.solvation,
+                solveStatus = it.solveStatus,
+                student = it.student.id,
+                mission = it.mission.id
+            )
+        }
+
+
+    override fun toEntity(domain: Solve): SolveJpaEntity {
+        val mission = missionJpaRepository.findByIdOrNull(domain.mission) ?: throw MissionNotFoundException()
+        val student = studentJpaRepository.findByIdOrNull(domain.student) ?: throw UserNotFoundException()
+
+        return SolveJpaEntity(
+            id = domain.id,
+            solvation = domain.solvation,
+            solveStatus = domain.solveStatus,
+            student = student,
+            mission = mission
+        )
+    }
 }

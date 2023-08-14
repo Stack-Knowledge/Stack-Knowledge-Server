@@ -2,19 +2,30 @@ package com.stack.knowledege.domain.user.persistence.mapper
 
 import com.stack.knowledege.domain.user.domain.User
 import com.stack.knowledege.domain.user.persistence.entity.UserJpaEntity
-import org.mapstruct.InjectionStrategy
-import org.mapstruct.Mapper
-import org.mapstruct.MappingConstants
-import org.mapstruct.ReportingPolicy
+import com.stack.knowledege.global.mapper.GenericMapper
 import org.springframework.stereotype.Component
 
-@Mapper(
-    componentModel = MappingConstants.ComponentModel.SPRING,
-    injectionStrategy = InjectionStrategy.CONSTRUCTOR,
-    unmappedTargetPolicy = ReportingPolicy.IGNORE
-)
 @Component
-interface UserMapper {
-    fun toDomain(entity: UserJpaEntity?): User?
-    fun toEntity(domain: User): UserJpaEntity
+class UserMapper : GenericMapper<User, UserJpaEntity> {
+    override fun toDomain(entity: UserJpaEntity?): User? =
+        entity?.let {
+            User(
+                id = it.id,
+                email = it.email,
+                name = it.name,
+                profileImage = it.profileImage!!,
+                authority = it.authority
+            )
+        }
+
+    override fun toEntity(domain: User): UserJpaEntity =
+        domain?.let {
+            UserJpaEntity(
+                id = it.id,
+                email = it.email,
+                name = it.name,
+                profileImage = it.profileImage,
+                authority = it.authority
+            )
+        }
 }
