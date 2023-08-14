@@ -6,6 +6,7 @@ plugins {
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("plugin.jpa") version "1.6.21"
+	kotlin("kapt") version "1.6.21"
 }
 
 group = "com.stack"
@@ -52,7 +53,6 @@ dependencies {
 	testImplementation("io.kotest:kotest-assertions-core-jvm:4.4.3")
 	implementation("io.kotest:kotest-extensions-spring:4.4.3")
 	testImplementation("io.mockk:mockk:1.12.0")
-
 }
 
 tasks.withType<KotlinCompile> {

@@ -1,4 +1,4 @@
-package com.stack.knowledege.thirdparty.aws.s3
+package com.stack.knowledege.thirdparty.aws.s3.config.properties
 
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
