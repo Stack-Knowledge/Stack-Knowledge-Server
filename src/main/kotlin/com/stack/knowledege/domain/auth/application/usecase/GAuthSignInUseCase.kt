@@ -23,7 +23,6 @@ class GAuthSignInUseCase(
     private val queryStudentPort: QueryStudentPort
 ) {
     fun execute(gAuthSignInRequest: GAuthSignInRequest): TokenResponse {
-
         val gAuthToken = gAuthPort.queryGAuthToken(gAuthSignInRequest.code)
         val gAuthUserInfo = gAuthPort.queryUserInfo(gAuthToken.accessToken)
         val authority = userPort.queryUserRoleByEmail(gAuthUserInfo.email, gAuthUserInfo.role)

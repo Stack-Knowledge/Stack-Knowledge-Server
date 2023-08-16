@@ -11,19 +11,15 @@ import com.stack.knowledege.domain.solve.exception.UnsupportedSolveStatusExcepti
 import com.stack.knowledege.domain.student.application.spi.CommandStudentPort
 import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledege.domain.student.exception.StudentNotFoundException
-import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.domain.user.presentation.data.request.ScoreSolveRequest
 import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.common.service.SecurityService
-import com.stack.knowledege.domain.user.exception.UserNotFoundException
-import com.stack.knowledege.global.security.exception.InvalidRoleException
 import java.util.UUID
 
 @UseCase
 class ScoreSolveUseCase(
     private val solvePort: SolvePort,
-    private val queryUserPort: QueryUserPort,
     private val queryStudentPort: QueryStudentPort,
     private val commandStudentPort: CommandStudentPort,
     private val queryMissionPort: QueryMissionPort,
@@ -31,16 +27,7 @@ class ScoreSolveUseCase(
 ) {
     fun execute(solveId: UUID, scoreSolveRequest: ScoreSolveRequest) {
         val solve = solvePort.querySolveById(solveId) ?: throw SolveNotFoundException()
-        val user = when (securityService.queryCurrentUserAuthority()) {
-            Authority.ROLE_STUDENT.name -> {
-                val student = queryStudentPort.queryStudentById(securityService.queryCurrentUserId()) ?: throw UserNotFoundException()
-                queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
-            }
-            Authority.ROLE_TEACHER.name -> {
-                queryUserPort.queryUserById(securityService.queryCurrentUserId()) ?: throw UserNotFoundException()
-            }
-            else -> throw InvalidRoleException()
-        }
+        val user = securityService.queryCurrentUser()
         val student = queryStudentPort.queryStudentById(solve.student) ?: throw StudentNotFoundException()
         val mission = queryMissionPort.queryMissionById(solve.mission) ?: throw MissionNotFoundException()
 
