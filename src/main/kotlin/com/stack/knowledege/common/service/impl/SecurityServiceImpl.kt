@@ -27,7 +27,4 @@ class SecurityServiceImpl(
             }
             else -> throw InvalidRoleException()
         }
-
-    override fun queryCurrentUserAuthority(): String =
-        securityPort.queryCurrentUserAuthority()
 }
