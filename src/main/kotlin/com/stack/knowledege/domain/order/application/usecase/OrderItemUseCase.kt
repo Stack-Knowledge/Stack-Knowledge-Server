@@ -21,7 +21,7 @@ class OrderItemUseCase(
     private val commandOrderPort: CommandOrderPort
 ) {
     fun execute(itemId: UUID, orderItemRequest: OrderItemRequest) {
-        val student = securityService.queryCurrentUserId().let { queryStudentPort.queryStudentById(it) ?: throw StudentNotFoundException() }
+        val student = securityService.queryCurrentUser().let { queryStudentPort.queryStudentByUser(it) ?: throw StudentNotFoundException() }
         val item = queryItemPort.queryItemById(itemId) ?: throw ItemNotFoundException()
 
         val price = orderItemRequest.count * item.price
