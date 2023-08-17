@@ -11,7 +11,6 @@ import com.stack.knowledege.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledege.domain.solve.exception.StudentOnlyException
 import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledege.domain.student.exception.StudentNotFoundException
-import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.common.service.SecurityService
@@ -19,7 +18,6 @@ import java.util.UUID
 
 @UseCase
 class SolveMissionUseCase(
-    private val queryUserPort: QueryUserPort,
     private val queryStudentPort: QueryStudentPort,
     private val missionPort: MissionPort,
     private val commandSolvePort: CommandSolvePort,
