@@ -1,15 +1,15 @@
 package com.stack.knowledege.domain.point.persistence.entity
 
-import com.stack.knowledege.common.entity.BaseIdEntity
 import com.stack.knowledege.domain.mission.persistence.entity.MissionJpaEntity
-import java.util.*
 import javax.persistence.*
 
 @Entity
 @Table(name = "point")
 class PointJpaEntity(
 
-    override val id: UUID,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long,
 
     @Column(nullable = false)
     val missionPoint: Int,
@@ -18,4 +18,4 @@ class PointJpaEntity(
     @JoinColumn(name = "mission_id")
     val mission: MissionJpaEntity
 
-) : BaseIdEntity(id)
+)
