@@ -1,3 +1,3 @@
 package com.stack.knowledege.domain.point.application.spi
 
-interface PointPort : QueryPointPort
+interface PointPort : CommandPointPort, QueryPointPort

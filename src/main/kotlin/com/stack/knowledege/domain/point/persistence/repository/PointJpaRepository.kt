@@ -7,4 +7,5 @@ import java.util.UUID
 
 interface PointJpaRepository : CrudRepository<PointJpaEntity, UUID> {
     fun findByMission(mission: Mission): PointJpaEntity
+    fun findTopByIdDesc(): PointJpaEntity
 }

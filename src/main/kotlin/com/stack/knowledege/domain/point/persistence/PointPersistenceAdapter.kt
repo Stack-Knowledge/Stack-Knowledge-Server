@@ -12,6 +12,13 @@ class PointPersistenceAdapter(
     private val pointJpaRepository: PointJpaRepository,
     private val pointMapper: PointMapper
 ) : PointPort {
+    override fun save(point: Point) {
+        pointJpaRepository.save(pointMapper.toEntity(point))
+    }
+
     override fun queryPointByMission(mission: Mission): Point? =
         pointMapper.toDomain(pointJpaRepository.findByMission(mission))
+
+    override fun queryPointTopByIdDesc(): Point? =
+        pointMapper.toDomain(pointJpaRepository.findTopByIdDesc())
 }
