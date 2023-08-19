@@ -20,5 +20,5 @@ class PointPersistenceAdapter(
         pointMapper.toDomain(pointJpaRepository.findByMission(mission))
 
     override fun queryPointTopByIdDesc(): Point? =
-        pointMapper.toDomain(pointJpaRepository.findTopByIdDesc())
+        pointMapper.toDomain(pointJpaRepository.findTopByOrderByIdDesc())
 }

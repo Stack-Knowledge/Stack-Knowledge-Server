@@ -8,5 +8,6 @@ data class Student(
     val id: UUID,
     val currentPoint: Int,
     val cumulatePoint: Int,
+    val point: Long,
     val user: UUID
 )
