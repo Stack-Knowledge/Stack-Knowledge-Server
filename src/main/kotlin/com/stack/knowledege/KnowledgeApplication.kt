@@ -2,12 +2,10 @@ package com.stack.knowledege
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.scheduling.annotation.EnableScheduling
 import java.util.TimeZone
 import javax.annotation.PostConstruct
 
 @SpringBootApplication
-@EnableScheduling
 class KnowledgeApplication {
 
 	@PostConstruct
