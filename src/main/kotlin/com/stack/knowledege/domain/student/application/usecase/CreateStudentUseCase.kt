@@ -15,7 +15,6 @@ class CreateStudentUseCase(
             id = UUID.randomUUID(),
             currentPoint = 0,
             cumulatePoint = 0,
-            point = 0,
             user = user.id
         )
 
