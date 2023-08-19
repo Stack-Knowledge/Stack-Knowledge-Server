@@ -16,6 +16,8 @@ import com.stack.knowledege.domain.user.presentation.data.request.ScoreSolveRequ
 import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.common.service.SecurityService
 import com.stack.knowledege.domain.mission.application.spi.CommandMissionPort
+import com.stack.knowledege.domain.point.application.spi.QueryPointPort
+import com.stack.knowledege.domain.point.exception.PointNotFoundException
 import java.util.UUID
 
 @UseCase
@@ -25,13 +27,15 @@ class ScoreSolveUseCase(
     private val commandStudentPort: CommandStudentPort,
     private val queryMissionPort: QueryMissionPort,
     private val securityService: SecurityService,
-    private val commandMissionPort: CommandMissionPort
+    private val commandMissionPort: CommandMissionPort,
+    private val queryPointPort: QueryPointPort
 ) {
     fun execute(solveId: UUID, scoreSolveRequest: ScoreSolveRequest) {
         val solve = solvePort.querySolveById(solveId) ?: throw SolveNotFoundException()
         val user = securityService.queryCurrentUser()
         val student = queryStudentPort.queryStudentById(solve.student) ?: throw StudentNotFoundException()
         val mission = queryMissionPort.queryMissionById(solve.mission) ?: throw MissionNotFoundException()
+        val point = queryPointPort.queryPointByMission(mission) ?: throw PointNotFoundException()
 
         if (solve.solveStatus != SolveStatus.SCORING)
             throw AlreadyScoredException()
@@ -41,8 +45,8 @@ class ScoreSolveUseCase(
 
         val currentPoint = when (scoreSolveRequest.solveStatus) {
             SolveStatus.CORRECT_ANSWER -> {
-                commandMissionPort.save(mission.copy(point = (mission.point * 0.97).toInt()))
-                student.currentPoint.plus(mission.point)
+                commandMissionPort.save(mission.copy(point = point.missionPoint))
+                student.currentPoint.plus(point.missionPoint)
             }
             SolveStatus.WRONG_ANSWER -> student.currentPoint
             else -> throw UnsupportedSolveStatusException()
@@ -50,8 +54,8 @@ class ScoreSolveUseCase(
 
         val cumulatePoint = when (scoreSolveRequest.solveStatus) {
             SolveStatus.CORRECT_ANSWER -> {
-                commandMissionPort.save(mission.copy(point = (mission.point * 0.97).toInt()))
-                student.cumulatePoint.plus(mission.point)
+                commandMissionPort.save(mission.copy(point = point.missionPoint))
+                student.cumulatePoint.plus(point.missionPoint)
             }
             SolveStatus.WRONG_ANSWER -> student.cumulatePoint
             else -> throw UnsupportedSolveStatusException()
