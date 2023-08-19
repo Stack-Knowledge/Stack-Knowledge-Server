@@ -41,7 +41,7 @@ class SolveMissionUseCase(
 
         val point = pointPort.queryPointTopByIdDesc().let {
             Point(
-                missionPoint = it?.missionPoint ?: 1000,
+                missionPoint = ((it?.missionPoint ?: 1000) * 0.97).toInt(),
                 mission = it!!.mission
             )
         }

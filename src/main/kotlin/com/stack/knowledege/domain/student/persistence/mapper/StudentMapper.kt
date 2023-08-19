@@ -1,6 +1,5 @@
 package com.stack.knowledege.domain.student.persistence.mapper
 
-import com.stack.knowledege.domain.point.persistence.repository.PointJpaRepository
 import com.stack.knowledege.domain.student.domain.Student
 import com.stack.knowledege.domain.student.persistence.entity.StudentJpaEntity
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
@@ -11,8 +10,7 @@ import org.springframework.stereotype.Component
 
 @Component
 class StudentMapper(
-    private val userJpaRepository: UserJpaRepository,
-    private val pointJpaRepository: PointJpaRepository
+    private val userJpaRepository: UserJpaRepository
 ) : GenericMapper<Student, StudentJpaEntity> {
     override fun toDomain(entity: StudentJpaEntity?): Student? =
         entity?.let {
