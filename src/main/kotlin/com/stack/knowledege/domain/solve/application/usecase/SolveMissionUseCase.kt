@@ -15,6 +15,7 @@ import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.common.service.SecurityService
 import com.stack.knowledege.domain.point.application.spi.PointPort
+import com.stack.knowledege.domain.point.domain.Point
 import com.stack.knowledege.domain.point.exception.PointNotFoundException
 import java.util.UUID
 
@@ -39,6 +40,10 @@ class SolveMissionUseCase(
         val student = queryStudentPort.queryStudentByUser(user) ?: throw StudentNotFoundException()
 
         val point = pointPort.queryPointTopByIdDesc() ?: throw PointNotFoundException()
+        val point1 = Point(
+            id =
+        )
+
         pointPort.save(point)
 
         val solve = Solve(
