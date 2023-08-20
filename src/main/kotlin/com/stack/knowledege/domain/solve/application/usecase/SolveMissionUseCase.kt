@@ -16,7 +16,6 @@ import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.common.service.SecurityService
 import com.stack.knowledege.domain.point.application.spi.PointPort
 import com.stack.knowledege.domain.point.domain.Point
-import com.stack.knowledege.domain.point.exception.PointNotFoundException
 import java.util.UUID
 
 @UseCase
