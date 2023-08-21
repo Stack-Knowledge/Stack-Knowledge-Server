@@ -38,12 +38,10 @@ class SolveMissionUseCase(
 
         val student = queryStudentPort.queryStudentByUser(user) ?: throw StudentNotFoundException()
 
-        val point = pointPort.queryPointTopByIdDesc().let {
-            Point(
-                missionPoint = ((it?.missionPoint ?: 1000) * 0.97).toInt(),
-                mission = mission.id
-            )
-        }
+        val point = Point(
+            missionPoint = ((pointPort.queryPointTopByIdDesc()?.missionPoint ?: 1000) * 0.97).toInt(),
+            mission = mission.id
+        )
 
         pointPort.save(point)
 
