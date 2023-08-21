@@ -11,40 +11,31 @@ import com.stack.knowledege.domain.solve.exception.UnsupportedSolveStatusExcepti
 import com.stack.knowledege.domain.student.application.spi.CommandStudentPort
 import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledege.domain.student.exception.StudentNotFoundException
-import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.domain.user.presentation.data.request.ScoreSolveRequest
 import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.common.service.SecurityService
-import com.stack.knowledege.domain.mission.domain.Mission
-import com.stack.knowledege.domain.student.domain.Student
-import com.stack.knowledege.domain.user.exception.UserNotFoundException
-import com.stack.knowledege.global.security.exception.InvalidRoleException
+import com.stack.knowledege.domain.mission.application.spi.CommandMissionPort
+import com.stack.knowledege.domain.point.application.spi.QueryPointPort
+import com.stack.knowledege.domain.point.exception.PointNotFoundException
 import java.util.UUID
 
 @UseCase
 class ScoreSolveUseCase(
     private val solvePort: SolvePort,
-    private val queryUserPort: QueryUserPort,
     private val queryStudentPort: QueryStudentPort,
     private val commandStudentPort: CommandStudentPort,
     private val queryMissionPort: QueryMissionPort,
-    private val securityService: SecurityService
+    private val securityService: SecurityService,
+    private val commandMissionPort: CommandMissionPort,
+    private val queryPointPort: QueryPointPort
 ) {
     fun execute(solveId: UUID, scoreSolveRequest: ScoreSolveRequest) {
         val solve = solvePort.querySolveById(solveId) ?: throw SolveNotFoundException()
-        val user = when (securityService.queryCurrentUserAuthority()) {
-            Authority.ROLE_STUDENT.name -> {
-                val student = queryStudentPort.queryStudentById(securityService.queryCurrentUserId()) ?: throw UserNotFoundException()
-                queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
-            }
-            Authority.ROLE_TEACHER.name -> {
-                queryUserPort.queryUserById(securityService.queryCurrentUserId()) ?: throw UserNotFoundException()
-            }
-            else -> throw InvalidRoleException()
-        }
+        val user = securityService.queryCurrentUser()
         val student = queryStudentPort.queryStudentById(solve.student) ?: throw StudentNotFoundException()
         val mission = queryMissionPort.queryMissionById(solve.mission) ?: throw MissionNotFoundException()
+        val point = queryPointPort.queryPointByMission(mission) ?: throw PointNotFoundException()
 
         if (solve.solveStatus != SolveStatus.SCORING)
             throw AlreadyScoredException()
@@ -52,24 +43,25 @@ class ScoreSolveUseCase(
         if (user.authority != Authority.ROLE_TEACHER)
             throw ForBiddenCommandSolveException()
 
-        val currentPoint = queryCurrentPoint(scoreSolveRequest.solveStatus, student, mission)
-        val cumulatePoint = queryCumulatePoint(scoreSolveRequest.solveStatus, student, mission)
+        val currentPoint = when (scoreSolveRequest.solveStatus) {
+            SolveStatus.CORRECT_ANSWER -> {
+                commandMissionPort.save(mission.copy(point = point.missionPoint))
+                student.currentPoint.plus(point.missionPoint)
+            }
+            SolveStatus.WRONG_ANSWER -> student.currentPoint
+            else -> throw UnsupportedSolveStatusException()
+        }
+
+        val cumulatePoint = when (scoreSolveRequest.solveStatus) {
+            SolveStatus.CORRECT_ANSWER -> {
+                commandMissionPort.save(mission.copy(point = point.missionPoint))
+                student.cumulatePoint.plus(point.missionPoint)
+            }
+            SolveStatus.WRONG_ANSWER -> student.cumulatePoint
+            else -> throw UnsupportedSolveStatusException()
+        }
 
         commandStudentPort.save(student.copy(currentPoint = currentPoint, cumulatePoint = cumulatePoint))
         solvePort.save(solve.copy(solveStatus = scoreSolveRequest.solveStatus))
     }
-
-    private fun queryCumulatePoint(solveStatus: SolveStatus, student: Student, mission: Mission) =
-        when (solveStatus) {
-            SolveStatus.CORRECT_ANSWER -> student.cumulatePoint.plus(mission.point)
-            SolveStatus.WRONG_ANSWER -> student.cumulatePoint
-            else -> { throw UnsupportedSolveStatusException() }
-        }
-
-    private fun queryCurrentPoint(solveStatus: SolveStatus, student: Student, mission: Mission) =
-        when (solveStatus) {
-            SolveStatus.CORRECT_ANSWER -> student.currentPoint.plus(mission.point)
-            SolveStatus.WRONG_ANSWER -> student.currentPoint
-            else -> { throw UnsupportedSolveStatusException() }
-        }
 }

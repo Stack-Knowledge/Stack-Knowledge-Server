@@ -107,6 +107,6 @@ jobs:
         uses: sarisia/actions-status-discord@v1
         if: ${{ failure() }}
         with:
-          title: ❗️ Stack Knowledge Backend CD 실! ❗️
+          title: ❗️ Stack Knowledge Backend CD 실패! ❗️
           webhook: ${{ secrets.STACK_KNOWLEDGE_DISCORD_WEBHOOK }}
           color: FF0000

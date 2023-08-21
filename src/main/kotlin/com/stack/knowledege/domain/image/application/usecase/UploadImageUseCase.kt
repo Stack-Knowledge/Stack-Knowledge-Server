@@ -19,21 +19,10 @@ class UploadImageUseCase(
     private val commandImagePort: CommandImagePort,
     private val userPort: UserPort,
     private val imageValidator: ImageValidator,
-    private val securityService: SecurityService,
-    private val queryStudentPort: QueryStudentPort,
-    private val queryUserPort: QueryUserPort
+    private val securityService: SecurityService
 ) {
     fun execute(multipartFile: MultipartFile): String {
-        val user = when (securityService.queryCurrentUserAuthority()) {
-            Authority.ROLE_STUDENT.name -> {
-                val student = queryStudentPort.queryStudentById(securityService.queryCurrentUserId()) ?: throw UserNotFoundException()
-                queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
-            }
-            Authority.ROLE_TEACHER.name -> {
-                queryUserPort.queryUserById(securityService.queryCurrentUserId()) ?: throw UserNotFoundException()
-            }
-            else -> throw InvalidRoleException()
-        }
+        val user = securityService.queryCurrentUser()
 
         if (user.profileImage != null)
             throw ProfileImageAlreadyExist()

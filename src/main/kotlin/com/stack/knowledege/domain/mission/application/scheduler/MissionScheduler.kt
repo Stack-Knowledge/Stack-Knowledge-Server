@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component
 class MissionScheduler(
     private val missionPort: MissionPort
 ) {
-    @Scheduled(cron = "0 30 12 ? * 1-5", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 30 12 ? * 1-5")
     fun openAllMission() = checkAndChangeMissionStatusOpened()
 
-    @Scheduled(cron = "0 30 19 ? * 1-5", zone = "Asia/Seoul")
+    @Scheduled(cron = "0 30 19 ? * 1-5")
     fun closeAllMission() = checkAndChangeMissionStatusClosed()
 
     private fun checkAndChangeMissionStatusOpened() {

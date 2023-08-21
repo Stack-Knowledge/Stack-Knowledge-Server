@@ -1,8 +1,7 @@
 package com.stack.knowledege.common.service
 
-import java.util.*
+import com.stack.knowledege.domain.user.domain.User
 
 interface SecurityService {
-    fun queryCurrentUserId(): UUID
-    fun queryCurrentUserAuthority(): String
+    fun queryCurrentUser(): User
 }
