@@ -41,6 +41,9 @@ enum class ErrorCode(
     // student
     STUDENT_NOT_FOUND("존재하지 않는 학생입니다.", 404),
 
+    // point
+    POINT_NOT_FOUND("존재하지 않는 미션 포인트입니다.", 404),
+
     // server
     INTERNAL_SERVER_ERROR("서버 내부 에러", 500)
 }

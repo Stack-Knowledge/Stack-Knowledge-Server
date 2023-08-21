@@ -11,31 +11,39 @@ import com.stack.knowledege.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledege.domain.solve.exception.StudentOnlyException
 import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledege.domain.student.exception.StudentNotFoundException
-import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.common.service.SecurityService
+import com.stack.knowledege.domain.point.application.spi.PointPort
+import com.stack.knowledege.domain.point.domain.Point
 import java.util.UUID
 
 @UseCase
 class SolveMissionUseCase(
-    private val queryUserPort: QueryUserPort,
     private val queryStudentPort: QueryStudentPort,
     private val missionPort: MissionPort,
     private val commandSolvePort: CommandSolvePort,
-    private val securityService: SecurityService
+    private val securityService: SecurityService,
+    private val pointPort: PointPort
 ) {
     fun execute(id: UUID, solveMissionRequest: SolveMissionRequest) {
         val mission = missionPort.queryMissionById(id) ?: throw MissionNotFoundException()
         val user = securityService.queryCurrentUser()
 
-        if (mission.missionStatus == MissionStatus.CLOSED)
+        if (mission.missionStatus != MissionStatus.OPENED)
             throw MissionNotOpenedException()
 
         if (user.authority != Authority.ROLE_STUDENT)
             throw StudentOnlyException()
 
         val student = queryStudentPort.queryStudentByUser(user) ?: throw StudentNotFoundException()
+
+        val point = Point(
+            missionPoint = ((pointPort.queryPointTopByIdDesc()?.missionPoint ?: 1000) * 0.97).toInt(),
+            mission = mission.id
+        )
+
+        pointPort.save(point)
 
         val solve = Solve(
             id = UUID.randomUUID(),
