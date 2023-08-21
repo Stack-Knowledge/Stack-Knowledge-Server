@@ -30,7 +30,7 @@ class SolveMissionUseCase(
         val mission = missionPort.queryMissionById(id) ?: throw MissionNotFoundException()
         val user = securityService.queryCurrentUser()
 
-        if (mission.missionStatus == MissionStatus.CLOSED)
+        if (mission.missionStatus != MissionStatus.OPENED)
             throw MissionNotOpenedException()
 
         if (user.authority != Authority.ROLE_STUDENT)
