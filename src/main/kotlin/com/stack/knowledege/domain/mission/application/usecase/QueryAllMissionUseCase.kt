@@ -6,6 +6,7 @@ import com.stack.knowledege.domain.user.application.spi.QueryUserPort
 import com.stack.knowledege.domain.user.exception.UserNotFoundException
 import com.stack.knowledege.domain.user.presentation.data.response.UserResponse
 import com.stack.knowledege.common.annotation.usecase.ReadOnlyUseCase
+import com.stack.knowledege.domain.mission.domain.constant.MissionStatus
 
 @ReadOnlyUseCase
 class QueryAllMissionUseCase(
@@ -13,7 +14,7 @@ class QueryAllMissionUseCase(
     private val queryUserPort: QueryUserPort
 ) {
     fun execute(): List<MissionResponse> {
-        val missions = queryMissionPort.queryAllMission()
+        val missions = queryMissionPort.queryMissionByMissionStatus(MissionStatus.OPENED)
 
         return missions.map{
             val user = queryUserPort.queryUserById(it.userId) ?: throw UserNotFoundException()
