@@ -22,6 +22,7 @@ class QueryAllMissionUseCase(
                 id = it.id,
                 title = it.title,
                 point = it.point,
+                missionStatus = it.missionStatus,
                 user = UserResponse(
                     id = user.id,
                     email = user.email,
