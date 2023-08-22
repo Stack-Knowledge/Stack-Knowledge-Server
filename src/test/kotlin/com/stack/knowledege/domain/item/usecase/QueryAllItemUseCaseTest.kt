@@ -3,16 +3,28 @@ package com.stack.knowledege.domain.item.usecase
 import com.stack.knowledege.domain.item.application.spi.QueryItemPort
 import com.stack.knowledege.domain.item.application.usecase.QueryAllItemUseCase
 import com.stack.knowledege.domain.item.domain.Item
+import com.stack.knowledege.domain.item.persistence.entity.ItemJpaEntity
+import com.stack.knowledege.domain.item.persistence.repository.ItemJpaRepository
 import com.stack.knowledege.domain.item.presentation.data.response.ItemResponse
-import com.stack.knowledege.global.annotation.StackKnowledgeTest
+//import com.stack.knowledege.global.annotation.StackKnowledgeTest
 import io.kotest.core.spec.style.BehaviorSpec
+import io.kotest.core.spec.style.Test
+import org.springframework.test.context.junit.jupiter.SpringExtension
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
+import org.junit.jupiter.api.extension.ExtendWith
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.cache.annotation.EnableCaching
 import java.util.UUID
 
-@StackKnowledgeTest
+//@StackKnowledgeTest
+//@SpringBootTest
+@SpringBootTest
+@EnableCaching
+@ExtendWith(SpringExtension::class)
 class QueryAllItemUseCaseTest : BehaviorSpec({
     val queryItemPort = mockk<QueryItemPort>()
     val queryAllItemUseCase = QueryAllItemUseCase(queryItemPort)
@@ -35,7 +47,7 @@ class QueryAllItemUseCaseTest : BehaviorSpec({
 
             Then("QueryItemPort 의 queryAllItem()이 한 번만 호출되고 캐싱됨") {
                 repeat(5) { queryAllItemUseCase.execute() }
-                verify(exactly = 1) { queryItemPort.queryAllItem() }
+                verify(exactly = 1) {queryItemPort.queryAllItem() }
             }
 
 
