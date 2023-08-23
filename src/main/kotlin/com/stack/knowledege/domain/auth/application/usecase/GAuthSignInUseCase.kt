@@ -41,7 +41,6 @@ class GAuthSignInUseCase(
             createStudentUseCase.execute(user)
 
         val student = queryStudentPort.queryStudentByUser(user) ?: throw StudentNotFoundException()
-        println(student.id)
 
         return when (user.authority) {
             Authority.ROLE_STUDENT -> jwtGeneratorPort.receiveToken(student.id, user.authority.name)
