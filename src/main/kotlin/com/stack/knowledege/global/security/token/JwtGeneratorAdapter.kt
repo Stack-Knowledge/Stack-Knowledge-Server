@@ -3,7 +3,6 @@ package com.stack.knowledege.global.security.token
 import com.stack.knowledege.domain.auth.application.spi.CommandRefreshTokenPort
 import com.stack.knowledege.domain.auth.domain.RefreshToken
 import com.stack.knowledege.domain.auth.presentation.data.response.TokenResponse
-import com.stack.knowledege.domain.user.domain.constant.Authority
 import com.stack.knowledege.global.security.spi.JwtGeneratorPort
 import com.stack.knowledege.global.security.token.properties.JwtProperties
 import io.jsonwebtoken.Jwts
@@ -18,7 +17,7 @@ class JwtGeneratorAdapter(
     private val commandRefreshTokenPort: CommandRefreshTokenPort
 ) : JwtGeneratorPort {
 
-    override fun receiveToken(userId: UUID, authority: Authority): TokenResponse {
+    override fun receiveToken(userId: UUID, authority: String): TokenResponse {
         val refreshToken = generateRefreshToken(userId)
         commandRefreshTokenPort.saveRefreshToken(RefreshToken(refreshToken, userId, jwtProperties.refreshExp))
         return TokenResponse(
@@ -28,12 +27,12 @@ class JwtGeneratorAdapter(
         )
     }
 
-    private fun generateAccessToken(userId: UUID, authority: Authority): String =
+    private fun generateAccessToken(userId: UUID, authority: String): String =
         Jwts.builder()
             .signWith(jwtProperties.accessSecret, SignatureAlgorithm.HS256)
             .setSubject(userId.toString())
             .claim("type", "access")
-            .claim("authority", authority.name)
+            .claim("authority", authority)
             .setIssuedAt(Date())
             .setExpiration(Date(System.currentTimeMillis() + jwtProperties.accessExp * 1000))
             .compact()
