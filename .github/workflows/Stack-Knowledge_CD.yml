@@ -41,7 +41,7 @@ jobs:
         run : ./gradlew bootjar
 
   prod-CD:
-    needs: CI
+    needs: CD
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
