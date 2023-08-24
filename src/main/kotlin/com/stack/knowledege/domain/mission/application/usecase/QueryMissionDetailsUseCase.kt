@@ -4,6 +4,8 @@ import com.stack.knowledege.domain.mission.application.spi.MissionPort
 import com.stack.knowledege.domain.mission.exception.MissionNotFoundException
 import com.stack.knowledege.domain.mission.presentation.data.response.MissionDetailsResponse
 import com.stack.knowledege.common.annotation.usecase.ReadOnlyUseCase
+import com.stack.knowledege.domain.mission.domain.constant.MissionStatus
+import com.stack.knowledege.domain.mission.exception.MissionNotOpenedException
 import java.util.UUID
 
 @ReadOnlyUseCase
@@ -12,6 +14,9 @@ class QueryMissionDetailsUseCase(
 ) {
     fun execute(id: UUID): MissionDetailsResponse {
         val mission = missionPort.queryMissionById(id) ?: throw MissionNotFoundException()
+
+        if (mission.missionStatus != MissionStatus.OPENED)
+            throw MissionNotOpenedException()
 
         return MissionDetailsResponse(
             title = mission.title,
