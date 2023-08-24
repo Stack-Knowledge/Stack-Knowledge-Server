@@ -15,18 +15,12 @@ import java.util.*
 @Component
 class JwtGeneratorAdapter(
     private val jwtProperties: JwtProperties,
-    private val commandRefreshTokenPort: CommandRefreshTokenPort,
-    private val jwtParserAdapter: JwtParserAdapter
+    private val commandRefreshTokenPort: CommandRefreshTokenPort
 ) : JwtGeneratorPort {
 
     override fun receiveToken(userId: UUID, authority: Authority): TokenResponse {
         val refreshToken = generateRefreshToken(userId)
         commandRefreshTokenPort.saveRefreshToken(RefreshToken(refreshToken, userId, authority, jwtProperties.refreshExp))
-        val accessToken = generateAccessToken(userId, authority)
-        println("======================================= receive Token")
-        println(authority)
-        println(jwtParserAdapter.getTokenBody(accessToken, jwtProperties.accessSecret).get(JwtProperties.authority, String::class.java))
-        println("===================================== recevie Token")
         return TokenResponse(
             accessToken = generateAccessToken(userId, authority),
             refreshToken = refreshToken,
