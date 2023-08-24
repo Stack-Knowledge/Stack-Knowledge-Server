@@ -38,11 +38,16 @@ class JwtParserAdapter(
             refreshToken.replace(JwtProperties.tokenPrefix, "")
         else null
 
-    override fun authentication(accessToken: String): Authentication =
-        getAuthority(getTokenBody(accessToken, jwtProperties.accessSecret))
-            .let { UsernamePasswordAuthenticationToken(it, "", it.authorities) }
+    override fun authentication(accessToken: String): Authentication {
+        println("============================================== authentication")
+        println(getTokenBody(accessToken, jwtProperties.accessSecret).get(JwtProperties.authority, String::class.java))
+        println("============================================== authentication")
 
-    private fun getTokenBody(token: String, secret: Key): Claims =
+        return getAuthority(getTokenBody(accessToken, jwtProperties.accessSecret))
+            .let { UsernamePasswordAuthenticationToken(it, "", it.authorities) }
+    }
+
+    public fun getTokenBody(token: String, secret: Key): Claims =
         try {
             Jwts.parserBuilder()
             .setSigningKey(secret)
@@ -58,10 +63,19 @@ class JwtParserAdapter(
             }
         }
 
-    private fun getAuthority(body: Claims): UserDetails =
-        when (body.get(JwtProperties.authority, String::class.java)) {
-            Authority.ROLE_TEACHER.name -> teacherDetailsService.loadUserByUsername(body.subject)
-            Authority.ROLE_STUDENT.name -> studentDetailsService.loadUserByUsername(body.subject)
-            else -> throw InvalidTokenException()
+    private fun getAuthority(body: Claims): UserDetails {
+        return when (body.get(JwtProperties.authority, String::class.java)) {
+            Authority.ROLE_TEACHER.name -> {
+                teacherDetailsService.loadUserByUsername(body.subject)
+            }
+            Authority.ROLE_STUDENT.name -> {
+                studentDetailsService.loadUserByUsername(body.subject)
+            }
+            else -> {
+                // 여기서 오류
+                println("InvalidTokenException : ${body.subject}")
+                throw InvalidTokenException()
+            }
         }
+    }
 }
