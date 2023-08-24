@@ -6,12 +6,13 @@ import com.stack.knowledege.global.mapper.GenericMapper
 import org.springframework.stereotype.Component
 
 @Component
-class RefreshTokenMapper() : GenericMapper<RefreshToken, RefreshTokenEntity> {
+class RefreshTokenMapper : GenericMapper<RefreshToken, RefreshTokenEntity> {
     override fun toDomain(entity: RefreshTokenEntity?): RefreshToken? =
         entity?.let {
             RefreshToken(
                 refreshToken = it.refreshToken,
                 userId = it.userId,
+                authority = it.authority,
                 expiredAt = it.expiredAt
             )
         }
@@ -21,6 +22,7 @@ class RefreshTokenMapper() : GenericMapper<RefreshToken, RefreshTokenEntity> {
             RefreshTokenEntity(
                 refreshToken = it.refreshToken,
                 userId = it.userId,
+                authority = it.authority,
                 expiredAt = it.expiredAt
             )
         }
