@@ -6,11 +6,6 @@ import com.stack.knowledege.domain.image.exception.ProfileImageAlreadyExist
 import com.stack.knowledege.domain.user.application.spi.UserPort
 import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.common.service.SecurityService
-import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
-import com.stack.knowledege.domain.user.application.spi.QueryUserPort
-import com.stack.knowledege.domain.user.domain.constant.Authority
-import com.stack.knowledege.domain.user.exception.UserNotFoundException
-import com.stack.knowledege.global.security.exception.InvalidRoleException
 import org.springframework.web.multipart.MultipartFile
 import java.util.*
 

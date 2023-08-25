@@ -16,7 +16,7 @@ class MissionScheduler(
     fun closeAllMission() = checkAndChangeMissionStatusClosed()
 
     private fun checkAndChangeMissionStatusOpened() {
-        val missions = missionPort.queryMissionByMissionStatus(MissionStatus.AVAILABLE_OPEN)
+        val missions = missionPort.queryAllMissionByMissionStatus(MissionStatus.AVAILABLE_OPEN)
 
         missions.map {
             missionPort.save(it.copy(missionStatus = MissionStatus.OPENED))
@@ -24,7 +24,7 @@ class MissionScheduler(
     }
 
     private fun checkAndChangeMissionStatusClosed() {
-        val missions = missionPort.queryMissionByMissionStatus(MissionStatus.OPENED)
+        val missions = missionPort.queryAllMissionByMissionStatus(MissionStatus.OPENED)
 
         missions.map {
             missionPort.save(it.copy(missionStatus = MissionStatus.CLOSED))
