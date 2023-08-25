@@ -14,7 +14,7 @@ class QueryAllMissionUseCase(
     private val queryUserPort: QueryUserPort
 ) {
     fun execute(): List<MissionResponse> {
-        val missions = queryMissionPort.queryMissionByMissionStatus(MissionStatus.OPENED)
+        val missions = queryMissionPort.queryAllMissionByMissionStatus(MissionStatus.OPENED)
 
         return missions.map{
             val user = queryUserPort.queryUserById(it.userId) ?: throw UserNotFoundException()

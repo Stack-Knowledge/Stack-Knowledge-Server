@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component
 class MissionMapper(
     private val userJpaRepository: UserJpaRepository
 ) : GenericMapper<Mission, MissionJpaEntity> {
-
     override fun toDomain(entity: MissionJpaEntity?): Mission? =
         entity?.let {
             Mission(
