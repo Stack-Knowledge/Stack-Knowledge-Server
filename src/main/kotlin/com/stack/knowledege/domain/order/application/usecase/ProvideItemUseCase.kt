@@ -9,7 +9,7 @@ import com.stack.knowledege.domain.order.presentation.data.request.UpdateOrderSt
 import java.util.UUID
 
 @UseCase
-class UpdateOrderStatusUseCase(
+class ProvideItemUseCase(
     private val orderPort: OrderPort
 ) {
     fun execute(orderId: UUID, updateOrderStatusRequest: UpdateOrderStatusRequest) {
