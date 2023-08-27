@@ -26,7 +26,7 @@ class OrderWebAdapter(
     private val provideItemUseCase: ProvideItemUseCase
 ) {
     @PostMapping
-    fun orderItem(@RequestBody @Valid orderItemRequest: OrderItemRequest): ResponseEntity<Void> =
+    fun orderItem(@RequestBody @Valid orderItemRequest: List<OrderItemRequest>): ResponseEntity<Void> =
         orderItemUseCase.execute(orderItemRequest)
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
 

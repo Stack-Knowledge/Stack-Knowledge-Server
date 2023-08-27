@@ -9,6 +9,7 @@ import com.stack.knowledege.domain.order.presentation.data.request.OrderItemRequ
 import com.stack.knowledege.domain.student.exception.StudentNotFoundException
 import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.common.service.SecurityService
+import com.stack.knowledege.domain.item.exception.ItemNotFoundException
 import com.stack.knowledege.domain.student.application.spi.StudentPort
 import java.util.UUID
 
@@ -19,11 +20,15 @@ class OrderItemUseCase(
     private val studentPort: StudentPort,
     private val commandOrderPort: CommandOrderPort
 ) {
-    fun execute(orderItemRequest: OrderItemRequest) {
-        val student = securityService.queryCurrentUser().let { studentPort.queryStudentByUser(it) ?: throw StudentNotFoundException() }
+    fun execute(orderItemRequest: List<OrderItemRequest>) {
+        val student = securityService.queryCurrentUser().let {
+            studentPort.queryStudentByUser(it) ?: throw StudentNotFoundException()
+        }
 
-        queryItemPort.queryAllItem().map {
-            val sum = (orderItemRequest.count * it.price).let { price ->
+        orderItemRequest.map {
+            val item = queryItemPort.queryItemById(it.itemId) ?: throw ItemNotFoundException()
+
+            val sum = (it.count * item.price).let { price ->
                 student.currentPoint - price
             }
 
@@ -34,10 +39,10 @@ class OrderItemUseCase(
 
             val order = Order(
                 id = UUID.randomUUID(),
-                count = orderItemRequest.count,
-                price = sum,
+                count = it.count,
+                price = it.count * item.price,
                 orderStatus = OrderStatus.IS_ORDERED,
-                itemId = it.id,
+                itemId = it.itemId,
                 studentId = student.id
             )
 
