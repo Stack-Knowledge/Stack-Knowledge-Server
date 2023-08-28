@@ -10,6 +10,7 @@ import com.stack.knowledege.domain.student.exception.StudentNotFoundException
 import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.common.service.SecurityService
 import com.stack.knowledege.domain.item.exception.ItemNotFoundException
+import com.stack.knowledege.domain.order.application.spi.QueryOrderPort
 import com.stack.knowledege.domain.student.application.spi.StudentPort
 import java.util.UUID
 
@@ -18,35 +19,46 @@ class OrderItemUseCase(
     private val queryItemPort: QueryItemPort,
     private val securityService: SecurityService,
     private val studentPort: StudentPort,
-    private val commandOrderPort: CommandOrderPort
+    private val commandOrderPort: CommandOrderPort,
+    private val queryOrderPort: QueryOrderPort
 ) {
     fun execute(orderItemRequest: List<OrderItemRequest>) {
         val student = securityService.queryCurrentUser().let {
             studentPort.queryStudentByUser(it) ?: throw StudentNotFoundException()
         }
+        val orders = queryOrderPort.queryAllIsOrderedItem(OrderStatus.IS_ORDERED)
 
-        orderItemRequest.map {
-            val item = queryItemPort.queryItemById(it.itemId) ?: throw ItemNotFoundException()
+        orderItemRequest.map { request ->
+            val item = queryItemPort.queryItemById(request.itemId) ?: throw ItemNotFoundException()
 
-            val sum = (it.count * item.price).let { price ->
-                student.currentPoint - price
-            }
+            val price = request.count * item.price
+            val sum = student.currentPoint - price
 
             if (sum < 0)
                 throw LackPointException()
 
             studentPort.save(student.copy(currentPoint = sum))
 
-            val order = Order(
-                id = UUID.randomUUID(),
-                count = it.count,
-                price = it.count * item.price,
-                orderStatus = OrderStatus.IS_ORDERED,
-                itemId = it.itemId,
-                studentId = student.id
-            )
+            val existingOrder = orders.find { it.itemId == request.itemId }
 
-            commandOrderPort.save(order)
+            if (existingOrder == null) {
+                val saveOrder = Order(
+                    id = UUID.randomUUID(),
+                    count = request.count,
+                    price = price,
+                    orderStatus = OrderStatus.IS_ORDERED,
+                    itemId = request.itemId,
+                    studentId = student.id
+                )
+                println("empty save ======================================")
+                commandOrderPort.save(saveOrder)
+            } else {
+                val updatedOrder = existingOrder.copy(
+                    count = existingOrder.count + request.count,
+                    price = existingOrder.price + request.count * item.price
+                )
+                commandOrderPort.save(updatedOrder)
+            }
         }
     }
 }
