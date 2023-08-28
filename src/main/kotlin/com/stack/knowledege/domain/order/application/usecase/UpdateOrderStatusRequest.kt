@@ -16,8 +16,6 @@ class UpdateOrderStatusRequest(
     private val queryItemPort: QueryItemPort
 ) {
     fun execute(updateOrderStatusRequest: List<UpdateOrderStatusRequest>) {
-        val orders = orderPort.queryAllIsOrderedItem(OrderStatus.IS_ORDERED)
-
         updateOrderStatusRequest.map {
             val order = orderPort.queryOrderById(it.orderId) ?: throw OrderNotFoundException()
             val item = queryItemPort.queryItemById(order.itemId) ?: throw ItemNotFoundException()
