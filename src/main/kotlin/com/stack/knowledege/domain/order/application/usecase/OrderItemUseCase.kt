@@ -41,8 +41,10 @@ class OrderItemUseCase(
 
             val existingOrder = orders.find { it.itemId == request.itemId }
 
+            val saveOrder: Order
+
             if (existingOrder == null) {
-                val saveOrder = Order(
+                saveOrder = Order(
                     id = UUID.randomUUID(),
                     count = request.count,
                     price = price,
@@ -50,15 +52,14 @@ class OrderItemUseCase(
                     itemId = request.itemId,
                     studentId = student.id
                 )
-                println("empty save ======================================")
-                commandOrderPort.save(saveOrder)
             } else {
-                val updatedOrder = existingOrder.copy(
+                saveOrder = existingOrder.copy(
                     count = existingOrder.count + request.count,
                     price = existingOrder.price + request.count * item.price
                 )
-                commandOrderPort.save(updatedOrder)
             }
+
+            commandOrderPort.save(saveOrder)
         }
     }
 }

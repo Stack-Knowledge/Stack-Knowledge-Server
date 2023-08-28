@@ -11,7 +11,7 @@ import com.stack.knowledege.domain.order.exception.OrderNotFoundException
 import com.stack.knowledege.domain.order.presentation.data.request.UpdateOrderStatusRequest
 
 @UseCase
-class UpdateOrderStatusRequest(
+class UpdateOrderStatusUseCase(
     private val orderPort: OrderPort,
     private val queryItemPort: QueryItemPort
 ) {
