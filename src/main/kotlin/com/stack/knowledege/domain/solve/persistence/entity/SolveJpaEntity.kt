@@ -21,15 +21,15 @@ class SolveJpaEntity(
     @Column(nullable = false)
     val solveStatus: SolveStatus,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id")
     val mission: MissionJpaEntity,
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "point_id")
     val point: PointJpaEntity,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
     val student: StudentJpaEntity
 
