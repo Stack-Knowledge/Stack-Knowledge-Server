@@ -5,5 +5,6 @@ import java.util.UUID
 data class Point(
     val id: Long = 0,
     val missionPoint: Int,
-    val mission: UUID
+    val mission: UUID,
+    val solve: UUID
 )

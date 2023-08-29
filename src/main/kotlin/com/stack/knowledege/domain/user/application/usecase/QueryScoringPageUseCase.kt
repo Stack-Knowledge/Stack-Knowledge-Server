@@ -24,7 +24,7 @@ class QueryScoringPageUseCase(
         return solves.map {
             val student = queryStudentPort.queryStudentById(it.student) ?: throw StudentNotFoundException()
             val user = queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
-//            val point = queryPointPort.
+            val point = queryPointPort.
 
             AllScoringResponse(
                 solveId = it.id,
