@@ -25,9 +25,9 @@ class SolveJpaEntity(
     @JoinColumn(name = "mission_id")
     val mission: MissionJpaEntity,
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "point_id")
-    val point: PointJpaEntity,
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "point_id")
+//    val point: PointJpaEntity,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
