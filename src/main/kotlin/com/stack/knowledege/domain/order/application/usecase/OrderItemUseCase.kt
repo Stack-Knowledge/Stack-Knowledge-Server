@@ -28,10 +28,10 @@ class OrderItemUseCase(
         }
         val orders = queryOrderPort.queryAllIsOrderedItem(OrderStatus.IS_ORDERED)
 
-        orderItemRequest.map { request ->
-            val item = queryItemPort.queryItemById(request.itemId) ?: throw ItemNotFoundException()
+        orderItemRequest.map {
+            val item = queryItemPort.queryItemById(it.itemId) ?: throw ItemNotFoundException()
 
-            val price = request.count * item.price
+            val price = it.count * item.price
             val sum = student.currentPoint - price
 
             if (sum < 0)
@@ -39,25 +39,26 @@ class OrderItemUseCase(
 
             studentPort.save(student.copy(currentPoint = sum))
 
-            val existingOrder = orders.find { it.itemId == request.itemId }
+            val existingOrder = orders.find { findOrder ->
+                findOrder.itemId == it.itemId
+            }
 
             val saveOrder: Order
 
-            if (existingOrder == null) {
+            if (existingOrder == null)
                 saveOrder = Order(
                     id = UUID.randomUUID(),
-                    count = request.count,
+                    count = it.count,
                     price = price,
                     orderStatus = OrderStatus.IS_ORDERED,
-                    itemId = request.itemId,
+                    itemId = it.itemId,
                     studentId = student.id
                 )
-            } else {
+            else
                 saveOrder = existingOrder.copy(
-                    count = existingOrder.count + request.count,
-                    price = existingOrder.price + request.count * item.price
+                    count = existingOrder.count + it.count,
+                    price = existingOrder.price + it.count * item.price
                 )
-            }
 
             commandOrderPort.save(saveOrder)
         }
