@@ -4,6 +4,7 @@ import com.stack.knowledege.domain.solve.application.spi.QuerySolvePort
 import com.stack.knowledege.domain.user.presentation.data.response.AllScoringResponse
 import com.stack.knowledege.common.annotation.usecase.ReadOnlyUseCase
 import com.stack.knowledege.domain.point.application.spi.QueryPointPort
+import com.stack.knowledege.domain.point.exception.PointNotFoundException
 import com.stack.knowledege.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledege.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledege.domain.student.exception.StudentNotFoundException
@@ -24,12 +25,12 @@ class QueryScoringPageUseCase(
         return solves.map {
             val student = queryStudentPort.queryStudentById(it.student) ?: throw StudentNotFoundException()
             val user = queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
-            val point = queryPointPort.
+            val point = queryPointPort.queryPointBySolve(it) ?: throw PointNotFoundException()
 
             AllScoringResponse(
                 solveId = it.id,
                 solveStatus = it.solveStatus,
-                point = 1,
+                point = point.missionPoint,
                 user = UserResponse(
                     id = user.id,
                     email = user.email,

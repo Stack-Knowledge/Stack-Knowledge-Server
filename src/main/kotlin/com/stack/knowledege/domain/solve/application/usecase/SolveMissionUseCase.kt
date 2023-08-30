@@ -16,6 +16,8 @@ import com.stack.knowledege.common.annotation.usecase.UseCase
 import com.stack.knowledege.common.service.SecurityService
 import com.stack.knowledege.domain.point.application.spi.PointPort
 import com.stack.knowledege.domain.point.domain.Point
+import com.stack.knowledege.domain.solve.application.spi.QuerySolvePort
+import com.stack.knowledege.domain.solve.exception.SolveNotFoundException
 import java.util.UUID
 
 @UseCase
@@ -24,7 +26,8 @@ class SolveMissionUseCase(
     private val missionPort: MissionPort,
     private val commandSolvePort: CommandSolvePort,
     private val securityService: SecurityService,
-    private val pointPort: PointPort
+    private val pointPort: PointPort,
+    private val querySolvePoint: QuerySolvePort
 ) {
     fun execute(id: UUID, solveMissionRequest: SolveMissionRequest) {
         val mission = missionPort.queryMissionById(id) ?: throw MissionNotFoundException()
@@ -38,13 +41,6 @@ class SolveMissionUseCase(
 
         val student = queryStudentPort.queryStudentByUser(user) ?: throw StudentNotFoundException()
 
-        val point = Point(
-            missionPoint = ((pointPort.queryPointTopByIdDesc()?.missionPoint ?: 1000) * 0.97).toInt(),
-            mission = mission.id
-        )
-
-        pointPort.save(point)
-
         val solve = Solve(
             id = UUID.randomUUID(),
             solvation = solveMissionRequest.solvation,
@@ -54,5 +50,15 @@ class SolveMissionUseCase(
         )
 
         commandSolvePort.save(solve)
+
+
+
+        val point = Point(
+            missionPoint = ((pointPort.queryPointTopByIdDesc()?.missionPoint ?: 1000) * 0.97).toInt(),
+            mission = mission.id,
+            solve = solve.id
+        )
+
+        pointPort.save(point)
     }
 }
