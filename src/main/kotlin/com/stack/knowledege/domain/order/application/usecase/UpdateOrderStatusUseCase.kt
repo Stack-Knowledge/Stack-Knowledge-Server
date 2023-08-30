@@ -23,11 +23,12 @@ class UpdateOrderStatusUseCase(
             if (order.orderStatus != OrderStatus.IS_ORDERED)
                 AlreadyCompletedOrderException()
 
-            if (it.count - order.count < 0 || order.price - item.price * order.count < 0)
+            if (order.count - it.count < 0 || order.price - (item.price * it.count) < 0) {
                 throw LackOrderException()
+            }
 
             val saveOrder = when {
-                order.count > it.count -> order.copy(count = it.count - order.count, price = order.price - item.price * order.count)
+                order.count > it.count -> order.copy(count = order.count - it.count, price = order.price - item.price * it.count)
                 order.count == it.count -> order.copy(count = 0, price = 0, orderStatus = OrderStatus.COMPLETED)
                 else -> throw LackOrderException()
             }
