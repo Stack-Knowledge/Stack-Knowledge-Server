@@ -26,6 +26,7 @@ class UploadImageUseCase(
             .let { UUID.randomUUID().toString() + it }
 
         userPort.save(user.copy(profileImage = fileName))
+
         return commandImagePort.upload(multipartFile, fileName)
     }
 }

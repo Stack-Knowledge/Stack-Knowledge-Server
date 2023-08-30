@@ -13,7 +13,7 @@ class RefreshTokenPersistenceAdapter(
     private val refreshTokenMapper: RefreshTokenMapper
 ) : RefreshTokenPort {
 
-    override fun saveRefreshToken(refreshToken: RefreshToken) {
+    override fun save(refreshToken: RefreshToken) {
         refreshTokenRepository.save(refreshTokenMapper.toEntity(refreshToken))
     }
 
