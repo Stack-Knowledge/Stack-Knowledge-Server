@@ -14,7 +14,8 @@ class QueryAllItemUseCase(
                 ItemResponse(
                     id = it.id,
                     name = it.name,
-                    price = it.price
+                    price = it.price,
+                    image = it.image
                 )
             }
 }
