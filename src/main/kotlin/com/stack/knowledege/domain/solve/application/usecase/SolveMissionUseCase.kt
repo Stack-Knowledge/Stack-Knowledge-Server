@@ -14,6 +14,7 @@ import com.stack.knowledege.common.service.SecurityService
 import com.stack.knowledege.domain.point.application.spi.PointPort
 import com.stack.knowledege.domain.point.domain.Point
 import com.stack.knowledege.domain.solve.application.spi.SolvePort
+import com.stack.knowledege.domain.solve.exception.AlreadySolvedException
 import com.stack.knowledege.domain.solve.exception.SolveNotFoundException
 import java.util.UUID
 
@@ -32,6 +33,11 @@ class SolveMissionUseCase(
 
         if (mission.missionStatus != MissionStatus.OPENED)
             throw MissionNotOpenedException()
+
+        solvePort.querySolveByStudentId(student.id).map {
+            if (it.mission == mission.id)
+                throw AlreadySolvedException()
+        }
 
         val solve = Solve(
             id = UUID.randomUUID(),
