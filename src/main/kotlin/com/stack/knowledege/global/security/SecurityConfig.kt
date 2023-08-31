@@ -41,7 +41,7 @@ class SecurityConfig(
                 CorsUtils.isPreFlightRequest(request)
             }).permitAll()
 
-//            // auth
+            // auth
             .antMatchers(HttpMethod.POST, "/auth").permitAll()
             .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
 
