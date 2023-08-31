@@ -12,7 +12,8 @@ class ItemMapper : GenericMapper<Item, ItemJpaEntity> {
             Item(
                 id = it.id,
                 name = it.name,
-                price = it.price
+                price = it.price,
+                image = it.image
             )
         }
 
@@ -22,7 +23,8 @@ class ItemMapper : GenericMapper<Item, ItemJpaEntity> {
             ItemJpaEntity(
                 id = it.id,
                 name = it.name,
-                price = it.price
+                price = it.price,
+                image = it.image
             )
         }
 }
