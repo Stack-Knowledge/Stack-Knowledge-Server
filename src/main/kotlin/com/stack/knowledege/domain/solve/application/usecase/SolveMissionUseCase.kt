@@ -50,7 +50,7 @@ class SolveMissionUseCase(
         val saveSolve = solvePort.save(solve) ?: throw SolveNotFoundException()
 
         val point = Point(
-            missionPoint = ((pointPort.queryPointTopByIdDesc()?.missionPoint ?: 1000) * 0.97).toInt(),
+            missionPoint = ((pointPort.queryTopByMissionIdOrderByMissionPointDesc(mission.id)?.missionPoint ?: 1000) * 0.97).toInt(),
             mission = mission.id,
             solve = saveSolve.id
         )

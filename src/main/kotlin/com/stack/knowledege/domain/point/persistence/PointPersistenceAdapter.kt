@@ -9,6 +9,7 @@ import com.stack.knowledege.domain.point.persistence.repository.PointJpaReposito
 import com.stack.knowledege.domain.solve.domain.Solve
 import com.stack.knowledege.domain.solve.persistence.mapper.SolveMapper
 import org.springframework.stereotype.Component
+import java.util.UUID
 
 @Component
 class PointPersistenceAdapter(
@@ -27,6 +28,6 @@ class PointPersistenceAdapter(
     override fun queryPointBySolve(solve: Solve): Point? =
         pointMapper.toDomain(pointJpaRepository.findBySolve(solveMapper.toEntity(solve)))
 
-    override fun queryPointTopByIdDesc(): Point? =
-        pointMapper.toDomain(pointJpaRepository.findTopByOrderByMissionPointDesc())
+    override fun queryTopByMissionIdOrderByMissionPointDesc(missionId: UUID): Point? =
+        pointMapper.toDomain(pointJpaRepository.findTopByMissionIdOrderByMissionPointDesc(missionId))
 }
