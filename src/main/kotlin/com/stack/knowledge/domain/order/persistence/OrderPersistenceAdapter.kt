@@ -21,9 +21,6 @@ class OrderPersistenceAdapter(
     override fun queryOrderById(orderId: UUID): Order? =
         orderMapper.toDomain(orderJpaRepository.findByIdOrNull(orderId))
 
-    override fun queryAllOder(): List<Order> =
-        orderJpaRepository.findAll().map { orderMapper.toDomain(it)!! }
-
     override fun queryAllIsOrderedItem(orderStatus: OrderStatus): List<Order> =
         orderJpaRepository.findByOrderStatus(orderStatus).map { orderMapper.toDomain(it)!! }
 }

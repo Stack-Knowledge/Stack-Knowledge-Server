@@ -17,8 +17,9 @@ class MissionPersistenceAdapter(
     private val missionMapper: MissionMapper,
     private val userMapper: UserMapper
 ) : MissionPort {
-    override fun queryAllMission(): List<Mission> =
-        missionJpaRepository.findAll().map { missionMapper.toDomain(it)!! }
+    override fun save(mission: Mission) {
+        missionMapper.toDomain(missionJpaRepository.save(missionMapper.toEntity(mission)))
+    }
 
     override fun queryMissionById(missionId: UUID): Mission? =
         missionMapper.toDomain(missionJpaRepository.findByIdOrNull(missionId))
@@ -26,10 +27,6 @@ class MissionPersistenceAdapter(
     override fun queryMissionByUser(user: User): Mission? =
         missionMapper.toDomain(missionJpaRepository.findByUser(userMapper.toEntity(user)))
 
-    override fun queryMissionByMissionStatus(missionStatus: MissionStatus): List<Mission> =
+    override fun queryAllMissionByMissionStatus(missionStatus: MissionStatus): List<Mission> =
         missionJpaRepository.findByMissionStatus(missionStatus).map { missionMapper.toDomain(it)!! }
-
-    override fun save(mission: Mission) {
-        missionMapper.toDomain(missionJpaRepository.save(missionMapper.toEntity(mission)))
-    }
 }

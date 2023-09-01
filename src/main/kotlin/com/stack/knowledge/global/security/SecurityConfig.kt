@@ -71,7 +71,6 @@ class SecurityConfig(
 //            // solve
 //            .antMatchers(HttpMethod.POST, "/solve/{mission_id}").hasRole(student)
 
-
             .anyRequest().permitAll()
             .and()
 

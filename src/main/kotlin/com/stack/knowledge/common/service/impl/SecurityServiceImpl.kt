@@ -10,6 +10,7 @@ import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.global.security.exception.InvalidRoleException
 import org.springframework.stereotype.Service
 
+
 @Service
 class SecurityServiceImpl(
     private val securityPort: SecurityPort,
@@ -27,4 +28,7 @@ class SecurityServiceImpl(
             }
             else -> throw InvalidRoleException()
         }
+
+    override fun queryCurrentUserAuthority(): String =
+        securityPort.queryCurrentUserAuthority()
 }

@@ -9,4 +9,5 @@ import java.util.UUID
 interface SolveJpaRepository : CrudRepository<SolveJpaEntity, UUID> {
     fun findByMission(mission: Mission): SolveJpaEntity?
     fun findAllBySolveStatus(solveStatus: SolveStatus): List<SolveJpaEntity>
+    fun findAllByStudentId(studentId: UUID): List<SolveJpaEntity>
 }

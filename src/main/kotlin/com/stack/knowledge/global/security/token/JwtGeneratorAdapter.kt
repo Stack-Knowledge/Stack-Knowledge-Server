@@ -20,7 +20,7 @@ class JwtGeneratorAdapter(
 
     override fun receiveToken(userId: UUID, authority: Authority): TokenResponse {
         val refreshToken = generateRefreshToken(userId)
-        commandRefreshTokenPort.saveRefreshToken(RefreshToken(refreshToken, userId, jwtProperties.refreshExp))
+        commandRefreshTokenPort.save(RefreshToken(refreshToken, userId, authority, jwtProperties.refreshExp))
         return TokenResponse(
             accessToken = generateAccessToken(userId, authority),
             refreshToken = refreshToken,
@@ -33,7 +33,7 @@ class JwtGeneratorAdapter(
             .signWith(jwtProperties.accessSecret, SignatureAlgorithm.HS256)
             .setSubject(userId.toString())
             .claim("type", "access")
-            .claim("authority", authority.name)
+            .claim("authority", authority)
             .setIssuedAt(Date())
             .setExpiration(Date(System.currentTimeMillis() + jwtProperties.accessExp * 1000))
             .compact()

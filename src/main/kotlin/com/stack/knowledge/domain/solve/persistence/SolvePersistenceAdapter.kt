@@ -15,9 +15,8 @@ class SolvePersistenceAdapter(
     private val solveJpaRepository: SolveJpaRepository,
     private val solveMapper: SolveMapper
 ) : SolvePort {
-    override fun save(solve: Solve) {
-        solveJpaRepository.save(solveMapper.toEntity(solve))
-    }
+    override fun save(solve: Solve): Solve? =
+       solveMapper.toDomain(solveJpaRepository.save(solveMapper.toEntity(solve)))
 
     override fun queryAllSolveBySolveStatus(solveStatus: SolveStatus): List<Solve> =
         solveJpaRepository.findAllBySolveStatus(solveStatus).map { solveMapper.toDomain(it)!! }
@@ -27,4 +26,8 @@ class SolvePersistenceAdapter(
 
     override fun querySolveByMission(mission: Mission): Solve? =
         solveMapper.toDomain(solveJpaRepository.findByMission(mission))
+
+    override fun querySolveByStudentId(studentId: UUID): List<Solve> =
+        solveJpaRepository.findAllByStudentId(studentId).map { solveMapper.toDomain(it)!! }
+
 }

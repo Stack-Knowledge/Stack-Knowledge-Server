@@ -34,7 +34,8 @@ class QueryIsOrderedOrderUseCase(
                 item = ItemResponse(
                     id = it.itemId,
                     name = item.name,
-                    price = item.price
+                    price = item.price,
+                    image = item.image
                 ),
                 user = UserResponse(
                     id = user.id,

@@ -9,4 +9,5 @@ interface QuerySolvePort {
     fun queryAllSolveBySolveStatus(solveStatus: SolveStatus): List<Solve>
     fun querySolveById(solveId: UUID): Solve?
     fun querySolveByMission(mission: Mission): Solve?
+    fun querySolveByStudentId(studentId: UUID): List<Solve>
 }

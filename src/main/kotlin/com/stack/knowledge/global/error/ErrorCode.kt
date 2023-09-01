@@ -18,13 +18,13 @@ enum class ErrorCode(
 
     // order
     LACK_POINT("포인트가 부족합니다.", 400),
+    LACK_ORDER("주문된 상품의 수보다 지급하려는 상품의 수가 많습니다.", 400),
     ORDER_NOT_FOUND("존재하지 않는 주문입니다.", 404),
     ALREADY_COMPLETED_ORDER("이미 지급된 주문입니다.", 403),
 
     // mission
     MISSION_NOT_FOUND("존재하지 않는 미션입니다.", 404),
     FORBIDDEN_MISSION_COMMAND("미션을 제어할 권한이 없습니다.", 403),
-    ALREADY_SOLVED_MISSION("이미 푼 미션입니다.", 403),
     MISSION_NOT_OPENED("미션은 12시 30분 ~ 7시 30분 사이에만 풀 수 있습니다.", 403),
 
     // image
@@ -35,6 +35,7 @@ enum class ErrorCode(
     SOLVE_NOT_FOUND("존재하지 않는 풀이입니다.", 404),
     ONLY_STUDENT("문제는 학생만이 풀 수 있습니다.", 403),
     ALREADY_SCORED("이미 채점을 맨 문제입니다.", 403),
+    ALREADY_SOLVE("이미 푼 문제입니다.", 403),
     FORBIDDEN_SOLVE_COMMAND("미션 풀이를 제어할 권한이 없습니다.", 403),
     UNSUPPORTED_SOLVE_STATUS("지원하지 않는 문제 채점 방식입니다.", 400),
 

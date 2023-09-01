@@ -1,6 +1,7 @@
 package com.stack.knowledge.domain.point.persistence.entity
 
 import com.stack.knowledge.domain.mission.persistence.entity.MissionJpaEntity
+import com.stack.knowledge.domain.solve.persistence.entity.SolveJpaEntity
 import javax.persistence.*
 
 @Entity
@@ -16,6 +17,10 @@ class PointJpaEntity(
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id")
-    val mission: MissionJpaEntity
+    val mission: MissionJpaEntity,
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "solve_id")
+    val solve: SolveJpaEntity
 
 )
