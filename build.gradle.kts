@@ -33,7 +33,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-	// database
+	// mysql
 	runtimeOnly("mysql:mysql-connector-java:8.0.20")
 
 	// jwt
@@ -46,6 +46,10 @@ dependencies {
 
 	// aws
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE")
+  
+  // mariadb
+	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
+	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
 	// test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
