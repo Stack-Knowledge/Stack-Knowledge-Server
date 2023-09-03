@@ -1,0 +1,6 @@
+package com.stack.knowledge.domain.order.exception
+
+import com.stack.knowledge.global.error.ErrorCode
+import com.stack.knowledge.global.error.exception.StackKnowledgeException
+
+class OrderNotFoundException : StackKnowledgeException(ErrorCode.ORDER_NOT_FOUND)

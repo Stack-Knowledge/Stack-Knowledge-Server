@@ -19,23 +19,44 @@ repositories {
 }
 
 dependencies {
+	// spring starter
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	testImplementation("org.springframework.security:spring-security-test")
+
+	// redis
 	implementation("org.springframework.boot:spring-boot-starter-data-redis")
+
+	// kotlin
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+	// mysql
 	runtimeOnly("mysql:mysql-connector-java:8.0.20")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("org.springframework.security:spring-security-test")
+
+	// jwt
 	implementation("io.jsonwebtoken:jjwt-api:0.11.2")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
+
+	// GAuth
 	implementation("com.github.GSM-MSG:GAuth-SDK-Java:v2.0.0")
+
+	// aws
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE")
+  
+  // mariadb
 	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
+	// test
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("io.kotest:kotest-runner-junit5-jvm:4.4.3")
+	testImplementation("io.kotest:kotest-assertions-core-jvm:4.4.3")
+	implementation("io.kotest:kotest-extensions-spring:4.4.3")
+	testImplementation("io.mockk:mockk:1.12.0")
 }
 
 tasks.withType<KotlinCompile> {
