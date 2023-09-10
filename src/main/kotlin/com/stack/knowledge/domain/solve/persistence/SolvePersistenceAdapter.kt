@@ -6,6 +6,7 @@ import com.stack.knowledge.domain.solve.domain.Solve
 import com.stack.knowledge.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledge.domain.solve.persistence.mapper.SolveMapper
 import com.stack.knowledge.domain.solve.persistence.repository.SolveJpaRepository
+import org.springframework.data.domain.Pageable
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 import java.util.*
@@ -18,8 +19,8 @@ class SolvePersistenceAdapter(
     override fun save(solve: Solve): Solve? =
        solveMapper.toDomain(solveJpaRepository.save(solveMapper.toEntity(solve)))
 
-    override fun queryAllSolveBySolveStatus(solveStatus: SolveStatus): List<Solve> =
-        solveJpaRepository.findAllBySolveStatus(solveStatus).map { solveMapper.toDomain(it)!! }
+    override fun queryAllSolveBySolveStatus(solveStatus: SolveStatus, pageable: Pageable): List<Solve> =
+        solveJpaRepository.findAllBySolveStatus(solveStatus, pageable).map { solveMapper.toDomain(it)!! }
 
     override fun querySolveById(solveId: UUID): Solve? =
         solveMapper.toDomain(solveJpaRepository.findByIdOrNull(solveId))

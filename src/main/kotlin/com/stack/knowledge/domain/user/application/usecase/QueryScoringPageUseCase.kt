@@ -11,6 +11,7 @@ import com.stack.knowledge.domain.student.exception.StudentNotFoundException
 import com.stack.knowledge.domain.user.application.spi.QueryUserPort
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.response.UserResponse
+import org.springframework.data.domain.PageRequest
 
 @ReadOnlyUseCase
 class QueryScoringPageUseCase(
@@ -20,7 +21,7 @@ class QueryScoringPageUseCase(
     private val queryPointPort: QueryPointPort
 ) {
     fun execute(): List<AllScoringResponse> {
-        val solves = querySolvePort.queryAllSolveBySolveStatus(SolveStatus.SCORING)
+        val solves = querySolvePort.queryAllSolveBySolveStatus(SolveStatus.SCORING, PageRequest.of(0, 10))
 
         return solves.map {
             val student = queryStudentPort.queryStudentById(it.student) ?: throw StudentNotFoundException()
