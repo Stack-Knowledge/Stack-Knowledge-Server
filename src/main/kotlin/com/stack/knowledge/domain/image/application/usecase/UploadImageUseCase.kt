@@ -19,7 +19,7 @@ class UploadImageUseCase(
     fun execute(multipartFile: MultipartFile): String {
         val user = securityService.queryCurrentUser()
 
-        if (user.profileImage != null)
+        if (user.profileImage != "")
             throw ProfileImageAlreadyExist()
 
         val fileName = imageValidator.validateImageExtension(multipartFile)
