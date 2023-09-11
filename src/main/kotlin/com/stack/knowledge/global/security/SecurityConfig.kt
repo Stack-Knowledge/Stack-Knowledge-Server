@@ -41,6 +41,9 @@ class SecurityConfig(
                 CorsUtils.isPreFlightRequest(request)
             }).permitAll()
 
+            // health
+            .antMatchers(HttpMethod.GET, "/health").permitAll()
+
             // auth
             .antMatchers(HttpMethod.POST, "/auth").permitAll()
             .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
@@ -72,7 +75,7 @@ class SecurityConfig(
             // solve
             .antMatchers(HttpMethod.POST, "/solve/{mission_id}").hasRole(student)
 
-            .anyRequest().permitAll()
+            .anyRequest().authenticated()
             .and()
 
             .exceptionHandling()
