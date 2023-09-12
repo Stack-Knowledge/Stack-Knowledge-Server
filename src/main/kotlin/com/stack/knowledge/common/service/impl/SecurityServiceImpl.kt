@@ -3,6 +3,7 @@ package com.stack.knowledge.common.service.impl
 import com.stack.knowledge.common.service.SecurityService
 import com.stack.knowledge.common.spi.SecurityPort
 import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
+import com.stack.knowledge.domain.student.exception.StudentNotFoundException
 import com.stack.knowledge.domain.user.application.spi.QueryUserPort
 import com.stack.knowledge.domain.user.domain.User
 import com.stack.knowledge.domain.user.domain.constant.Authority
@@ -20,7 +21,7 @@ class SecurityServiceImpl(
     override fun queryCurrentUser(): User =
         when (securityPort.queryCurrentUserAuthority()) {
             Authority.ROLE_STUDENT.name -> {
-                val student = queryStudentPort.queryStudentById(securityPort.queryCurrentUserId()) ?: throw UserNotFoundException()
+                val student = queryStudentPort.queryStudentById(securityPort.queryCurrentUserId()) ?: throw StudentNotFoundException()
                 queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
             }
             Authority.ROLE_TEACHER.name -> {
