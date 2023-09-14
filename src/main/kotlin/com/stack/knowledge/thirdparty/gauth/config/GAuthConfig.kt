@@ -8,5 +8,5 @@ import org.springframework.context.annotation.Configuration
 @Configuration
 class GAuthConfig {
     @Bean
-    fun gauth(): GAuth = GAuthImpl()
+    fun gAuth(): GAuth = GAuthImpl()
 }
