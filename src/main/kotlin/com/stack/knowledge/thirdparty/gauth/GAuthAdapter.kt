@@ -9,18 +9,18 @@ import org.springframework.stereotype.Component
 
 @Component
 class GAuthAdapter(
-    private val gauth: GAuth,
-    private val gauthProperties: GAuthProperties
+    private val gAuth: GAuth,
+    private val gAuthProperties: GAuthProperties
 ) : GAuthPort {
     override fun queryGAuthToken(code: String): GAuthToken =
-        gauth.generateToken(
+        gAuth.generateToken(
             code,
-            gauthProperties.clientId,
-            gauthProperties.clientSecret,
-            gauthProperties.redirectUri
+            gAuthProperties.clientId,
+            gAuthProperties.clientSecret,
+            gAuthProperties.redirectUri
         )
 
 
     override fun queryUserInfo(accessToken: String): GAuthUserInfo =
-        gauth.getUserInfo(accessToken)
+        gAuth.getUserInfo(accessToken)
 }
