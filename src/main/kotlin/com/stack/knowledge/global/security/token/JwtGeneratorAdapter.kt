@@ -24,7 +24,8 @@ class JwtGeneratorAdapter(
         return TokenResponse(
             accessToken = generateAccessToken(userId, authority),
             refreshToken = refreshToken,
-            expiredAt = getAccessTokenExpiredAt()
+            expiredAt = getAccessTokenExpiredAt(),
+            authority = authority
         )
     }
 
