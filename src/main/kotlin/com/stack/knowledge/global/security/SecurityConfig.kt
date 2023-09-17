@@ -61,6 +61,7 @@ class SecurityConfig(
 
             // student
             .antMatchers(HttpMethod.GET, "/student/ranking").authenticated()
+            .antMatchers(HttpMethod.GET, "/student/my").authenticated()
 
             // order
             .antMatchers(HttpMethod.POST, "/order/{item_id}").hasRole(student)
