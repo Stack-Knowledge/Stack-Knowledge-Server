@@ -23,7 +23,8 @@ class ExceptionFilter: OncePerRequestFilter() {
         } catch (e: Exception) {
             when (e) {
                 is StackKnowledgeException -> sendError(response, e.errorCode)
-                is Exception -> sendError(response, ErrorCode.INTERNAL_SERVER_ERROR)
+//                is Exception -> sendError(response, ErrorCode.INTERNAL_SERVER_ERROR)
+                is Exception -> log.error(e.message)
             }
         }
     }
