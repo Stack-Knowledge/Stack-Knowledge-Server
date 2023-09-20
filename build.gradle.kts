@@ -60,6 +60,11 @@ dependencies {
 
 	// fcm
 	implementation("com.google.firebase:firebase-admin:8.1.0")
+
+	// okhttp3
+	implementation("com.squareup.okhttp3:okhttp:4.9.1")
+
+
 }
 
 tasks.withType<KotlinCompile> {
