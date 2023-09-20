@@ -51,16 +51,17 @@ class SecurityConfig(
             // item
             .antMatchers(HttpMethod.GET , "/item").hasRole(student)
 
-            // image
-            .antMatchers(HttpMethod.POST, "/image").permitAll()
-            .antMatchers(HttpMethod.PATCH, "/image").permitAll()
-
             // user
-            .antMatchers(HttpMethod.GET, "/user/scoring").hasRole(student)
-            .antMatchers(HttpMethod.POST, "/user/scoring/{solve_id}").hasRole(student)
+            .antMatchers(HttpMethod.GET, "/user/scoring").hasRole(teacher)
+            .antMatchers(HttpMethod.POST, "/user/scoring/{solve_id}").hasRole(teacher)
+            .antMatchers(HttpMethod.POST, "/user/image").hasRole(teacher)
+            .antMatchers(HttpMethod.PATCH, "/user/image").hasRole(teacher)
 
             // student
             .antMatchers(HttpMethod.GET, "/student/ranking").authenticated()
+            .antMatchers(HttpMethod.GET, "/student/my").hasRole(student)
+            .antMatchers(HttpMethod.POST, "/student/image").hasRole(student)
+            .antMatchers(HttpMethod.PATCH, "/student/image").hasRole(student)
 
             // order
             .antMatchers(HttpMethod.POST, "/order/{item_id}").hasRole(student)
@@ -68,8 +69,8 @@ class SecurityConfig(
             .antMatchers(HttpMethod.PATCH, "/order/{order_id}").hasRole(teacher)
 
             // mission
-            .antMatchers(HttpMethod.GET, "/mission").hasRole(student)
-            .antMatchers(HttpMethod.GET, "/mission/{mission_id}").hasRole(student)
+            .antMatchers(HttpMethod.GET, "/mission").authenticated()
+            .antMatchers(HttpMethod.GET, "/mission/{mission_id}").authenticated()
             .antMatchers(HttpMethod.POST, "/mission").hasRole(teacher)
 
             // solve

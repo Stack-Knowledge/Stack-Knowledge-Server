@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import javax.validation.Valid
 
 @RestController
 @RequestMapping("/auth")
@@ -20,7 +19,7 @@ class AuthWebAdapter(
     private val reissueTokenUseCase: ReissueTokenUseCase
 ) {
     @PostMapping
-    fun signIn(@RequestBody @Valid gAuthSignInRequest: GAuthSignInRequest): ResponseEntity<TokenResponse> =
+    fun signIn(@RequestBody gAuthSignInRequest: GAuthSignInRequest): ResponseEntity<TokenResponse> =
         gAuthSignInUseCase.execute(gAuthSignInRequest)
             .let { ResponseEntity.ok(it) }
 
