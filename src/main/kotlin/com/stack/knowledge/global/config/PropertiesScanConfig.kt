@@ -3,6 +3,7 @@ package com.stack.knowledge.global.config
 import com.stack.knowledge.global.security.token.properties.JwtProperties
 import com.stack.knowledge.thirdparty.aws.AwsProperties
 import com.stack.knowledge.thirdparty.gauth.properties.GAuthProperties
+import com.stack.knowledge.thirdparty.notification.property.FcmProperties
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.context.annotation.Configuration
 
@@ -11,7 +12,8 @@ import org.springframework.context.annotation.Configuration
     basePackageClasses = [
         JwtProperties::class,
         GAuthProperties::class,
-        AwsProperties::class
+        AwsProperties::class,
+        FcmProperties::class
     ]
 )
 class PropertiesScanConfig
