@@ -1,0 +1,51 @@
+spring:
+  datasource:
+    url: jdbc:mariadb://${DB_URL:svc.sel3.cloudtype.app:32727}/${DB_NAME:knowledge}?useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:12345678a}
+    driver-class-name: org.mariadb.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+    show-sql: true
+    defer-datasource-initialization: true
+  main:
+    allow-bean-definition-overriding: true
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+
+jwt:
+  accessSecret: ${JWT_ACCESS:c3RhY2s=c3RhY2s=c3RhY2s=c3RhY2s=}
+  refreshSecret: ${JWT_REFRESH:a25vd2xlZGdla25vd2xlZGdla25vd2xlZGdla25vd2xlZGdl}
+  accessExp: ${ACCESS_EXP:1800}
+  refreshExp: ${REFRESH_EXP:7200}
+
+gauth:
+  clientId: ${CLIENT_ID}
+  clientSecret: ${CLIENT_SECRET}
+  redirectUri: ${REDIRECT_URI}
+
+cloud:
+  aws:
+    s3:
+      bucket: ${S3_BUCKET}
+    region:
+      static: ${S3_REGION}
+    stack:
+      auto: false
+    credentials:
+      access-key: ${S3_ACCESS_KEY}
+      secret-key: ${S3_SECRET_KEY}
