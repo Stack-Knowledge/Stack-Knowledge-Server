@@ -6,6 +6,7 @@ import java.util.UUID
 data class AllScoringResponse(
     val solveId: UUID,
     val solveStatus: SolveStatus,
+    val title: String,
     val point: Int,
     val user: UserResponse
 )
