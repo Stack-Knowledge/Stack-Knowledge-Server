@@ -21,9 +21,9 @@ class UserWebAdapter(
     private val uploadImageUseCase: UploadImageUseCase,
     private val updateImageUseCase: UpdateImageUseCase
 ) {
-    @GetMapping("/scoring")
-    fun queryAllSolve(): ResponseEntity<List<AllScoringResponse>> =
-        queryScoringPageUseCase.execute()
+    @GetMapping("/scoring/{page}")
+    fun queryAllSolve(@PathVariable page: Int): ResponseEntity<List<AllScoringResponse>> =
+        queryScoringPageUseCase.execute(page)
             .let { ResponseEntity.ok(it) }
 
     @PostMapping("/scoring/{solve_id}")

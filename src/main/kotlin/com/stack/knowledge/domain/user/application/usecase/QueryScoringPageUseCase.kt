@@ -20,8 +20,12 @@ class QueryScoringPageUseCase(
     private val queryUserPort: QueryUserPort,
     private val queryPointPort: QueryPointPort
 ) {
-    fun execute(): List<AllScoringResponse> {
-        val solves = querySolvePort.queryAllSolveBySolveStatus(SolveStatus.SCORING, PageRequest.of(0, 10))
+    fun execute(page: Int): List<AllScoringResponse> {
+        val pageable = when (page) {
+            1 -> PageRequest.of(page, (page * 10))
+            else -> { PageRequest.of((page * 10), ((page + 1) * 10)) }
+        }
+        val solves = querySolvePort.queryAllSolveBySolveStatus(SolveStatus.SCORING, pageable)
 
         return solves.map {
             val student = queryStudentPort.queryStudentById(it.student) ?: throw StudentNotFoundException()
