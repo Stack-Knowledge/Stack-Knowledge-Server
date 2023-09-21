@@ -5,7 +5,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.stack.knowledge.thirdparty.fcm.property.FcmProperties
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.io.ClassPathResource
+import java.io.File
 import java.net.URL
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -15,19 +15,23 @@ import javax.annotation.PostConstruct
 class FcmConfig(
     private val fcmProperties: FcmProperties
 ) {
-    @PostConstruct
-    private fun initialize() {
-        runCatching {
-            val options: FirebaseOptions
-            options.toBuilder()
-                .setCredentials(
-                    GoogleCredentials
-                        .fromStream(ClassPathResource(fcmProperties.fileUrl).inputStream)
-                        .createScoped(listOf("fireBase Scope"))
-                ).build()
+    companion object {
+        const val PATH = "./credentials.json"
+    }
 
-            if (FirebaseApp.getApps().isEmpty()) {
-                FirebaseApp.initializeApp(options)
+    @PostConstruct
+    fun initialize() {
+        runCatching {
+            URL(fcmProperties.fileUrl).openStream().use {
+                Files.copy(it, Paths.get(PATH))
+                val file = File(PATH)
+                if (FirebaseApp.getApps().isEmpty()) {
+                    val options = FirebaseOptions.builder()
+                        .setCredentials(GoogleCredentials.fromStream(file.inputStream()))
+                        .build()
+                    FirebaseApp.initializeApp(options)
+                }
+                file.delete()
             }
         }.onFailure {
             it.printStackTrace()
