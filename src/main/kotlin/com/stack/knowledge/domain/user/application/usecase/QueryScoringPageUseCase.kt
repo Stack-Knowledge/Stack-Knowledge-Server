@@ -3,6 +3,8 @@ package com.stack.knowledge.domain.user.application.usecase
 import com.stack.knowledge.domain.solve.application.spi.QuerySolvePort
 import com.stack.knowledge.domain.user.presentation.data.response.AllScoringResponse
 import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
+import com.stack.knowledge.domain.mission.application.spi.QueryMissionPort
+import com.stack.knowledge.domain.mission.exception.MissionNotOpenedException
 import com.stack.knowledge.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledge.domain.point.application.spi.QueryPointPort
 import com.stack.knowledge.domain.point.exception.PointNotFoundException
@@ -18,7 +20,8 @@ class QueryScoringPageUseCase(
     private val querySolvePort: QuerySolvePort,
     private val queryStudentPort: QueryStudentPort,
     private val queryUserPort: QueryUserPort,
-    private val queryPointPort: QueryPointPort
+    private val queryPointPort: QueryPointPort,
+    private val queryMissionPort: QueryMissionPort
 ) {
     fun execute(page: Int): List<AllScoringResponse> {
         val pageable = when (page) {
@@ -31,10 +34,12 @@ class QueryScoringPageUseCase(
             val student = queryStudentPort.queryStudentById(it.student) ?: throw StudentNotFoundException()
             val user = queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
             val point = queryPointPort.queryPointBySolve(it) ?: throw PointNotFoundException()
+            val mission = queryMissionPort.queryMissionById(it.mission) ?: throw MissionNotOpenedException()
 
             AllScoringResponse(
                 solveId = it.id,
                 solveStatus = it.solveStatus,
+                title = mission.title,
                 point = point.missionPoint,
                 user = UserResponse(
                     id = user.id,
