@@ -1,6 +1,5 @@
 package com.stack.knowledge.domain.student.presentation
 
-import com.stack.knowledge.domain.image.application.usecase.UpdateImageUseCase
 import com.stack.knowledge.domain.image.application.usecase.UploadImageUseCase
 import com.stack.knowledge.domain.student.application.usecase.QueryAllStudentsRankingUseCase
 import com.stack.knowledge.domain.student.application.usecase.QueryStudentPointInfoUseCase
@@ -15,8 +14,7 @@ import org.springframework.web.multipart.MultipartFile
 class StudentWebAdapter(
     private val queryAllStudentsRankingUseCase: QueryAllStudentsRankingUseCase,
     private val queryStudentPointInfoUseCase: QueryStudentPointInfoUseCase,
-    private val uploadImageUseCase: UploadImageUseCase,
-    private val updateImageUseCase: UpdateImageUseCase
+    private val uploadImageUseCase: UploadImageUseCase
 ) {
     @GetMapping("/ranking")
     fun queryAllStudentsRanking(): ResponseEntity<List<AllStudentsRankingResponse>> =
@@ -31,10 +29,5 @@ class StudentWebAdapter(
     @PostMapping("/image")
     fun uploadImage(@RequestPart multipartFile: MultipartFile): ResponseEntity<String> =
         uploadImageUseCase.execute(multipartFile)
-            .let { ResponseEntity.ok(it) }
-
-    @PatchMapping("/image")
-    fun updateImage(@RequestPart multipartFile: MultipartFile): ResponseEntity<String> =
-        updateImageUseCase.execute(multipartFile)
             .let { ResponseEntity.ok(it) }
 }
