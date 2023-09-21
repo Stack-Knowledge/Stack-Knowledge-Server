@@ -54,8 +54,6 @@ class SecurityConfig(
 //            // user
 //            .antMatchers(HttpMethod.GET, "/user/scoring").hasRole(teacher)
 //            .antMatchers(HttpMethod.POST, "/user/scoring/{solve_id}").hasRole(teacher)
-//            .antMatchers(HttpMethod.POST, "/user/image").hasRole(teacher)
-//            .antMatchers(HttpMethod.PATCH, "/user/image").hasRole(teacher)
 //
 //            // student
 //            .antMatchers(HttpMethod.GET, "/student/ranking").authenticated()

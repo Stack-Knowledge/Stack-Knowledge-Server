@@ -30,14 +30,4 @@ class UserWebAdapter(
     fun scoreSolve(@PathVariable("solve_id") solveId: UUID, @RequestBody @Valid scoreSolveRequest: ScoreSolveRequest): ResponseEntity<Void> =
         scoreSolveUseCase.execute(solveId, scoreSolveRequest)
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
-
-    @PostMapping("/image")
-    fun uploadImage(@RequestPart multipartFile: MultipartFile): ResponseEntity<String> =
-        uploadImageUseCase.execute(multipartFile)
-            .let { ResponseEntity.ok(it) }
-
-    @PatchMapping("/image")
-    fun updateImage(@RequestPart multipartFile: MultipartFile): ResponseEntity<String> =
-        updateImageUseCase.execute(multipartFile)
-            .let { ResponseEntity.ok(it) }
 }
