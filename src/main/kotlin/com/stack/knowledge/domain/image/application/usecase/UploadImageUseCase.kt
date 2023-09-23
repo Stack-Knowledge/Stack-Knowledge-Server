@@ -2,7 +2,6 @@ package com.stack.knowledge.domain.image.application.usecase
 
 import com.stack.knowledge.domain.image.application.spi.CommandImagePort
 import com.stack.knowledge.domain.image.application.validator.ImageValidator
-import com.stack.knowledge.domain.image.exception.ProfileImageAlreadyExist
 import com.stack.knowledge.domain.user.application.spi.UserPort
 import com.stack.knowledge.common.annotation.usecase.UseCase
 import com.stack.knowledge.common.service.SecurityService
@@ -19,8 +18,8 @@ class UploadImageUseCase(
     fun execute(multipartFile: MultipartFile): String {
         val user = securityService.queryCurrentUser()
 
-        if (user.profileImage != "")
-            throw ProfileImageAlreadyExist()
+        if (user.profileImage != null)
+            commandImagePort.deleteImageUrl(user.profileImage)
 
         val fileName = imageValidator.validateImageExtension(multipartFile)
             .let { UUID.randomUUID().toString() + it }

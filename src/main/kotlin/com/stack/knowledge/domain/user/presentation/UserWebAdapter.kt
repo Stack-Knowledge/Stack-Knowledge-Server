@@ -1,7 +1,5 @@
 package com.stack.knowledge.domain.user.presentation
 
-import com.stack.knowledge.domain.image.application.usecase.UpdateImageUseCase
-import com.stack.knowledge.domain.image.application.usecase.UploadImageUseCase
 import com.stack.knowledge.domain.user.application.usecase.QueryScoringPageUseCase
 import com.stack.knowledge.domain.user.application.usecase.ScoreSolveUseCase
 import com.stack.knowledge.domain.user.presentation.data.request.ScoreSolveRequest
@@ -9,7 +7,6 @@ import com.stack.knowledge.domain.user.presentation.data.response.AllScoringResp
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.multipart.MultipartFile
 import java.util.UUID
 import javax.validation.Valid
 
@@ -17,9 +14,7 @@ import javax.validation.Valid
 @RequestMapping("/user")
 class UserWebAdapter(
     private val queryScoringPageUseCase: QueryScoringPageUseCase,
-    private val scoreSolveUseCase: ScoreSolveUseCase,
-    private val uploadImageUseCase: UploadImageUseCase,
-    private val updateImageUseCase: UpdateImageUseCase
+    private val scoreSolveUseCase: ScoreSolveUseCase
 ) {
     @GetMapping("/scoring/{page}")
     fun queryAllSolve(@PathVariable page: Int): ResponseEntity<List<AllScoringResponse>> =
