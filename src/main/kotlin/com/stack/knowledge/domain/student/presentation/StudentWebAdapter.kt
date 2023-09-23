@@ -27,7 +27,7 @@ class StudentWebAdapter(
             .let { ResponseEntity.ok(it) }
 
     @PostMapping("/image")
-    fun uploadImage(@RequestPart multipartFile: MultipartFile): ResponseEntity<String> =
+    fun uploadImage(@RequestPart("image") multipartFile: MultipartFile): ResponseEntity<String> =
         uploadImageUseCase.execute(multipartFile)
             .let { ResponseEntity.ok(it) }
 }
