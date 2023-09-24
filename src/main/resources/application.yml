@@ -30,8 +30,8 @@ spring:
 jwt:
   accessSecret: ${JWT_ACCESS:c3RhY2s=c3RhY2s=c3RhY2s=c3RhY2s=}
   refreshSecret: ${JWT_REFRESH:a25vd2xlZGdla25vd2xlZGdla25vd2xlZGdla25vd2xlZGdl}
-  accessExp: ${ACCESS_EXP:15}
-  refreshExp: ${REFRESH_EXP:15}
+  accessExp: ${ACCESS_EXP:1800}
+  refreshExp: ${REFRESH_EXP:7200}
 
 gauth:
   clientId: ${CLIENT_ID}
