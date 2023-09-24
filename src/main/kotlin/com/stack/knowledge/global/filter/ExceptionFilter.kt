@@ -22,7 +22,10 @@ class ExceptionFilter: OncePerRequestFilter() {
             filterChain.doFilter(request, response)
         } catch (e: Exception) {
             when (e) {
-                is StackKnowledgeException -> sendError(response, e.errorCode)
+                is StackKnowledgeException -> {
+                    log.error(e.message)
+                    sendError(response, e.errorCode)
+                }
 //                is Exception -> sendError(response, ErrorCode.INTERNAL_SERVER_ERROR)
                 is Exception -> log.error(e.message)
             }
