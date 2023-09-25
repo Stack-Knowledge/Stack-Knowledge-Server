@@ -26,12 +26,12 @@ class SecurityConfig(
         const val teacher = "TEACHER"
     }
 
-    @Bean
-    fun configure() = WebSecurityCustomizer {
-            it.ignoring()
-                .antMatchers(HttpMethod.POST, "/auth")
-                .antMatchers(HttpMethod.PATCH, "/auth")
-    }
+//    @Bean
+//    fun configure() = WebSecurityCustomizer {
+//            it.ignoring()
+//                .antMatchers(HttpMethod.POST, "/auth")
+//                .antMatchers(HttpMethod.PATCH, "/auth")
+//    }
 
     @Bean
     protected fun filterChain(http: HttpSecurity): SecurityFilterChain =
