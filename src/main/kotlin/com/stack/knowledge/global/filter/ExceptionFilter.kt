@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class ExceptionFilter: OncePerRequestFilter() {
+
     private val log = LoggerFactory.getLogger(javaClass)
+
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,

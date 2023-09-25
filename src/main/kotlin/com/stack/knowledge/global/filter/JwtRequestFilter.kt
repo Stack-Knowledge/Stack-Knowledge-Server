@@ -9,7 +9,7 @@ import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-@Order(Ordered.HIGHEST_PRECEDENCE)
+//@Order(Ordered.LOWEST_PRECEDENCE)
 class JwtRequestFilter(
     private val jwtParserPort: JwtParserPort
 ) : OncePerRequestFilter() {
