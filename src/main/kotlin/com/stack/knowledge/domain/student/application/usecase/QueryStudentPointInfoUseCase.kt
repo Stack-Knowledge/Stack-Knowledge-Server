@@ -14,7 +14,7 @@ class QueryStudentPointInfoUseCase(
 ) {
     fun execute(): StudentPointResponse {
         val user = securityService.queryCurrentUser()
-        val student = queryStudentPort.queryStudentById(user.id) ?: throw UserNotFoundException()
+        val student = queryStudentPort.queryStudentByUserId(user.id) ?: throw UserNotFoundException()
 
         return StudentPointResponse(
             id = student.id,
