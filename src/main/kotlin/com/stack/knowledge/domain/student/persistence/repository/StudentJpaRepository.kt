@@ -7,6 +7,6 @@ import java.util.UUID
 
 interface StudentJpaRepository : CrudRepository<StudentJpaEntity, UUID> {
     fun findAllByOrderByCumulatePointDesc(): List<StudentJpaEntity>
-    fun findByUser(userJpaEntity: UserJpaEntity): StudentJpaEntity
+    fun findByUserId(userId: UUID): StudentJpaEntity
     fun existsByUser(userJpaEntity: UserJpaEntity): Boolean
 }

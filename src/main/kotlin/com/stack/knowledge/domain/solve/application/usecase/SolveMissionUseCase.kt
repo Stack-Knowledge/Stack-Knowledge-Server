@@ -29,7 +29,7 @@ class SolveMissionUseCase(
     fun execute(id: UUID, solveMissionRequest: SolveMissionRequest) {
         val mission = missionPort.queryMissionById(id) ?: throw MissionNotFoundException()
         val user = securityService.queryCurrentUser()
-        val student = queryStudentPort.queryStudentByUser(user) ?: throw StudentNotFoundException()
+        val student = queryStudentPort.queryStudentByUserId(user.id) ?: throw StudentNotFoundException()
 
         if (mission.missionStatus != MissionStatus.OPENED)
             throw MissionNotOpenedException()
