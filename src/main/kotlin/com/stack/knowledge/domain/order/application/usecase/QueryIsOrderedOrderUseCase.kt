@@ -32,7 +32,7 @@ class QueryIsOrderedOrderUseCase(
                 price = it.price,
                 orderStatus = it.orderStatus,
                 item = ItemResponse(
-                    id = it.itemId,
+                    itemId = it.itemId,
                     name = item.name,
                     price = item.price,
                     image = item.image
