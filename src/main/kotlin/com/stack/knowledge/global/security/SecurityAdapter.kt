@@ -3,7 +3,7 @@ package com.stack.knowledge.global.security
 import com.stack.knowledge.common.spi.SecurityPort
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Component
-import java.util.*
+import java.util.UUID
 
 @Component
 class SecurityAdapter : SecurityPort {
