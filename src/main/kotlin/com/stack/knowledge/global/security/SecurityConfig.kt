@@ -60,7 +60,7 @@ class SecurityConfig(
 //            .antMatchers(HttpMethod.GET , "/item").hasRole(student)
 //
 //            // user
-//            .antMatchers(HttpMethod.GET, "/user/scoring/{page}").hasRole(teacher)
+//            .antMatchers(HttpMethod.GET, "/user/scoring/list/{page}").hasRole(teacher)
 //            .antMatchers(HttpMethod.GET, "/user/scoring/{solve_id}").hasRole(teacher)
 //            .antMatchers(HttpMethod.POST, "/user/scoring/{solve_id}").hasRole(teacher)
 //
