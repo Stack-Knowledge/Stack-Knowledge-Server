@@ -5,6 +5,7 @@ import com.stack.knowledge.domain.image.application.validator.ImageValidator
 import com.stack.knowledge.domain.user.application.spi.UserPort
 import com.stack.knowledge.common.annotation.usecase.UseCase
 import com.stack.knowledge.common.service.SecurityService
+import com.stack.knowledge.domain.user.exception.ProfileImageNotFoundException
 import org.springframework.web.multipart.MultipartFile
 import java.util.*
 
@@ -17,9 +18,10 @@ class UploadImageUseCase(
 ) {
     fun execute(multipartFile: MultipartFile): String {
         val user = securityService.queryCurrentUser()
+        val profileImage = user.profileImage ?: throw ProfileImageNotFoundException()
 
-        if (user.profileImage != null)
-            commandImagePort.deleteImageUrl(user.profileImage)
+        if (profileImage != "")
+            commandImagePort.deleteImageUrl(profileImage)
 
         val fileName = imageValidator.validateImageExtension(multipartFile)
             .let { UUID.randomUUID().toString() + it }
