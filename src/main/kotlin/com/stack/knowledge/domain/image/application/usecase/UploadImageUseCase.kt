@@ -16,17 +16,17 @@ class UploadImageUseCase(
     private val imageValidator: ImageValidator,
     private val securityService: SecurityService
 ) {
-    fun execute(multipartFile: MultipartFile): String {
+    fun execute(image: MultipartFile): String {
         val user = securityService.queryCurrentUser()
         val profileImage = user.profileImage ?: throw ProfileImageNotFoundException()
 
         if (profileImage != "")
             commandImagePort.deleteImageUrl(profileImage)
 
-        val fileName = imageValidator.validateImageExtension(multipartFile)
+        val fileName = imageValidator.validateImageExtension(image)
             .let { UUID.randomUUID().toString() + it }
 
         userPort.save(user.copy(profileImage = fileName))
-        return commandImagePort.upload(multipartFile, fileName)
+        return commandImagePort.upload(image, fileName)
     }
 }
