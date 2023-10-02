@@ -31,6 +31,7 @@ enum class ErrorCode(
     // solve
     SOLVE_NOT_FOUND("존재하지 않는 풀이입니다.", 404),
     ALREADY_SCORED("이미 채점을 맨 문제입니다.", 403),
+    ALREADY_SOLVED("이미 푼 문제입니다.", 403),
     UNSUPPORTED_SOLVE_STATUS("지원하지 않는 문제 채점 방식입니다.", 400),
 
     // user
