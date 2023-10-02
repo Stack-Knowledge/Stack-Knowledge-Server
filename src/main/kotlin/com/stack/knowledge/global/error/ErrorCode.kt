@@ -36,7 +36,6 @@ enum class ErrorCode(
 
     // user
     USER_NOT_FOUND("존재하지 않는 유저입니다.", 404),
-    PROFILE_IMAGE_NOT_FOUND("존재하지 않는 프로필 이미지입니다.", 404),
 
     // student
     STUDENT_NOT_FOUND("존재하지 않는 학생입니다.", 404),
