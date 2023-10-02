@@ -23,6 +23,10 @@ class AwsS3Adapter(
         inputS3(multipartFile, fileName)
             .run { queryImageUrl(fileName = fileName) }
 
+    override fun deleteImageUrl(fileName: String) {
+        amazonS3.deleteObject(DeleteObjectRequest(awsS3Properties.bucket, fileName))
+    }
+
     private fun inputS3(multipartFile: MultipartFile, fileName: String) {
         val objectMetadata = ObjectMetadata()
         objectMetadata.contentLength = multipartFile.size
@@ -39,10 +43,6 @@ class AwsS3Adapter(
         }
     }
 
-    override fun queryImageUrl(fileName: String): String =
+    private fun queryImageUrl(fileName: String): String =
         amazonS3.getUrl(awsS3Properties.bucket, fileName).toString()
-
-    override fun deleteImageUrl(fileName: String) {
-        amazonS3.deleteObject(DeleteObjectRequest(awsS3Properties.bucket, fileName))
-    }
 }
