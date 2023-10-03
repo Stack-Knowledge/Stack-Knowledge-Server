@@ -5,6 +5,7 @@ import java.util.*
 
 class StudentPointResponse(
     val id: UUID,
+    val currentPoint: Int,
     val cumulatePoint: Int,
     val user: UserResponse
 )

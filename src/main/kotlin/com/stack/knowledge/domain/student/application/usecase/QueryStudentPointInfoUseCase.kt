@@ -18,6 +18,7 @@ class QueryStudentPointInfoUseCase(
 
         return StudentPointResponse(
             id = student.id,
+            currentPoint = student.currentPoint,
             cumulatePoint = student.cumulatePoint,
             user = UserResponse(
                 id = user.id,
