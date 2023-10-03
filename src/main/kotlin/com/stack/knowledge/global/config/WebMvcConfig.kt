@@ -14,7 +14,7 @@ class WebMvcConfig : WebMvcConfigurer {
                 "http://localhost:3000",
                 "https://port-0-stack-knowledge-server-1xxfe2bllyrfbtt.sel5.cloudtype.app",
                 "https://stack-knowledge-admin.vercel.app",
-                "https://stack-knowledge-client.vercel.app/auth/login"
+                "https://stack-knowledge-client.vercel.app"
             )
             .allowCredentials(true)
     }
