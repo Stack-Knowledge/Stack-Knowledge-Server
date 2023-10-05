@@ -30,7 +30,7 @@ class ScoreSolveUseCase(
         val solve = solvePort.querySolveById(solveId) ?: throw SolveNotFoundException()
         val student = queryStudentPort.queryStudentById(solve.student) ?: throw StudentNotFoundException()
         val mission = queryMissionPort.queryMissionById(solve.mission) ?: throw MissionNotFoundException()
-        val point = queryPointPort.queryPointByMission(mission) ?: throw PointNotFoundException()
+        val point = queryPointPort.queryPointBySolve(solve) ?: throw PointNotFoundException()
 
         if (solve.solveStatus != SolveStatus.SCORING)
             throw AlreadyScoredException()
