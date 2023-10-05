@@ -7,6 +7,6 @@ import java.util.UUID
 
 interface QueryMissionPort {
     fun queryMissionById(missionId: UUID): Mission?
-    fun queryMissionByUser(user: User): Mission?
+    fun queryAllMissionByUser(user: User): List<Mission>
     fun queryAllMissionByMissionStatus(missionStatus: MissionStatus): List<Mission>
 }

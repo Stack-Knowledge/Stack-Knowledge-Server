@@ -19,9 +19,9 @@ class UserWebAdapter(
     private val queryScoringPageDetailsUseCase: QueryScoringPageDetailsUseCase,
     private val scoreSolveUseCase: ScoreSolveUseCase
 ) {
-    @GetMapping("/scoring/list/{page}")
-    fun queryAllSolve(@PathVariable page: Int): ResponseEntity<List<AllScoringResponse>> =
-        queryScoringPageUseCase.execute(page)
+    @GetMapping("/scoring")
+    fun queryAllSolve(): ResponseEntity<List<AllScoringResponse>> =
+        queryScoringPageUseCase.execute()
             .let { ResponseEntity.ok(it) }
 
     @GetMapping("/scoring/{solve_id}")

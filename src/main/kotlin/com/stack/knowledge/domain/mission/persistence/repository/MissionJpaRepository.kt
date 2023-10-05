@@ -7,6 +7,6 @@ import org.springframework.data.repository.CrudRepository
 import java.util.UUID
 
 interface MissionJpaRepository : CrudRepository<MissionJpaEntity, UUID> {
-    fun findByUser(userJpaEntity: UserJpaEntity): MissionJpaEntity
+    fun findAllByUser(userJpaEntity: UserJpaEntity): List<MissionJpaEntity>
     fun findByMissionStatus(missionStatus: MissionStatus): List<MissionJpaEntity>
 }

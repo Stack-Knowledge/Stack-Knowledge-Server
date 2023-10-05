@@ -3,51 +3,47 @@ package com.stack.knowledge.domain.user.application.usecase
 import com.stack.knowledge.domain.solve.application.spi.QuerySolvePort
 import com.stack.knowledge.domain.user.presentation.data.response.AllScoringResponse
 import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
+import com.stack.knowledge.common.spi.SecurityPort
 import com.stack.knowledge.domain.mission.application.spi.QueryMissionPort
-import com.stack.knowledge.domain.mission.exception.MissionNotOpenedException
+import com.stack.knowledge.domain.mission.exception.MissionNotFoundException
 import com.stack.knowledge.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledge.domain.point.application.spi.QueryPointPort
 import com.stack.knowledge.domain.point.exception.PointNotFoundException
-import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
-import com.stack.knowledge.domain.student.exception.StudentNotFoundException
 import com.stack.knowledge.domain.user.application.spi.QueryUserPort
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.response.UserResponse
-import org.springframework.data.domain.PageRequest
 
 @ReadOnlyUseCase
 class QueryScoringPageUseCase(
     private val querySolvePort: QuerySolvePort,
-    private val queryStudentPort: QueryStudentPort,
     private val queryUserPort: QueryUserPort,
     private val queryPointPort: QueryPointPort,
-    private val queryMissionPort: QueryMissionPort
+    private val queryMissionPort: QueryMissionPort,
+    private val securityPort: SecurityPort
 ) {
-    fun execute(page: Int): List<AllScoringResponse> {
-        val pageable = when (page) {
-            1 -> PageRequest.of(page, (page * 10))
-            else -> { PageRequest.of((page * 10), ((page + 1) * 10)) }
+    fun execute(): List<AllScoringResponse> {
+        val user = securityPort.queryCurrentUserId().let {
+            queryUserPort.queryUserById(it) ?: throw UserNotFoundException()
         }
-        val solves = querySolvePort.queryAllSolveBySolveStatus(SolveStatus.SCORING, pageable)
 
-        return solves.map {
-            val student = queryStudentPort.queryStudentById(it.student) ?: throw StudentNotFoundException()
-            val user = queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
-            val point = queryPointPort.queryPointBySolve(it) ?: throw PointNotFoundException()
-            val mission = queryMissionPort.queryMissionById(it.mission) ?: throw MissionNotOpenedException()
+        return queryMissionPort.queryAllMissionByUser(user).flatMap {
+            querySolvePort.queryAllSolveBySolveStatus(SolveStatus.SCORING, it).map { solve ->
+                val point = queryPointPort.queryPointBySolve(solve) ?: throw PointNotFoundException()
+                val mission = queryMissionPort.queryMissionById(solve.mission) ?: throw MissionNotFoundException()
 
-            AllScoringResponse(
-                solveId = it.id,
-                solveStatus = it.solveStatus,
-                title = mission.title,
-                point = point.missionPoint,
-                user = UserResponse(
-                    id = user.id,
-                    email = user.email,
-                    name = user.name,
-                    profileImage = user.profileImage
+                AllScoringResponse(
+                    solveId = solve.id,
+                    solveStatus = solve.solveStatus,
+                    title = mission.title,
+                    point = point.missionPoint,
+                    user = UserResponse(
+                        id = user.id,
+                        email = user.email,
+                        name = user.name,
+                        profileImage = user.profileImage
+                    )
                 )
-            )
+            }
         }
     }
 }
