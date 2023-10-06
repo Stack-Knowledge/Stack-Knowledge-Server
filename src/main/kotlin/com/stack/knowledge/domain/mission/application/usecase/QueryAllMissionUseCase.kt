@@ -7,30 +7,36 @@ import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.response.UserResponse
 import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
 import com.stack.knowledge.domain.mission.domain.constant.MissionStatus
+import com.stack.knowledge.domain.solve.application.spi.QuerySolvePort
 
 @ReadOnlyUseCase
 class QueryAllMissionUseCase(
     private val queryMissionPort: QueryMissionPort,
-    private val queryUserPort: QueryUserPort
+    private val queryUserPort: QueryUserPort,
+    private val querySolvePort: QuerySolvePort
 ) {
     fun execute(): List<MissionResponse> {
         val missions = queryMissionPort.queryAllMissionByMissionStatus(MissionStatus.OPENED)
 
-        return missions.map{
-            val user = queryUserPort.queryUserById(it.userId) ?: throw UserNotFoundException()
+        return missions.mapNotNull { mission ->
+            val solve = querySolvePort.queryAllSolveByMission(mission).find { it.mission == mission.id }
 
-            MissionResponse(
-                id = it.id,
-                title = it.title,
-                point = it.point,
-                missionStatus = it.missionStatus,
-                user = UserResponse(
-                    id = user.id,
-                    email = user.email,
-                    name = user.name,
-                    profileImage = user.profileImage
+            solve?.let {
+                val user = queryUserPort.queryUserById(mission.userId) ?: throw UserNotFoundException()
+
+                MissionResponse(
+                    id = mission.id,
+                    title = mission.title,
+                    point = mission.point,
+                    missionStatus = mission.missionStatus,
+                    user = UserResponse(
+                        id = user.id,
+                        email = user.email,
+                        name = user.name,
+                        profileImage = user.profileImage
+                    )
                 )
-            )
+            }
         }
     }
 }
