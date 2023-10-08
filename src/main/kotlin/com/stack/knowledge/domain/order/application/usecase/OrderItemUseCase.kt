@@ -26,7 +26,7 @@ class OrderItemUseCase(
         val student = securityService.queryCurrentUser().let {
             studentPort.queryStudentByUserId(it.id) ?: throw StudentNotFoundException()
         }
-        val orders = queryOrderPort.queryAllIsOrderedItem(OrderStatus.IS_ORDERED)
+        val orders = queryOrderPort.queryAllIsOrderedItemAndStudent(OrderStatus.IS_ORDERED, student)
 
         orderItemRequest.map {
             val item = queryItemPort.queryItemById(it.itemId) ?: throw ItemNotFoundException()
