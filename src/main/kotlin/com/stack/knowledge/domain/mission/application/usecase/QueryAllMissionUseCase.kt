@@ -6,17 +6,27 @@ import com.stack.knowledge.domain.user.application.spi.QueryUserPort
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.response.UserResponse
 import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
+import com.stack.knowledge.common.spi.SecurityPort
 import com.stack.knowledge.domain.mission.domain.constant.MissionStatus
+import com.stack.knowledge.domain.solve.application.spi.QuerySolvePort
 
 @ReadOnlyUseCase
 class QueryAllMissionUseCase(
     private val queryMissionPort: QueryMissionPort,
-    private val queryUserPort: QueryUserPort
+    private val queryUserPort: QueryUserPort,
+    private val querySolvePort: QuerySolvePort,
+    private val securityPort: SecurityPort
 ) {
     fun execute(): List<MissionResponse> {
-        val missions = queryMissionPort.queryAllMissionByMissionStatus(MissionStatus.OPENED)
+        val studentId = securityPort.queryCurrentUserId()
+        val solvedMissionIds = querySolvePort.queryAllSolveByStudentId(studentId).map {
+            it.mission
+        }
+        val missions = queryMissionPort.queryAllMissionByMissionStatus(MissionStatus.OPENED).filterNot {
+            it.id in solvedMissionIds
+        }
 
-        return missions.map{
+        return missions.map {
             val user = queryUserPort.queryUserById(it.userId) ?: throw UserNotFoundException()
 
             MissionResponse(

@@ -26,10 +26,10 @@ class SolvePersistenceAdapter(
     override fun querySolveById(solveId: UUID): Solve? =
         solveMapper.toDomain(solveJpaRepository.findByIdOrNull(solveId))
 
-    override fun querySolveByMission(mission: Mission): Solve? =
-        solveMapper.toDomain(solveJpaRepository.findByMission(missionMapper.toEntity(mission)))
+    override fun queryAllSolveByMission(mission: Mission): List<Solve> =
+        solveJpaRepository.findAllByMission(missionMapper.toEntity(mission)).map { solveMapper.toDomain(it)!! }
 
-    override fun querySolveByStudentId(studentId: UUID): List<Solve> =
+    override fun queryAllSolveByStudentId(studentId: UUID): List<Solve> =
         solveJpaRepository.findAllByStudentId(studentId).map { solveMapper.toDomain(it)!! }
 
 }

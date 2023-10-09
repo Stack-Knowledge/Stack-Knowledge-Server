@@ -5,6 +5,8 @@ import com.stack.knowledge.domain.order.domain.Order
 import com.stack.knowledge.domain.order.domain.constant.OrderStatus
 import com.stack.knowledge.domain.order.persistence.mapper.OrderMapper
 import com.stack.knowledge.domain.order.persistence.repository.OrderJpaRepository
+import com.stack.knowledge.domain.student.domain.Student
+import com.stack.knowledge.domain.student.persistence.mapper.StudentMapper
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 import java.util.UUID
@@ -12,7 +14,8 @@ import java.util.UUID
 @Component
 class OrderPersistenceAdapter(
     private val orderJpaRepository: OrderJpaRepository,
-    private val orderMapper: OrderMapper
+    private val orderMapper: OrderMapper,
+    private val studentMapper: StudentMapper
 ) : OrderPort {
     override fun save(order: Order) {
         orderJpaRepository.save(orderMapper.toEntity(order))
@@ -22,5 +25,8 @@ class OrderPersistenceAdapter(
         orderMapper.toDomain(orderJpaRepository.findByIdOrNull(orderId))
 
     override fun queryAllIsOrderedItem(orderStatus: OrderStatus): List<Order> =
-        orderJpaRepository.findByOrderStatus(orderStatus).map { orderMapper.toDomain(it)!! }
+        orderJpaRepository.findAllByOrOrderStatus(orderStatus).map { orderMapper.toDomain(it)!! }
+
+    override fun queryAllIsOrderedItemAndStudent(orderStatus: OrderStatus, student: Student): List<Order> =
+        orderJpaRepository.findAllByOrderStatusAndStudent(orderStatus, studentMapper.toEntity(student)).map { orderMapper.toDomain(it)!! }
 }
