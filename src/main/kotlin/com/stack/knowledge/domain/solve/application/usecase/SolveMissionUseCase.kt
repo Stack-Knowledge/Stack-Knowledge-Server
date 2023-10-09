@@ -34,7 +34,7 @@ class SolveMissionUseCase(
         if (mission.missionStatus != MissionStatus.OPENED)
             throw MissionNotOpenedException()
 
-        solvePort.querySolveByStudentId(student.id).map {
+        solvePort.queryAllSolveByStudentId(student.id).map {
             if (it.mission == mission.id)
                 throw AlreadySolvedException()
         }
