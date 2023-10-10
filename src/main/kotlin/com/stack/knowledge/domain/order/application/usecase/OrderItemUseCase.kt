@@ -4,7 +4,6 @@ import com.stack.knowledge.domain.item.application.spi.QueryItemPort
 import com.stack.knowledge.domain.item.exception.ItemNotFoundException
 import com.stack.knowledge.domain.order.application.spi.CommandOrderPort
 import com.stack.knowledge.domain.order.domain.Order
-import com.stack.knowledge.domain.order.domain.constant.OrderStatus
 import com.stack.knowledge.domain.order.exception.LackPointException
 import com.stack.knowledge.domain.order.presentation.data.request.OrderItemRequest
 import com.stack.knowledge.domain.student.exception.StudentNotFoundException
@@ -26,9 +25,9 @@ class OrderItemUseCase(
         val student = securityService.queryCurrentUser().let {
             studentPort.queryStudentByUserId(it.id) ?: throw StudentNotFoundException()
         }
-        val orders = queryOrderPort.queryAllIsOrderedItemAndStudent(OrderStatus.IS_ORDERED, student)
+        val orders = queryOrderPort.queryAllByStudent(student)
 
-        orderItemRequest.map {
+        orderItemRequest.forEach {
             val item = queryItemPort.queryItemById(it.itemId) ?: throw ItemNotFoundException()
 
             val price = it.count * item.price
@@ -39,26 +38,22 @@ class OrderItemUseCase(
 
             studentPort.save(student.copy(currentPoint = sum))
 
-            val existingOrder = orders.find { findOrder ->
-                findOrder.itemId == it.itemId
+            val existingOrder = orders.find { order ->
+                order.itemId == it.itemId
             }
 
-            val saveOrder: Order
-
-            if (existingOrder == null)
-                saveOrder = Order(
-                    id = UUID.randomUUID(),
-                    count = it.count,
-                    price = price,
-                    orderStatus = OrderStatus.IS_ORDERED,
-                    itemId = it.itemId,
-                    studentId = student.id
+            val saveOrder = existingOrder?.let { order ->
+                order.copy(
+                    count = order.count + it.count,
+                    price = order.price + it.count * item.price
                 )
-            else
-                saveOrder = existingOrder.copy(
-                    count = existingOrder.count + it.count,
-                    price = existingOrder.price + it.count * item.price
-                )
+            } ?: Order(
+                id = UUID.randomUUID(),
+                count = it.count,
+                price = price,
+                itemId = it.itemId,
+                studentId = student.id
+            )
 
             commandOrderPort.save(saveOrder)
         }

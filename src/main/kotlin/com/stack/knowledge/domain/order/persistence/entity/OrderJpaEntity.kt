@@ -1,7 +1,6 @@
 package com.stack.knowledge.domain.order.persistence.entity
 
 import com.stack.knowledge.domain.item.persistence.entity.ItemJpaEntity
-import com.stack.knowledge.domain.order.domain.constant.OrderStatus
 import com.stack.knowledge.domain.student.persistence.entity.StudentJpaEntity
 import com.stack.knowledge.common.entity.BaseIdEntity
 import java.util.UUID
@@ -18,10 +17,6 @@ class OrderJpaEntity(
 
     @Column(nullable = false)
     val price: Int,
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    val orderStatus: OrderStatus,
 
     @ManyToOne
     @JoinColumn(name = "item_id")
