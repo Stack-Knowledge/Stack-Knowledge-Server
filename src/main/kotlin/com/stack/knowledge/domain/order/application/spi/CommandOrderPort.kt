@@ -4,4 +4,5 @@ import com.stack.knowledge.domain.order.domain.Order
 
 interface CommandOrderPort {
     fun save(order: Order)
+    fun delete(order: Order)
 }

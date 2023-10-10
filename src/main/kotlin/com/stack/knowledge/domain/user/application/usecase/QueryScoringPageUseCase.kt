@@ -27,7 +27,7 @@ class QueryScoringPageUseCase(
         }
 
         return queryMissionPort.queryAllMissionByUser(user).flatMap {
-            querySolvePort.queryAllSolveBySolveStatus(SolveStatus.SCORING, it).map { solve ->
+            querySolvePort.queryAllSolveBySolveStatusAndMission(SolveStatus.SCORING, it).map { solve ->
                 val point = queryPointPort.queryPointBySolve(solve) ?: throw PointNotFoundException()
                 val mission = queryMissionPort.queryMissionById(solve.mission) ?: throw MissionNotFoundException()
 

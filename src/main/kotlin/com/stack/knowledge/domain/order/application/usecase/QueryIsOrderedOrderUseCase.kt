@@ -5,7 +5,6 @@ import com.stack.knowledge.domain.item.application.spi.QueryItemPort
 import com.stack.knowledge.domain.item.exception.ItemNotFoundException
 import com.stack.knowledge.domain.item.presentation.data.response.ItemResponse
 import com.stack.knowledge.domain.order.application.spi.QueryOrderPort
-import com.stack.knowledge.domain.order.domain.constant.OrderStatus
 import com.stack.knowledge.domain.order.presentation.data.response.IsOrderedOrderResponse
 import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledge.domain.student.exception.StudentNotFoundException
@@ -21,7 +20,7 @@ class QueryIsOrderedOrderUseCase(
     private val queryStudentPort: QueryStudentPort
 ) {
     fun execute(): List<IsOrderedOrderResponse> =
-        queryOrderPort.queryAllIsOrderedItem(OrderStatus.IS_ORDERED).map {
+        queryOrderPort.queryAllItem().map {
             val item = queryItemPort.queryItemById(it.itemId) ?: throw ItemNotFoundException()
             val student = queryStudentPort.queryStudentById(it.studentId) ?: throw StudentNotFoundException()
             val user = queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
@@ -30,7 +29,6 @@ class QueryIsOrderedOrderUseCase(
                 id = it.id,
                 count = it.count,
                 price = it.price,
-                orderStatus = it.orderStatus,
                 item = ItemResponse(
                     itemId = it.itemId,
                     name = item.name,

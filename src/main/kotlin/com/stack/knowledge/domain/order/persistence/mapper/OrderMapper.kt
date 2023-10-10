@@ -21,7 +21,6 @@ class OrderMapper(
                 id = entity.id,
                 count = entity.count,
                 price = entity.price,
-                orderStatus = entity.orderStatus,
                 itemId = entity.item.id,
                 studentId = entity.student.id
             )
@@ -35,7 +34,6 @@ class OrderMapper(
             id = domain.id,
             count = domain.count,
             price = domain.price,
-            orderStatus = domain.orderStatus,
             item = item,
             student = student
         )

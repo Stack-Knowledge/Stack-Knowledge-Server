@@ -1,10 +1,10 @@
 package com.stack.knowledge.domain.order.presentation
 
 import com.stack.knowledge.domain.order.application.usecase.OrderItemUseCase
-import com.stack.knowledge.domain.order.application.usecase.UpdateOrderStatusUseCase
+import com.stack.knowledge.domain.order.application.usecase.UpdateOrderUseCase
 import com.stack.knowledge.domain.order.application.usecase.QueryIsOrderedOrderUseCase
 import com.stack.knowledge.domain.order.presentation.data.request.OrderItemRequest
-import com.stack.knowledge.domain.order.presentation.data.request.UpdateOrderStatusRequest
+import com.stack.knowledge.domain.order.presentation.data.request.UpdateOrderRequest
 import com.stack.knowledge.domain.order.presentation.data.response.IsOrderedOrderResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -21,7 +21,7 @@ import javax.validation.Valid
 class OrderWebAdapter(
     private val orderItemUseCase: OrderItemUseCase,
     private val queryIsOrderedOrderUseCase: QueryIsOrderedOrderUseCase,
-    private val updateOrderStatusUseCase: UpdateOrderStatusUseCase
+    private val updateOrderUseCase: UpdateOrderUseCase
 ) {
     @PostMapping
     fun orderItem(@RequestBody @Valid orderItemRequest: List<OrderItemRequest>): ResponseEntity<Void> =
@@ -34,7 +34,7 @@ class OrderWebAdapter(
             .let { ResponseEntity.ok(it) }
 
     @PatchMapping
-    fun updateOrderStatus(@RequestBody @Valid updateOrderStatusRequest: List<UpdateOrderStatusRequest>): ResponseEntity<Void> =
-        updateOrderStatusUseCase.execute(updateOrderStatusRequest)
+    fun updateOrder(@RequestBody @Valid updateOrderRequest: List<UpdateOrderRequest>): ResponseEntity<Void> =
+        updateOrderUseCase.execute(updateOrderRequest)
             .let { ResponseEntity.status(HttpStatus.NO_CONTENT).build() }
 }
