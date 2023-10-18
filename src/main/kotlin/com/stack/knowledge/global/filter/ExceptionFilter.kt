@@ -28,8 +28,10 @@ class ExceptionFilter: OncePerRequestFilter() {
                     log.error(e.message)
                     sendError(response, e.errorCode)
                 }
-//                is Exception -> sendError(response, ErrorCode.INTERNAL_SERVER_ERROR)
-                is Exception -> log.error(e.message)
+                is Exception -> {
+                    log.error(e.message)
+                    sendError(response, ErrorCode.INTERNAL_SERVER_ERROR)
+                }
             }
         }
     }

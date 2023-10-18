@@ -19,7 +19,6 @@ enum class ErrorCode(
     LACK_POINT("포인트가 부족합니다.", 400),
     LACK_ORDER("주문된 상품의 수보다 지급하려는 상품의 수가 많습니다.", 400),
     ORDER_NOT_FOUND("존재하지 않는 주문입니다.", 404),
-    ALREADY_COMPLETED_ORDER("이미 지급된 주문입니다.", 403),
 
     // mission
     MISSION_NOT_FOUND("존재하지 않는 미션입니다.", 404),
