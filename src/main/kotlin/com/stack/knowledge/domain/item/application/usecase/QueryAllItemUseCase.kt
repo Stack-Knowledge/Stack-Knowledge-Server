@@ -8,7 +8,6 @@ import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
 class QueryAllItemUseCase(
     private val queryItemPort: QueryItemPort
 ) {
-//    @Cacheable(cacheNames = ["items"], key = "'all'", sync = true)
     fun execute(): List<ItemResponse> =
         queryItemPort.queryAllItem()
             .map {
