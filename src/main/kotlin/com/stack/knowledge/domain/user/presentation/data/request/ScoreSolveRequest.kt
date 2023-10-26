@@ -4,7 +4,7 @@ import com.stack.knowledge.domain.solve.domain.constant.SolveStatus
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
 
-class ScoreSolveRequest(
+data class ScoreSolveRequest(
     @field:Enumerated(EnumType.STRING)
     val solveStatus: SolveStatus
 )

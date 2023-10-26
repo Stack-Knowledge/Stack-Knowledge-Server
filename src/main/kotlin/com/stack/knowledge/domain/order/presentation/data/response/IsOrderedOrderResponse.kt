@@ -4,7 +4,7 @@ import com.stack.knowledge.domain.item.presentation.data.response.ItemResponse
 import com.stack.knowledge.domain.user.presentation.data.response.UserResponse
 import java.util.*
 
-class IsOrderedOrderResponse(
+data class IsOrderedOrderResponse(
     val id: UUID,
     val count: Int,
     val price: Int,
