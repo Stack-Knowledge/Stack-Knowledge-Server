@@ -1,5 +1,7 @@
 package com.stack.knowledge.domain.auth.application.usecase
 
+import com.stack.knowledge.common.annotation.usecase.UseCase
+import com.stack.knowledge.domain.auth.application.spi.GAuthPort
 import com.stack.knowledge.domain.auth.presentation.data.request.GAuthSignInRequest
 import com.stack.knowledge.domain.auth.presentation.data.response.TokenResponse
 import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
@@ -9,9 +11,7 @@ import com.stack.knowledge.domain.user.application.spi.UserPort
 import com.stack.knowledge.domain.user.domain.User
 import com.stack.knowledge.domain.user.domain.constant.Authority
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
-import com.stack.knowledge.common.annotation.usecase.UseCase
 import com.stack.knowledge.global.security.spi.JwtGeneratorPort
-import com.stack.knowledge.domain.auth.application.spi.GAuthPort
 import java.util.*
 
 @UseCase
@@ -40,10 +40,11 @@ class GAuthSignInUseCase(
         if (!queryStudentPort.existStudentByUser(user) && user.authority == Authority.ROLE_STUDENT)
             createStudentUseCase.execute(user)
 
-        val student = queryStudentPort.queryStudentByUserId(user.id) ?: throw StudentNotFoundException()
-
         return when (user.authority) {
-            Authority.ROLE_STUDENT -> jwtGeneratorPort.receiveToken(student.id, user.authority)
+            Authority.ROLE_STUDENT -> {
+                val student = queryStudentPort.queryStudentByUserId(user.id) ?: throw StudentNotFoundException()
+                jwtGeneratorPort.receiveToken(student.id, user.authority)
+            }
             Authority.ROLE_TEACHER -> jwtGeneratorPort.receiveToken(user.id, user.authority)
         }
     }

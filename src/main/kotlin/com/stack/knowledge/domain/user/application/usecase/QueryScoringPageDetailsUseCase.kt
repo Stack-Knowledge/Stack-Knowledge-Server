@@ -6,7 +6,7 @@ import com.stack.knowledge.domain.mission.exception.MissionNotFoundException
 import com.stack.knowledge.domain.solve.application.spi.QuerySolvePort
 import com.stack.knowledge.domain.solve.exception.SolveNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.response.ScoringDetailsResponse
-import java.util.UUID
+import java.util.*
 
 @ReadOnlyUseCase
 class QueryScoringPageDetailsUseCase(
