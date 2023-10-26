@@ -20,23 +20,19 @@ class ExceptionFilter: OncePerRequestFilter() {
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        try {
+
+        runCatching {
             filterChain.doFilter(request, response)
-        } catch (e: Exception) {
+        }.onFailure { e ->
             when (e) {
-                is StackKnowledgeException -> {
-                    log.error(e.message)
-                    sendError(response, e.errorCode)
-                }
-                is Exception -> {
-                    log.error(e.message)
-                    sendError(response, ErrorCode.INTERNAL_SERVER_ERROR)
-                }
+                is StackKnowledgeException -> sendError(response, e.errorCode)
+                is Exception -> sendError(response, ErrorCode.INTERNAL_SERVER_ERROR)
             }
         }
     }
 
     private fun sendError(response: HttpServletResponse, errorCode: ErrorCode) {
+        log.info(errorCode.message)
         val errorResponse = ErrorResponse(errorCode.message, errorCode.status)
         val responseString = ObjectMapper().writeValueAsString(errorResponse)
         response.status = errorCode.status
