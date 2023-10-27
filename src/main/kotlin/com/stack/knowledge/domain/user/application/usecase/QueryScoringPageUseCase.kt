@@ -40,7 +40,7 @@ class QueryScoringPageUseCase(
                     title = mission.title,
                     point = point.missionPoint,
                     user = UserResponse(
-                        id = mission.id,
+                        id = user.id,
                         email = user.email,
                         name = user.name,
                         profileImage = user.profileImage
