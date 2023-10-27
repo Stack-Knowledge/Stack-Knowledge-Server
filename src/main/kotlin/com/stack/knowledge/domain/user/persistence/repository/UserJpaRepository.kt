@@ -1,10 +1,10 @@
 package com.stack.knowledge.domain.user.persistence.repository
 
 import com.stack.knowledge.domain.user.persistence.entity.UserJpaEntity
-import org.springframework.data.jpa.repository.JpaRepository
-import java.util.UUID
+import org.springframework.data.repository.CrudRepository
+import java.util.*
 
-interface UserJpaRepository : JpaRepository<UserJpaEntity, UUID> {
+interface UserJpaRepository : CrudRepository<UserJpaEntity, UUID> {
     fun findByEmail(email: String): UserJpaEntity?
     fun existsByEmail(email: String): Boolean
 }
