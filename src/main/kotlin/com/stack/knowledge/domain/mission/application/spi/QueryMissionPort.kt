@@ -7,5 +7,5 @@ import java.util.*
 interface QueryMissionPort {
     fun queryMissionById(missionId: UUID): Mission?
     fun queryAllMissionByUserId(userId: UUID): List<Mission>
-    fun queryAllMissionByMissionStatus(missionStatus: MissionStatus): List<Mission>
+    fun queryAllMissionByMissionStatusOrderByCreatedAt(missionStatus: MissionStatus): List<Mission>
 }

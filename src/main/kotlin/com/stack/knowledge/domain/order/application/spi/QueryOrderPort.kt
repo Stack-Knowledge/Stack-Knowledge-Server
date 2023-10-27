@@ -6,6 +6,6 @@ import java.util.UUID
 
 interface QueryOrderPort {
     fun queryOrderById(orderId: UUID): Order?
-    fun queryAllItem(): List<Order>
+    fun queryAllOrderByCreatedAt(): List<Order>
     fun queryAllByStudent(student: Student): List<Order>
 }

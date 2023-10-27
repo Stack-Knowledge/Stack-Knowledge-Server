@@ -6,7 +6,7 @@ import com.stack.knowledge.domain.solve.domain.constant.SolveStatus
 import java.util.UUID
 
 interface QuerySolvePort {
-    fun queryAllSolveBySolveStatusAndMission(solveStatus: SolveStatus, mission: Mission): List<Solve>
+    fun queryAllSolveBySolveStatusAndMissionOrderByCreatedAt(solveStatus: SolveStatus, mission: Mission): List<Solve>
     fun querySolveById(solveId: UUID): Solve?
     fun queryAllSolveByStudentId(studentId: UUID): List<Solve>
 }
