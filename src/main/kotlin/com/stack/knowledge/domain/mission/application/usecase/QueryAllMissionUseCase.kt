@@ -22,7 +22,7 @@ class QueryAllMissionUseCase(
         val solvedMissionIds = querySolvePort.queryAllSolveByStudentId(studentId).map {
             it.mission
         }
-        val missions = queryMissionPort.queryAllMissionByMissionStatus(MissionStatus.OPENED).filterNot {
+        val missions = queryMissionPort.queryAllMissionByMissionStatusOrderByCreatedAt(MissionStatus.OPENED).filterNot {
             it.id in solvedMissionIds
         }
 

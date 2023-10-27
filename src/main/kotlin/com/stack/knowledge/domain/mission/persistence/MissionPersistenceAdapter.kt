@@ -26,6 +26,6 @@ class MissionPersistenceAdapter(
     override fun queryAllMissionByUserId(userId: UUID): List<Mission> =
         missionJpaRepository.findAllByUserId(userId).map { missionMapper.toDomain(it)!! }
 
-    override fun queryAllMissionByMissionStatus(missionStatus: MissionStatus): List<Mission> =
-        missionJpaRepository.findByMissionStatus(missionStatus).map { missionMapper.toDomain(it)!! }
+    override fun queryAllMissionByMissionStatusOrderByCreatedAt(missionStatus: MissionStatus): List<Mission> =
+        missionJpaRepository.findByMissionStatusOrderByCreatedAt(missionStatus).map { missionMapper.toDomain(it)!! }
 }

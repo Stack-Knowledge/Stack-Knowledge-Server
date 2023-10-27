@@ -27,8 +27,8 @@ class OrderPersistenceAdapter(
     override fun queryOrderById(orderId: UUID): Order? =
         orderMapper.toDomain(orderJpaRepository.findByIdOrNull(orderId))
 
-    override fun queryAllItem(): List<Order> =
-        orderJpaRepository.findAll().map { orderMapper.toDomain(it)!! }
+    override fun queryAllOrderByCreatedAt(): List<Order> =
+        orderJpaRepository.findAllByOrderByCreatedAt().map { orderMapper.toDomain(it)!! }
 
     override fun queryAllByStudent(student: Student): List<Order> =
         orderJpaRepository.findAllByStudent(studentMapper.toEntity(student)).map { orderMapper.toDomain(it)!! }

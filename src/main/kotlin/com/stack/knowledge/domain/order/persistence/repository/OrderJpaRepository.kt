@@ -7,4 +7,5 @@ import java.util.UUID
 
 interface OrderJpaRepository : CrudRepository<OrderJpaEntity, UUID> {
     fun findAllByStudent(studentJpaEntity: StudentJpaEntity): List<OrderJpaEntity>
+    fun findAllByOrderByCreatedAt(): List<OrderJpaEntity>
 }
