@@ -5,7 +5,6 @@ import com.stack.knowledge.domain.mission.domain.Mission
 import com.stack.knowledge.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledge.domain.mission.persistence.mapper.MissionMapper
 import com.stack.knowledge.domain.mission.persistence.repository.MissionJpaRepository
-import com.stack.knowledge.domain.user.domain.User
 import com.stack.knowledge.domain.user.persistence.mapper.UserMapper
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
@@ -24,8 +23,8 @@ class MissionPersistenceAdapter(
     override fun queryMissionById(missionId: UUID): Mission? =
         missionMapper.toDomain(missionJpaRepository.findByIdOrNull(missionId))
 
-    override fun queryAllMissionByUser(user: User): List<Mission> =
-        missionJpaRepository.findAllByUser(userMapper.toEntity(user)).map { missionMapper.toDomain(it)!! }
+    override fun queryAllMissionByUserId(userId: UUID): List<Mission> =
+        missionJpaRepository.findAllByUserId(userId).map { missionMapper.toDomain(it)!! }
 
     override fun queryAllMissionByMissionStatus(missionStatus: MissionStatus): List<Mission> =
         missionJpaRepository.findByMissionStatus(missionStatus).map { missionMapper.toDomain(it)!! }

@@ -2,11 +2,10 @@ package com.stack.knowledge.domain.mission.persistence.repository
 
 import com.stack.knowledge.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledge.domain.mission.persistence.entity.MissionJpaEntity
-import com.stack.knowledge.domain.user.persistence.entity.UserJpaEntity
 import org.springframework.data.repository.CrudRepository
-import java.util.UUID
+import java.util.*
 
 interface MissionJpaRepository : CrudRepository<MissionJpaEntity, UUID> {
-    fun findAllByUser(userJpaEntity: UserJpaEntity): List<MissionJpaEntity>
+    fun findAllByUserId(userId: UUID): List<MissionJpaEntity>
     fun findByMissionStatus(missionStatus: MissionStatus): List<MissionJpaEntity>
 }
