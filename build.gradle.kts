@@ -53,10 +53,6 @@ dependencies {
 
 	// test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testImplementation("io.kotest:kotest-runner-junit5-jvm:4.4.3")
-	testImplementation("io.kotest:kotest-assertions-core-jvm:4.4.3")
-	implementation("io.kotest:kotest-extensions-spring:4.4.3")
-	testImplementation("io.mockk:mockk:1.12.0")
 }
 
 tasks.withType<KotlinCompile> {
