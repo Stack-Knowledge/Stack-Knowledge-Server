@@ -28,16 +28,15 @@ class SolveMissionUseCase(
 ) {
     fun execute(id: UUID, solveMissionRequest: SolveMissionRequest) {
         val mission = missionPort.queryMissionById(id) ?: throw MissionNotFoundException()
-        val user = securityService.queryCurrentUser()
-        val student = queryStudentPort.queryStudentByUserId(user.id) ?: throw StudentNotFoundException()
+        val student = securityService.queryCurrentUser().let {
+            queryStudentPort.queryStudentByUserId(it.id) ?: throw StudentNotFoundException()
+        }
 
         if (mission.missionStatus != MissionStatus.OPENED)
             throw MissionNotOpenedException()
 
-        solvePort.queryAllSolveByStudentId(student.id).map {
-            if (it.mission == mission.id)
-                throw AlreadySolvedException()
-        }
+        if (solvePort.existByStudentIdAndMissionId(student.id, mission.id))
+            throw AlreadySolvedException()
 
         val solve = Solve(
             id = UUID.randomUUID(),

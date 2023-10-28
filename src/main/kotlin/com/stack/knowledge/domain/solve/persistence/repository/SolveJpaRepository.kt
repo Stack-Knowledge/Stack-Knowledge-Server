@@ -9,4 +9,5 @@ import java.util.UUID
 interface SolveJpaRepository : CrudRepository<SolveJpaEntity, UUID> {
     fun findAllBySolveStatusAndMissionOrderByCreatedAt(solveStatus: SolveStatus, missionJpaEntity: MissionJpaEntity): List<SolveJpaEntity>
     fun findAllByStudentId(studentId: UUID): List<SolveJpaEntity>
+    fun existsByStudentIdAndMissionId(studentId: UUID, missionId: UUID): Boolean
 }
