@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository
 import java.util.UUID
 
 interface PointJpaRepository : CrudRepository<PointJpaEntity, Long> {
-    fun findBySolve(solveJpaEntity: SolveJpaEntity): PointJpaEntity
+    fun findBySolve(solveJpaEntity: SolveJpaEntity): PointJpaEntity?
     fun findTopByMissionIdOrderByMissionPointDesc(missionId: UUID): PointJpaEntity?
 }

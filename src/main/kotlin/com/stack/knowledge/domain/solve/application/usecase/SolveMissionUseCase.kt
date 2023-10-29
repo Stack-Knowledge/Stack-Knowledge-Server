@@ -1,22 +1,22 @@
 package com.stack.knowledge.domain.solve.application.usecase
 
+import com.stack.knowledge.common.annotation.usecase.UseCase
+import com.stack.knowledge.common.service.SecurityService
 import com.stack.knowledge.domain.mission.application.spi.MissionPort
 import com.stack.knowledge.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledge.domain.mission.exception.MissionNotFoundException
 import com.stack.knowledge.domain.mission.exception.MissionNotOpenedException
-import com.stack.knowledge.domain.solve.presentation.data.request.SolveMissionRequest
-import com.stack.knowledge.domain.solve.domain.Solve
-import com.stack.knowledge.domain.solve.domain.constant.SolveStatus
-import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
-import com.stack.knowledge.domain.student.exception.StudentNotFoundException
-import com.stack.knowledge.common.annotation.usecase.UseCase
-import com.stack.knowledge.common.service.SecurityService
 import com.stack.knowledge.domain.point.application.spi.PointPort
 import com.stack.knowledge.domain.point.domain.Point
 import com.stack.knowledge.domain.solve.application.spi.SolvePort
+import com.stack.knowledge.domain.solve.domain.Solve
+import com.stack.knowledge.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledge.domain.solve.exception.AlreadySolvedException
 import com.stack.knowledge.domain.solve.exception.SolveNotFoundException
-import java.util.UUID
+import com.stack.knowledge.domain.solve.presentation.data.request.SolveMissionRequest
+import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
+import com.stack.knowledge.domain.student.exception.StudentNotFoundException
+import java.util.*
 
 @UseCase
 class SolveMissionUseCase(
@@ -28,16 +28,15 @@ class SolveMissionUseCase(
 ) {
     fun execute(id: UUID, solveMissionRequest: SolveMissionRequest) {
         val mission = missionPort.queryMissionById(id) ?: throw MissionNotFoundException()
-        val user = securityService.queryCurrentUser()
-        val student = queryStudentPort.queryStudentByUserId(user.id) ?: throw StudentNotFoundException()
+        val student = securityService.queryCurrentUser().let {
+            queryStudentPort.queryStudentByUserId(it.id) ?: throw StudentNotFoundException()
+        }
 
         if (mission.missionStatus != MissionStatus.OPENED)
             throw MissionNotOpenedException()
 
-        solvePort.queryAllSolveByStudentId(student.id).map {
-            if (it.mission == mission.id)
-                throw AlreadySolvedException()
-        }
+        if (solvePort.existByStudentIdAndMissionId(student.id, mission.id))
+            throw AlreadySolvedException()
 
         val solve = Solve(
             id = UUID.randomUUID(),
@@ -46,15 +45,15 @@ class SolveMissionUseCase(
             student = student.id,
             mission = mission.id
         )
-
         val saveSolve = solvePort.save(solve) ?: throw SolveNotFoundException()
 
+        val topPoint = ((pointPort.queryTopByMissionIdOrderByMissionPointDesc(mission.id)?.missionPoint?.times(0.97))?.toInt())
+
         val point = Point(
-            missionPoint = ((pointPort.queryTopByMissionIdOrderByMissionPointDesc(mission.id)?.missionPoint ?: 1000) * 0.97).toInt(),
+            missionPoint = topPoint ?: 1000,
             mission = mission.id,
             solve = saveSolve.id
         )
-
         pointPort.save(point)
     }
 }
