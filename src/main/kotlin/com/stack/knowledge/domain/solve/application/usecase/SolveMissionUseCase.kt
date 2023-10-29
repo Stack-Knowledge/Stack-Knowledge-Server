@@ -1,22 +1,22 @@
 package com.stack.knowledge.domain.solve.application.usecase
 
+import com.stack.knowledge.common.annotation.usecase.UseCase
+import com.stack.knowledge.common.service.SecurityService
 import com.stack.knowledge.domain.mission.application.spi.MissionPort
 import com.stack.knowledge.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledge.domain.mission.exception.MissionNotFoundException
 import com.stack.knowledge.domain.mission.exception.MissionNotOpenedException
-import com.stack.knowledge.domain.solve.presentation.data.request.SolveMissionRequest
-import com.stack.knowledge.domain.solve.domain.Solve
-import com.stack.knowledge.domain.solve.domain.constant.SolveStatus
-import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
-import com.stack.knowledge.domain.student.exception.StudentNotFoundException
-import com.stack.knowledge.common.annotation.usecase.UseCase
-import com.stack.knowledge.common.service.SecurityService
 import com.stack.knowledge.domain.point.application.spi.PointPort
 import com.stack.knowledge.domain.point.domain.Point
 import com.stack.knowledge.domain.solve.application.spi.SolvePort
+import com.stack.knowledge.domain.solve.domain.Solve
+import com.stack.knowledge.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledge.domain.solve.exception.AlreadySolvedException
 import com.stack.knowledge.domain.solve.exception.SolveNotFoundException
-import java.util.UUID
+import com.stack.knowledge.domain.solve.presentation.data.request.SolveMissionRequest
+import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
+import com.stack.knowledge.domain.student.exception.StudentNotFoundException
+import java.util.*
 
 @UseCase
 class SolveMissionUseCase(

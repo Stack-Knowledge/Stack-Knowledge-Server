@@ -9,13 +9,12 @@ class QueryAllItemUseCase(
     private val queryItemPort: QueryItemPort
 ) {
     fun execute(): List<ItemResponse> =
-        queryItemPort.queryAllItem()
-            .map {
-                ItemResponse(
-                    itemId = it.id,
-                    name = it.name,
-                    price = it.price,
-                    image = it.image
-                )
-            }
+        queryItemPort.queryAllItem().map {
+            ItemResponse(
+                itemId = it.id,
+                name = it.name,
+                price = it.price,
+                image = it.image
+            )
+        }
 }
