@@ -7,5 +7,5 @@ import java.util.*
 
 interface MissionJpaRepository : CrudRepository<MissionJpaEntity, UUID> {
     fun findAllByUserId(userId: UUID): List<MissionJpaEntity>
-    fun findByMissionStatusOrderByCreatedAt(missionStatus: MissionStatus): List<MissionJpaEntity>
+    fun findByMissionStatusOrderByCreatedAtDesc(missionStatus: MissionStatus): List<MissionJpaEntity>
 }
