@@ -26,6 +26,7 @@ enum class ErrorCode(
 
     // image
     MISMATCH_IMAGE_EXTENSION("이미지 파일이 아닙니다.", 400),
+    FILE_SIZE_TOO_SMALL("파일 사이즈가 너무 작습니다.", 400),
 
     // solve
     SOLVE_NOT_FOUND("존재하지 않는 풀이입니다.", 404),

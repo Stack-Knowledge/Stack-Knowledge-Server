@@ -9,8 +9,15 @@ plugins {
 	kotlin("kapt") version "1.6.21"
 }
 
+allOpen {
+	annotation("javax.persistence.Entity")
+	annotation("javax.persistence.MappedSuperclass")
+	annotation("javax.persistence.Embeddable")
+}
+
 group = "com.stack"
 version = "0.0.1-SNAPSHOT"
+
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
@@ -46,7 +53,7 @@ dependencies {
 
 	// aws
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE")
-  
+
   	// mariadb
 	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
