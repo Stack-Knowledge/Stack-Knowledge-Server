@@ -5,13 +5,14 @@ import com.stack.knowledge.domain.image.application.validator.ImageValidator
 import com.stack.knowledge.domain.user.application.spi.UserPort
 import com.stack.knowledge.common.annotation.usecase.UseCase
 import com.stack.knowledge.common.service.SecurityService
+import com.stack.knowledge.domain.user.application.spi.CommandUserPort
 import org.springframework.web.multipart.MultipartFile
 import java.util.*
 
 @UseCase
 class UploadImageUseCase(
     private val commandImagePort: CommandImagePort,
-    private val userPort: UserPort,
+    private val commandUserPort: CommandUserPort,
     private val imageValidator: ImageValidator,
     private val securityService: SecurityService
 ) {
@@ -26,6 +27,6 @@ class UploadImageUseCase(
 
         val profileImage = commandImagePort.upload(image, fileName)
 
-        return userPort.save(user.copy(profileImage = profileImage)).profileImage.toString()
+        return commandUserPort.save(user.copy(profileImage = profileImage)).profileImage.toString()
     }
 }
