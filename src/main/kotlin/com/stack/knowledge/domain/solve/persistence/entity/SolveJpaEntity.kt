@@ -13,7 +13,7 @@ class SolveJpaEntity(
 
     override val id: UUID,
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     val solvation: String,
 
     @Enumerated(EnumType.STRING)
