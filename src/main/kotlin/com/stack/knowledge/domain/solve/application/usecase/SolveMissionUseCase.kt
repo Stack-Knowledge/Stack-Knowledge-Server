@@ -40,7 +40,6 @@ class SolveMissionUseCase(
             throw AlreadySolvedException()
 
         val time = queryTimePort.queryTimeByMission(mission) ?: throw TimeNotFoundException()
-
         val timeElapsed = (Duration.between(time.createdAt, LocalDateTime.now())).toSeconds()
 
         if (timeElapsed > mission.timeLimit)
