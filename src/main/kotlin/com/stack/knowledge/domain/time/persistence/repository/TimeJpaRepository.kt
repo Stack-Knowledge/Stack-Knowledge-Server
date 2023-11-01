@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository
 import java.util.UUID
 
 interface TimeJpaRepository : CrudRepository<TimeJpaEntity, UUID> {
-    fun findByMissionJpaEntity(missionJpaEntity: MissionJpaEntity): TimeJpaEntity
+    fun findByMissionJpaEntity(missionJpaEntity: MissionJpaEntity): TimeJpaEntity?
 }

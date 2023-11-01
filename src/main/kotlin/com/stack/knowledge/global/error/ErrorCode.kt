@@ -1,8 +1,8 @@
 package com.stack.knowledge.global.error
 
 enum class ErrorCode(
-        val message: String,
-        val status: Int
+    val message: String,
+    val status: Int
 ) {
     // auth
     EXPIRED_TOKEN("토큰 만료", 401),
