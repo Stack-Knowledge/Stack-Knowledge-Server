@@ -10,6 +10,7 @@ import com.stack.knowledge.domain.user.domain.constant.Authority
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.global.security.exception.InvalidRoleException
 import org.springframework.stereotype.Service
+import java.util.*
 
 
 @Service
@@ -32,4 +33,7 @@ class SecurityServiceImpl(
 
     override fun queryCurrentUserAuthority(): String =
         securityPort.queryCurrentUserAuthority()
+
+    override fun queryCurrentUserId(): UUID =
+        securityPort.queryCurrentUserId()
 }
