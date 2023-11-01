@@ -34,6 +34,10 @@ enum class ErrorCode(
     ALREADY_SOLVED("이미 푼 문제입니다.", 409),
     UNSUPPORTED_SOLVE_STATUS("지원하지 않는 문제 채점 방식입니다.", 400),
 
+    // time
+    TIME_NOT_FOUND("존재하지 않는 문제입니다.", 404),
+    TIME_LIMIT_EXCEEDED("시간 제한을 초과하였습니다.", 400),
+
     // user
     USER_NOT_FOUND("존재하지 않는 유저입니다.", 404),
 

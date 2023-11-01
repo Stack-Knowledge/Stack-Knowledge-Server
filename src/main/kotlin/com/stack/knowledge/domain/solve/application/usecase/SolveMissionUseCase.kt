@@ -14,35 +14,43 @@ import com.stack.knowledge.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledge.domain.solve.exception.AlreadySolvedException
 import com.stack.knowledge.domain.solve.exception.SolveNotFoundException
 import com.stack.knowledge.domain.solve.presentation.data.request.SolveMissionRequest
-import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
-import com.stack.knowledge.domain.student.exception.StudentNotFoundException
+import com.stack.knowledge.domain.time.application.spi.QueryTimePort
+import com.stack.knowledge.domain.time.exception.TimeLimitExceededException
+import com.stack.knowledge.domain.time.exception.TimeNotFoundException
+import java.time.Duration
+import java.time.LocalDateTime
 import java.util.*
 
 @UseCase
 class SolveMissionUseCase(
-    private val queryStudentPort: QueryStudentPort,
     private val missionPort: MissionPort,
     private val solvePort: SolvePort,
     private val securityService: SecurityService,
-    private val pointPort: PointPort
+    private val pointPort: PointPort,
+    private val queryTimePort: QueryTimePort
 ) {
     fun execute(id: UUID, solveMissionRequest: SolveMissionRequest) {
         val mission = missionPort.queryMissionById(id) ?: throw MissionNotFoundException()
-        val student = securityService.queryCurrentUser().let {
-            queryStudentPort.queryStudentByUserId(it.id) ?: throw StudentNotFoundException()
-        }
+        val studentId = securityService.queryCurrentUserId()
 
         if (mission.missionStatus != MissionStatus.OPENED)
             throw MissionNotOpenedException()
 
-        if (solvePort.existByStudentIdAndMissionId(student.id, mission.id))
+        if (solvePort.existByStudentIdAndMissionId(studentId, mission.id))
             throw AlreadySolvedException()
+
+        val time = queryTimePort.queryTimeByMission(mission) ?: throw TimeNotFoundException()
+
+        val timeElapsed = (Duration.between(time.createdAt, LocalDateTime.now())).toSeconds()
+
+        if (timeElapsed > mission.timeLimit)
+            throw TimeLimitExceededException()
 
         val solve = Solve(
             id = UUID.randomUUID(),
             solvation = solveMissionRequest.solvation,
             solveStatus = SolveStatus.SCORING,
-            student = student.id,
+            student = studentId,
             mission = mission.id
         )
         val saveSolve = solvePort.save(solve) ?: throw SolveNotFoundException()
