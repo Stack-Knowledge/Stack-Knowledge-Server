@@ -1,15 +1,11 @@
 package com.stack.knowledge.domain.solve.presentation
 
-import com.stack.knowledge.domain.solve.presentation.data.request.SolveMissionRequest
 import com.stack.knowledge.domain.solve.application.usecase.SolveMissionUseCase
+import com.stack.knowledge.domain.solve.presentation.data.request.SolveMissionRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
-import java.util.UUID
+import org.springframework.web.bind.annotation.*
+import java.util.*
 import javax.validation.Valid
 
 @RestController

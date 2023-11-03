@@ -19,14 +19,20 @@ class QueryMissionDetailsUseCase(
     fun execute(id: UUID): MissionDetailsResponse {
         val mission = queryMissionPort.queryMissionById(id) ?: throw MissionNotFoundException()
 
-        timePort.queryTimeByMission(mission)
-            ?: timePort.save(
+        val time = timePort.queryTimeByMission(mission)
+
+        if (time == null) {
+            timePort.save(
                 Time(
                     id = UUID.randomUUID(),
                     mission = mission.id,
                     createdAt = LocalDateTime.now()
                 )
             )
+        }
+        else {
+            time.copy(createdAt = LocalDateTime.now())
+        }
 
         if (mission.missionStatus != MissionStatus.OPENED)
             throw MissionNotOpenedException()
