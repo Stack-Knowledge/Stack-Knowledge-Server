@@ -37,7 +37,6 @@ class QueryMissionDetailsUseCase(
         if (mission.missionStatus != MissionStatus.OPENED)
             throw MissionNotOpenedException()
 
-
         return MissionDetailsResponse(
             title = mission.title,
             content = mission.content,
