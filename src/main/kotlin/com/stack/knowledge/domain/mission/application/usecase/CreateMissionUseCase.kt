@@ -1,12 +1,11 @@
 package com.stack.knowledge.domain.mission.application.usecase
 
+import com.stack.knowledge.common.annotation.usecase.UseCase
+import com.stack.knowledge.common.service.SecurityService
 import com.stack.knowledge.domain.mission.application.spi.CommandMissionPort
 import com.stack.knowledge.domain.mission.domain.Mission
 import com.stack.knowledge.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledge.domain.mission.presentation.data.request.CreateMissionRequest
-import com.stack.knowledge.common.annotation.usecase.UseCase
-import com.stack.knowledge.common.service.SecurityService
-import java.time.LocalTime
 import java.util.*
 
 @UseCase
@@ -15,7 +14,7 @@ class CreateMissionUseCase(
     private val securityService: SecurityService
 ) {
     fun execute(createMissionRequest: CreateMissionRequest) {
-        val user = securityService.queryCurrentUser()
+        val userId = securityService.queryCurrentUserId()
 
         val mission = Mission(
             id = UUID.randomUUID(),
@@ -25,7 +24,7 @@ class CreateMissionUseCase(
             point = 1000,
             missionStatus = MissionStatus.OPENED,
 //            missionStatus = queryMissionStatusBasedOnTime(),
-            userId = user.id
+            userId = userId
         )
 
         commandMissionPort.save(mission)

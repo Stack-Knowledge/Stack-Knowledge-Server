@@ -4,4 +4,5 @@ import com.stack.knowledge.domain.auth.domain.RefreshToken
 
 interface CommandRefreshTokenPort {
     fun save(refreshToken: RefreshToken)
+    fun deleteRefreshTokenById(refreshToken: String)
 }
