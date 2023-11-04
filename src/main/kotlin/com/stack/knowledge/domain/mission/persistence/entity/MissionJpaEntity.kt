@@ -28,7 +28,7 @@ class MissionJpaEntity(
     @Column(nullable = false)
     val missionStatus: MissionStatus,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_Id")
     val user: UserJpaEntity
 
