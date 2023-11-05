@@ -7,7 +7,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "time")
-class TimeJpaEntity(
+class TimeJpaEntity(z
 
     override val id: UUID,
 

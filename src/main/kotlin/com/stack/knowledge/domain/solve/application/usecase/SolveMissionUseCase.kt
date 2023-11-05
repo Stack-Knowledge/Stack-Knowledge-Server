@@ -42,6 +42,9 @@ class SolveMissionUseCase(
         val time = queryTimePort.queryTimeByMission(mission) ?: throw TimeNotFoundException()
         val timeElapsed = (Duration.between(time.createdAt, LocalDateTime.now())).toSeconds()
 
+        if (timeElapsed > mission.timeLimit + 1)
+            throw TimeLimitExceededException()
+
         val solve = Solve(
             id = UUID.randomUUID(),
             solvation = solveMissionRequest.solvation,
@@ -51,8 +54,6 @@ class SolveMissionUseCase(
         )
         val saveSolve = solvePort.save(solve) ?: throw SolveNotFoundException()
 
-        if (timeElapsed > mission.timeLimit)
-            throw TimeLimitExceededException()
 
         val topPoint = (pointPort.queryTopByMissionIdOrderByMissionPointDesc(mission.id)?.missionPoint?.times(0.97))?.toInt()
 
