@@ -18,7 +18,7 @@ class SolvePersistenceAdapter(
     private val missionMapper: MissionMapper
 ) : SolvePort {
     override fun save(solve: Solve): Solve? =
-       solveMapper.toDomain(solveJpaRepository.save(solveMapper.toEntity(solve)))
+        solveMapper.toDomain(solveJpaRepository.save(solveMapper.toEntity(solve)))
 
     override fun queryAllSolveBySolveStatusAndMissionOrderByCreatedAtDesc(solveStatus: SolveStatus, mission: Mission): List<Solve> =
         solveJpaRepository.findAllBySolveStatusAndMissionOrderByCreatedAtDesc(solveStatus, missionMapper.toEntity(mission)).map { solveMapper.toDomain(it)!! }
@@ -31,5 +31,4 @@ class SolvePersistenceAdapter(
 
     override fun existByStudentIdAndMissionId(studentId: UUID, missionId: UUID): Boolean =
         solveJpaRepository.existsByStudentIdAndMissionId(studentId, missionId)
-
 }

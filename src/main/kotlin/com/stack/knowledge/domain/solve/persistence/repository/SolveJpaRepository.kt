@@ -4,7 +4,7 @@ import com.stack.knowledge.domain.mission.persistence.entity.MissionJpaEntity
 import com.stack.knowledge.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledge.domain.solve.persistence.entity.SolveJpaEntity
 import org.springframework.data.repository.CrudRepository
-import java.util.UUID
+import java.util.*
 
 interface SolveJpaRepository : CrudRepository<SolveJpaEntity, UUID> {
     fun findAllBySolveStatusAndMissionOrderByCreatedAtDesc(solveStatus: SolveStatus, missionJpaEntity: MissionJpaEntity): List<SolveJpaEntity>

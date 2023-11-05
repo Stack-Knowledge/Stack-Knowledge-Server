@@ -11,7 +11,7 @@ class TimeJpaEntity(
 
     override val id: UUID,
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id")
     val missionJpaEntity: MissionJpaEntity
 
