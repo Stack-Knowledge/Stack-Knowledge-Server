@@ -18,11 +18,11 @@ class OrderJpaEntity(
     @Column(nullable = false)
     val price: Int,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     val item: ItemJpaEntity,
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
     val student: StudentJpaEntity
 

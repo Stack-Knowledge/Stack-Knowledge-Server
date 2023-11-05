@@ -22,10 +22,9 @@ class OrderItemUseCase(
     private val queryOrderPort: QueryOrderPort
 ) {
     fun execute(orderItemRequest: List<OrderItemRequest>) {
-        val student = securityService.queryCurrentUser().let {
-            studentPort.queryStudentByUserId(it.id) ?: throw StudentNotFoundException()
+        val student = securityService.queryCurrentUserId().let {
+            studentPort.queryStudentById(it) ?: throw StudentNotFoundException()
         }
-        val orders = queryOrderPort.queryAllByStudent(student)
 
         orderItemRequest.forEach {
             val item = queryItemPort.queryItemById(it.itemId) ?: throw ItemNotFoundException()
@@ -38,6 +37,7 @@ class OrderItemUseCase(
 
             studentPort.save(student.copy(currentPoint = sum))
 
+            val orders = queryOrderPort.queryAllByStudent(student)
             val existingOrder = orders.find { order ->
                 order.itemId == it.itemId
             }
@@ -45,7 +45,7 @@ class OrderItemUseCase(
             val saveOrder = existingOrder?.let { order ->
                 order.copy(
                     count = order.count + it.count,
-                    price = order.price + it.count * item.price
+                    price = order.price + price
                 )
             } ?: Order(
                 id = UUID.randomUUID(),

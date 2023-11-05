@@ -26,7 +26,7 @@ class ExceptionFilter: OncePerRequestFilter() {
         }.onFailure { e ->
             when (e) {
                 is StackKnowledgeException -> sendError(response, e.errorCode)
-                is Exception -> sendError(response, ErrorCode.INTERNAL_SERVER_ERROR)
+                else -> sendError(response, ErrorCode.INTERNAL_SERVER_ERROR)
             }
         }
     }

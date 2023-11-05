@@ -20,7 +20,7 @@ class QueryIsOrderedOrderUseCase(
     private val queryStudentPort: QueryStudentPort
 ) {
     fun execute(): List<IsOrderedOrderResponse> =
-        queryOrderPort.queryAllOrderByCreatedAt().map {
+        queryOrderPort.queryAllOrderByCreatedAtDesc().map {
             val item = queryItemPort.queryItemById(it.itemId) ?: throw ItemNotFoundException()
             val student = queryStudentPort.queryStudentById(it.studentId) ?: throw StudentNotFoundException()
             val user = queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()

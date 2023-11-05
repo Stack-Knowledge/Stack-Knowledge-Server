@@ -1,7 +1,13 @@
 package com.stack.knowledge.domain.user.application.usecase
 
+import com.stack.knowledge.common.annotation.usecase.UseCase
+import com.stack.knowledge.domain.mission.application.spi.CommandMissionPort
 import com.stack.knowledge.domain.mission.application.spi.QueryMissionPort
+import com.stack.knowledge.domain.mission.domain.Mission
 import com.stack.knowledge.domain.mission.exception.MissionNotFoundException
+import com.stack.knowledge.domain.point.application.spi.QueryPointPort
+import com.stack.knowledge.domain.point.domain.Point
+import com.stack.knowledge.domain.point.exception.PointNotFoundException
 import com.stack.knowledge.domain.solve.application.spi.SolvePort
 import com.stack.knowledge.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledge.domain.solve.exception.AlreadyScoredException
@@ -9,13 +15,10 @@ import com.stack.knowledge.domain.solve.exception.SolveNotFoundException
 import com.stack.knowledge.domain.solve.exception.UnsupportedSolveStatusException
 import com.stack.knowledge.domain.student.application.spi.CommandStudentPort
 import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
+import com.stack.knowledge.domain.student.domain.Student
 import com.stack.knowledge.domain.student.exception.StudentNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.request.ScoreSolveRequest
-import com.stack.knowledge.common.annotation.usecase.UseCase
-import com.stack.knowledge.domain.mission.application.spi.CommandMissionPort
-import com.stack.knowledge.domain.point.application.spi.QueryPointPort
-import com.stack.knowledge.domain.point.exception.PointNotFoundException
-import java.util.UUID
+import java.util.*
 
 @UseCase
 class ScoreSolveUseCase(
@@ -35,25 +38,19 @@ class ScoreSolveUseCase(
         if (solve.solveStatus != SolveStatus.SCORING)
             throw AlreadyScoredException()
 
-        val currentPoint = when (scoreSolveRequest.solveStatus) {
-            SolveStatus.CORRECT_ANSWER -> {
-                commandMissionPort.save(mission.copy(point = point.missionPoint))
-                student.currentPoint.plus(point.missionPoint)
-            }
-            SolveStatus.WRONG_ANSWER -> student.currentPoint
-            else -> throw UnsupportedSolveStatusException()
-        }
-
-        val cumulatePoint = when (scoreSolveRequest.solveStatus) {
-            SolveStatus.CORRECT_ANSWER -> {
-                commandMissionPort.save(mission.copy(point = point.missionPoint))
-                student.cumulatePoint.plus(point.missionPoint)
-            }
-            SolveStatus.WRONG_ANSWER -> student.cumulatePoint
-            else -> throw UnsupportedSolveStatusException()
-        }
+        val (currentPoint, cumulatePoint) = calculatePoints(scoreSolveRequest.solveStatus, student, point, mission)
 
         commandStudentPort.save(student.copy(currentPoint = currentPoint, cumulatePoint = cumulatePoint))
         solvePort.save(solve.copy(solveStatus = scoreSolveRequest.solveStatus))
     }
+
+    private fun calculatePoints(solveStatus: SolveStatus, student: Student, point: Point, mission: Mission): Pair<Int, Int> =
+        when (solveStatus) {
+            SolveStatus.CORRECT_ANSWER -> {
+                commandMissionPort.save(mission.copy(point = point.missionPoint))
+                Pair(student.currentPoint + point.missionPoint, student.cumulatePoint + point.missionPoint)
+            }
+            SolveStatus.WRONG_ANSWER -> Pair(student.currentPoint, student.cumulatePoint)
+            else -> throw UnsupportedSolveStatusException()
+        }
 }

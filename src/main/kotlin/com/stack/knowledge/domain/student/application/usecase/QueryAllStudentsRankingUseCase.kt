@@ -13,8 +13,9 @@ class QueryAllStudentsRankingUseCase(
     private val queryStudentPort: QueryStudentPort
 ) {
     fun execute(): List<AllStudentsRankingResponse> =
-        queryStudentPort.queryStudentsPointDesc().map {
+        queryStudentPort.queryAllStudentsOrderByCumulatePointDesc().map {
             val user = queryUserPort.queryUserById(it.user) ?: throw UserNotFoundException()
+
             AllStudentsRankingResponse(
                 id = it.id,
                 cumulatePoint = it.cumulatePoint,
