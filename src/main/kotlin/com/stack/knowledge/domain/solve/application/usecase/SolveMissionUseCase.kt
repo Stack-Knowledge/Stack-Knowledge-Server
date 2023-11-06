@@ -55,7 +55,7 @@ class SolveMissionUseCase(
         if (isExceeded)
             throw TimeLimitExceededException()
 
-        val topPoint = (pointPort.queryTopByMissionIdOrderByMissionPointDesc(mission.id)?.missionPoint?.times(0.97))?.toInt()
+        val topPoint = (pointPort.queryTopByMissionIdOrderByMissionPointAsc(mission.id)?.missionPoint?.times(0.97))?.toInt()
 
         val point = Point(
             missionPoint = topPoint ?: 1000,
