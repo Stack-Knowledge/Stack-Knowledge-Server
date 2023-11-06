@@ -25,8 +25,8 @@ class UpdateOrderUseCase(
                 throw LackOrderException()
 
             when {
-                order.count > it.count -> orderPort.save(order.copy(count = count, price = price))
-                order.count == it.count -> orderPort.delete(order)
+                count > 0 -> orderPort.save(order.copy(count = count, price = price))
+                count == 0 -> orderPort.delete(order)
                 else -> throw LackOrderException()
             }
         }
