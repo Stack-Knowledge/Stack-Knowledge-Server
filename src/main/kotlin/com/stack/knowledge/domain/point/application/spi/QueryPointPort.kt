@@ -6,5 +6,5 @@ import java.util.*
 
 interface QueryPointPort {
     fun queryPointBySolve(solve: Solve): Point?
-    fun queryTopByMissionIdOrderByMissionPointDesc(missionId: UUID): Point?
+    fun queryTopByMissionIdOrderByMissionPointAsc(missionId: UUID): Point?
 }

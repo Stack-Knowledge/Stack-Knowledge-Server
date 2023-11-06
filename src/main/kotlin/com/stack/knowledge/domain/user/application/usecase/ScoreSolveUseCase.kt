@@ -1,8 +1,7 @@
 package com.stack.knowledge.domain.user.application.usecase
 
 import com.stack.knowledge.common.annotation.usecase.UseCase
-import com.stack.knowledge.domain.mission.application.spi.CommandMissionPort
-import com.stack.knowledge.domain.mission.application.spi.QueryMissionPort
+import com.stack.knowledge.domain.mission.application.spi.MissionPort
 import com.stack.knowledge.domain.mission.domain.Mission
 import com.stack.knowledge.domain.mission.exception.MissionNotFoundException
 import com.stack.knowledge.domain.point.application.spi.QueryPointPort
@@ -25,14 +24,13 @@ class ScoreSolveUseCase(
     private val solvePort: SolvePort,
     private val queryStudentPort: QueryStudentPort,
     private val commandStudentPort: CommandStudentPort,
-    private val queryMissionPort: QueryMissionPort,
-    private val commandMissionPort: CommandMissionPort,
+    private val missionPort: MissionPort,
     private val queryPointPort: QueryPointPort
 ) {
     fun execute(solveId: UUID, scoreSolveRequest: ScoreSolveRequest) {
         val solve = solvePort.querySolveById(solveId) ?: throw SolveNotFoundException()
         val student = queryStudentPort.queryStudentById(solve.student) ?: throw StudentNotFoundException()
-        val mission = queryMissionPort.queryMissionById(solve.mission) ?: throw MissionNotFoundException()
+        val mission = missionPort.queryMissionById(solve.mission) ?: throw MissionNotFoundException()
         val point = queryPointPort.queryPointBySolve(solve) ?: throw PointNotFoundException()
 
         if (solve.solveStatus != SolveStatus.SCORING)
@@ -47,7 +45,7 @@ class ScoreSolveUseCase(
     private fun calculatePoints(solveStatus: SolveStatus, student: Student, point: Point, mission: Mission): Pair<Int, Int> =
         when (solveStatus) {
             SolveStatus.CORRECT_ANSWER -> {
-                commandMissionPort.save(mission.copy(point = point.missionPoint))
+                missionPort.save(mission.copy(point = point.missionPoint))
                 Pair(student.currentPoint + point.missionPoint, student.cumulatePoint + point.missionPoint)
             }
             SolveStatus.WRONG_ANSWER -> Pair(student.currentPoint, student.cumulatePoint)
