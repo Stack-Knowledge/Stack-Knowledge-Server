@@ -57,6 +57,8 @@ class SolveMissionUseCase(
 
         val topPoint = (pointPort.queryTopByMissionIdOrderByMissionPointAsc(mission.id)?.missionPoint?.times(0.97))?.toInt()
 
+        println(topPoint)
+
         val point = Point(
             missionPoint = topPoint ?: 1000,
             mission = mission.id,
