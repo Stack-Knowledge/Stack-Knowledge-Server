@@ -2,6 +2,7 @@ package com.stack.knowledge.domain.time.persistence.entity
 
 import com.stack.knowledge.common.entity.BaseIdEntity
 import com.stack.knowledge.domain.mission.persistence.entity.MissionJpaEntity
+import com.stack.knowledge.domain.student.persistence.entity.StudentJpaEntity
 import java.util.*
 import javax.persistence.*
 
@@ -11,7 +12,11 @@ class TimeJpaEntity(
 
     override val id: UUID,
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id")
+    val studentJpaEntity: StudentJpaEntity,
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id")
     val missionJpaEntity: MissionJpaEntity
 

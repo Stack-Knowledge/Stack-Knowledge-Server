@@ -14,6 +14,8 @@ import com.stack.knowledge.domain.solve.domain.constant.SolveStatus
 import com.stack.knowledge.domain.solve.exception.AlreadySolvedException
 import com.stack.knowledge.domain.solve.exception.SolveNotFoundException
 import com.stack.knowledge.domain.solve.presentation.data.request.SolveMissionRequest
+import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
+import com.stack.knowledge.domain.student.exception.StudentNotFoundException
 import com.stack.knowledge.domain.time.application.spi.QueryTimePort
 import com.stack.knowledge.domain.time.exception.TimeLimitExceededException
 import com.stack.knowledge.domain.time.exception.TimeNotFoundException
@@ -29,23 +31,26 @@ class SolveMissionUseCase(
     private val solvePort: SolvePort,
     private val securityService: SecurityService,
     private val pointPort: PointPort,
-    private val queryTimePort: QueryTimePort
+    private val queryTimePort: QueryTimePort,
+    private val queryStudentPort: QueryStudentPort
 ) {
     @Transactional(noRollbackFor = [TimeLimitExceededException::class])
     fun execute(id: UUID, solveMissionRequest: SolveMissionRequest) {
+        val student = securityService.queryCurrentUserId().let {
+            queryStudentPort.queryStudentById(it) ?: throw StudentNotFoundException()
+        }
         val mission = missionPort.queryMissionById(id) ?: throw MissionNotFoundException()
-        val studentId = securityService.queryCurrentUserId()
 
         if (mission.missionStatus != MissionStatus.OPENED)
             throw MissionNotOpenedException()
 
-        if (solvePort.existByStudentIdAndMissionId(studentId, mission.id))
+        if (solvePort.existByStudentIdAndMissionId(student.id, mission.id))
             throw AlreadySolvedException()
 
-        val time = queryTimePort.queryTimeByMission(mission) ?: throw TimeNotFoundException()
+        val time = queryTimePort.queryTimeByMissionAndStudentId(mission, student) ?: throw TimeNotFoundException()
         val timeElapsed = (Duration.between(time.createdAt, LocalDateTime.now())).toSeconds()
 
-        val (solve, isExceeded) = createSolve(timeElapsed, mission, solveMissionRequest.solvation, studentId)
+        val (solve, isExceeded) = createSolve(timeElapsed, mission, solveMissionRequest.solvation, student.id)
 
         if (isExceeded)
             throw TimeLimitExceededException()
