@@ -21,6 +21,7 @@ class JwtGeneratorAdapter(
     override fun receiveToken(userId: UUID, authority: Authority): TokenResponse {
         val refreshToken = generateRefreshToken(userId)
         commandRefreshTokenPort.save(RefreshToken(refreshToken, userId, authority, jwtProperties.refreshExp))
+
         return TokenResponse(
             accessToken = generateAccessToken(userId, authority),
             refreshToken = refreshToken,

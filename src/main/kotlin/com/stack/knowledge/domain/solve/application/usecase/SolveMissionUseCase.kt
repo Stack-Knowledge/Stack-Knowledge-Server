@@ -62,7 +62,7 @@ class SolveMissionUseCase(
 
     private fun createSolve(timeElapsed: Long, mission: Mission, solvation: String, studentId: UUID): Pair<Solve, Boolean> {
         val (solveStatus, isExceeded) = when {
-            timeElapsed > mission.timeLimit + 3 -> Pair(SolveStatus.WRONG_ANSWER, true)
+            timeElapsed > mission.timeLimit + 5 -> Pair(SolveStatus.WRONG_ANSWER, true)
             else -> Pair(SolveStatus.SCORING, false)
         }
 
