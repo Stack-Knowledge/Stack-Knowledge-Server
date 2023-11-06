@@ -5,6 +5,7 @@ import java.util.*
 
 data class Time(
     val id: UUID,
+    val student: UUID,
     val mission: UUID,
     val createdAt: LocalDateTime
 )
