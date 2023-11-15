@@ -3,7 +3,7 @@ spring:
     throw-exception-if-no-handler-found: true
 
   datasource:
-    url: jdbc:mariadb://${DB_URL:svc.sel3.cloudtype.app:32671}/${DB_NAME:knowledge}?useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mariadb://${DB_URL}/${DB_NAME:knowledge}?useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: ${DB_USER:root}
     password: ${DB_PASSWORD:12345678a}
     driver-class-name: org.mariadb.jdbc.Driver
