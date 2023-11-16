@@ -1,6 +1,5 @@
 package com.stack.knowledge.thirdparty.aws.s3.config
 
-import com.amazonaws.auth.AWSCredentials
 import com.amazonaws.auth.AWSStaticCredentialsProvider
 import com.amazonaws.auth.BasicAWSCredentials
 import com.amazonaws.services.s3.AmazonS3
@@ -19,7 +18,7 @@ class AwsS3Config(
 
     @Bean
     fun amazonS3(): AmazonS3 {
-        val awsCredentials: AWSCredentials = BasicAWSCredentials(awsProperties.accessKey, awsProperties.secretKey)
+        val awsCredentials = BasicAWSCredentials(awsProperties.accessKey, awsProperties.secretKey)
         return AmazonS3ClientBuilder.standard()
             .withRegion(region)
             .withCredentials(AWSStaticCredentialsProvider(awsCredentials))

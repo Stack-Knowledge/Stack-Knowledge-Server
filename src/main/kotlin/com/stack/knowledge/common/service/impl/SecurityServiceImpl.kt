@@ -12,7 +12,6 @@ import com.stack.knowledge.global.security.exception.InvalidRoleException
 import org.springframework.stereotype.Service
 import java.util.*
 
-
 @Service
 class SecurityServiceImpl(
     private val securityPort: SecurityPort,
