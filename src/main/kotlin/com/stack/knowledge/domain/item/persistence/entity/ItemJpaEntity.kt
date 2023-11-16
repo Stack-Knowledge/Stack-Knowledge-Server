@@ -12,7 +12,7 @@ class ItemJpaEntity(
 
     override val id: UUID,
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     val name: String,
 
     @Column(nullable = false)
