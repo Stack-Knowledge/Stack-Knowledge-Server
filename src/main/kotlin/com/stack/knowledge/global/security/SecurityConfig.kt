@@ -86,7 +86,4 @@ class SecurityConfig(
             .apply(FilterConfig(jwtParserPort))
             .and()
             .build()
-
-    @Bean
-    fun passwordEncoder() = BCryptPasswordEncoder()
 }
