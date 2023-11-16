@@ -11,7 +11,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Component
 import org.springframework.web.multipart.MultipartFile
 import org.springframework.web.server.ResponseStatusException
-import java.io.IOException
 
 @Component
 class AwsS3Adapter(
@@ -29,16 +28,18 @@ class AwsS3Adapter(
 
     private fun inputS3(multipartFile: MultipartFile, fileName: String) {
         val objectMetadata = ObjectMetadata()
+
         objectMetadata.contentLength = multipartFile.size
         objectMetadata.contentType = multipartFile.contentType
-        try {
+
+        runCatching {
             amazonS3.putObject(
                 PutObjectRequest(awsS3Properties.bucket, fileName, multipartFile.inputStream, objectMetadata)
                     .withCannedAcl(
                         CannedAccessControlList.PublicRead
                     )
             )
-        } catch (e: IOException) {
+        }.onFailure {
             throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "이미지 업로드에 실패했습니다.")
         }
     }
