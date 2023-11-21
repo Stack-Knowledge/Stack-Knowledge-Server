@@ -7,10 +7,10 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.UUID
+import java.util.*
 
 @Service
-@Transactional(readOnly = true, rollbackFor = [Exception::class])
+@Transactional(readOnly = true)
 class StudentDetailsService(
     private val studentJpaRepository: StudentJpaRepository
 ) : UserDetailsService {

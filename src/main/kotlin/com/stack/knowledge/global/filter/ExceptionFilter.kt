@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.stack.knowledge.global.error.ErrorCode
 import com.stack.knowledge.global.error.ErrorResponse
 import com.stack.knowledge.global.error.exception.StackKnowledgeException
-import org.slf4j.LoggerFactory
 import org.springframework.http.MediaType
 import org.springframework.web.filter.OncePerRequestFilter
 import javax.servlet.FilterChain
@@ -12,9 +11,6 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 class ExceptionFilter: OncePerRequestFilter() {
-
-    private val log = LoggerFactory.getLogger(javaClass)
-
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
@@ -32,7 +28,6 @@ class ExceptionFilter: OncePerRequestFilter() {
     }
 
     private fun sendError(response: HttpServletResponse, errorCode: ErrorCode) {
-        log.info(errorCode.message)
         val errorResponse = ErrorResponse(errorCode.message, errorCode.status)
         val responseString = ObjectMapper().writeValueAsString(errorResponse)
         response.status = errorCode.status

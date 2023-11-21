@@ -27,8 +27,7 @@ class UploadImageUseCase(
         if (!user.profileImage.isNullOrEmpty())
             commandImagePort.deleteImageUrl(user.profileImage)
 
-        val fileName = UUID.randomUUID().toString()
-        val profileImage = commandImagePort.upload(image, fileName)
+        val profileImage = commandImagePort.upload(image, UUID.randomUUID().toString())
 
         return commandUserPort.save(user.copy(profileImage = profileImage)).profileImage.toString()
     }
