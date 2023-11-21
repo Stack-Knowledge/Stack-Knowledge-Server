@@ -1,9 +1,8 @@
 package com.stack.knowledge.domain.user.application.usecase
 
 import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
-import com.stack.knowledge.common.spi.SecurityPort
+import com.stack.knowledge.common.service.SecurityService
 import com.stack.knowledge.domain.mission.application.spi.QueryMissionPort
-import com.stack.knowledge.domain.mission.exception.MissionNotFoundException
 import com.stack.knowledge.domain.point.application.spi.QueryPointPort
 import com.stack.knowledge.domain.point.exception.PointNotFoundException
 import com.stack.knowledge.domain.solve.application.spi.QuerySolvePort
@@ -21,23 +20,22 @@ class QueryScoringPageUseCase(
     private val queryUserPort: QueryUserPort,
     private val queryPointPort: QueryPointPort,
     private val queryMissionPort: QueryMissionPort,
-    private val securityPort: SecurityPort,
+    private val securityService: SecurityService,
     private val queryStudentPort: QueryStudentPort
 ) {
     fun execute(): List<AllScoringResponse> {
-        val userId = securityPort.queryCurrentUserId()
+        val userId = securityService.queryCurrentUserId()
 
         return queryMissionPort.queryAllMissionsByUserIdOrderByCreatedAtDesc(userId).flatMap {
             querySolvePort.queryAllSolveBySolveStatusAndMissionOrderByCreatedAtDesc(SolveStatus.SCORING, it).map { solve ->
                 val point = queryPointPort.queryPointBySolve(solve) ?: throw PointNotFoundException()
-                val mission = queryMissionPort.queryMissionById(solve.mission) ?: throw MissionNotFoundException()
                 val student = queryStudentPort.queryStudentById(solve.student) ?: throw StudentNotFoundException()
                 val user = queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
 
                 AllScoringResponse(
                     solveId = solve.id,
                     solveStatus = solve.solveStatus,
-                    title = mission.title,
+                    title = it.title,
                     point = point.missionPoint,
                     user = UserResponse(
                         id = user.id,
