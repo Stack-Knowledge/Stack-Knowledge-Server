@@ -37,7 +37,7 @@ class JwtGeneratorAdapter(
             .claim("type", "access")
             .claim("authority", authority)
             .setIssuedAt(Date())
-            .setExpiration(Date(System.currentTimeMillis() + jwtProperties.accessExp * 1000))
+            .setExpiration(Date(System.currentTimeMillis() + jwtProperties.accessExp * (1000)))
             .compact()
 
 
@@ -47,7 +47,7 @@ class JwtGeneratorAdapter(
             .setSubject(userId.toString())
             .claim("type", "refresh")
             .setIssuedAt(Date())
-            .setExpiration(Date(System.currentTimeMillis() + jwtProperties.refreshExp * 1000))
+            .setExpiration(Date(System.currentTimeMillis() + jwtProperties.refreshExp * (1000)))
             .compact()
 
 

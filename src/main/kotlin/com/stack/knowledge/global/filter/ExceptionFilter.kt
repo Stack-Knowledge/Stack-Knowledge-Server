@@ -6,6 +6,7 @@ import com.stack.knowledge.global.error.ErrorResponse
 import com.stack.knowledge.global.error.exception.StackKnowledgeException
 import org.springframework.http.MediaType
 import org.springframework.web.filter.OncePerRequestFilter
+import java.nio.charset.StandardCharsets
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -16,7 +17,6 @@ class ExceptionFilter: OncePerRequestFilter() {
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-
         runCatching {
             filterChain.doFilter(request, response)
         }.onFailure { e ->
@@ -32,7 +32,7 @@ class ExceptionFilter: OncePerRequestFilter() {
         val responseString = ObjectMapper().writeValueAsString(errorResponse)
         response.status = errorCode.status
         response.contentType = MediaType.APPLICATION_JSON_VALUE
-        response.characterEncoding = "utf-8"
+        response.characterEncoding = StandardCharsets.UTF_8.name()
         response.writer.write(responseString)
     }
 }
