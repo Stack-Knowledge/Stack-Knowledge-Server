@@ -34,7 +34,7 @@ class SolveMissionUseCase(
     private val queryTimePort: QueryTimePort,
     private val queryStudentPort: QueryStudentPort
 ) {
-    @Transactional(noRollbackFor = [TimeLimitExceededException::class])
+    @Transactional(noRollbackFor = [TimeLimitExceededException::class], rollbackFor = [Exception::class])
     fun execute(id: UUID, solveMissionRequest: SolveMissionRequest) {
         val student = securityService.queryCurrentUserId().let {
             queryStudentPort.queryStudentById(it) ?: throw StudentNotFoundException()
