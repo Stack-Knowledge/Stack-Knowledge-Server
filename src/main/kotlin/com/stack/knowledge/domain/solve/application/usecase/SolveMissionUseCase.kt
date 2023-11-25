@@ -50,10 +50,7 @@ class SolveMissionUseCase(
         val time = queryTimePort.queryTimeByMissionAndStudentId(mission, student) ?: throw TimeNotFoundException()
         val timeElapsed = (Duration.between(time.createdAt, LocalDateTime.now())).toSeconds()
 
-        val (solve, isExceeded) = createSolve(timeElapsed, mission, solveMissionRequest.solvation, student.id)
-
-        if (isExceeded)
-            throw TimeLimitExceededException()
+        val solve = createSolve(timeElapsed, mission, solveMissionRequest.solvation, student.id)
 
         val topPoint = (pointPort.queryTopByMissionIdOrderByMissionPointAsc(mission.id)?.missionPoint?.times(0.97))?.toInt()
 
@@ -65,10 +62,13 @@ class SolveMissionUseCase(
         pointPort.save(point)
     }
 
-    private fun createSolve(timeElapsed: Long, mission: Mission, solvation: String, studentId: UUID): Pair<Solve, Boolean> {
-        val (solveStatus, isExceeded) = when {
-            timeElapsed > mission.timeLimit + 5 -> Pair(SolveStatus.WRONG_ANSWER, true)
-            else -> Pair(SolveStatus.SCORING, false)
+    private fun createSolve(timeElapsed: Long, mission: Mission, solvation: String, studentId: UUID): Solve {
+        val solveStatus = when {
+            timeElapsed > mission.timeLimit + 5 -> {
+                SolveStatus.WRONG_ANSWER
+                throw TimeLimitExceededException()
+            }
+            else -> SolveStatus.SCORING
         }
 
         val solve = Solve(
@@ -78,8 +78,7 @@ class SolveMissionUseCase(
             student = studentId,
             mission = mission.id
         )
-        val saveSolve = solvePort.save(solve) ?: throw SolveNotFoundException()
 
-        return Pair(saveSolve, isExceeded)
+        return solvePort.save(solve) ?: throw SolveNotFoundException()
     }
 }
