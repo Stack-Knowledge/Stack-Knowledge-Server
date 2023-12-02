@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository
 import java.util.*
 
 interface MissionJpaRepository : CrudRepository<MissionJpaEntity, UUID> {
+    fun findAllByMissionStatus(missionStatus: MissionStatus): List<MissionJpaEntity>
     fun findAllByUserIdOrderByCreatedAtDesc(userId: UUID): List<MissionJpaEntity>
     @EntityGraph(attributePaths = ["user"])
     fun findAllByMissionStatusOrderByCreatedAtDesc(missionStatus: MissionStatus): List<MissionJpaEntity>
