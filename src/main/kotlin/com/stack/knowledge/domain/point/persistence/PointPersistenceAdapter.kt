@@ -20,7 +20,7 @@ class PointPersistenceAdapter(
     }
 
     override fun deleteAllByMissionIds(missionIds: List<UUID>) {
-        pointJpaRepository.deleteAllByMissionJpaEntityIds(missionIds)
+        pointJpaRepository.deleteAllByMissionIds(missionIds)
     }
 
     override fun queryPointBySolve(solve: Solve): Point? =

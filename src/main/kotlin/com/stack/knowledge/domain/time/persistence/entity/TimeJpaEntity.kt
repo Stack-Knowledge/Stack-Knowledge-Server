@@ -14,10 +14,10 @@ class TimeJpaEntity(
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
-    val studentJpaEntity: StudentJpaEntity,
+    val student: StudentJpaEntity,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mission_id")
-    val missionJpaEntity: MissionJpaEntity
+    val mission: MissionJpaEntity
 
 ) : BaseIdEntity(id)

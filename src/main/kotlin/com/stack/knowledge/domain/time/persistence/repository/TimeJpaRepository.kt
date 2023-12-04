@@ -9,8 +9,8 @@ import org.springframework.data.repository.CrudRepository
 import java.util.*
 
 interface TimeJpaRepository : CrudRepository<TimeJpaEntity, UUID> {
-    fun findByMissionJpaEntityAndStudentJpaEntity(missionJpaEntity: MissionJpaEntity, studentJpaEntity: StudentJpaEntity): TimeJpaEntity?
+    fun findByMissionAndStudent(mission: MissionJpaEntity, student: StudentJpaEntity): TimeJpaEntity?
     @Modifying
-    @Query("delete from TimeJpaEntity t where t.missionJpaEntity in :missionIds")
-    fun deleteAllByMissionJpaEntities(missionIds: List<UUID>)
+    @Query("delete from TimeJpaEntity t where t.mission in :missionIds")
+    fun deleteAllByMissionIds(missionIds: List<UUID>)
 }

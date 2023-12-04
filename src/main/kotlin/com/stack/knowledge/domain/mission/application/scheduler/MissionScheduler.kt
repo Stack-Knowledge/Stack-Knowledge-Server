@@ -29,7 +29,6 @@ class MissionScheduler(
 
     private fun checkAndChangeMissionStatusClosed() {
         val missions = missionPort.queryAllMissionByMissionStatus(MissionStatus.OPENED)
-
         val missionIds = missions.map { it.id }
 
         commandTimePort.deleteAllByMissionIds(missionIds)

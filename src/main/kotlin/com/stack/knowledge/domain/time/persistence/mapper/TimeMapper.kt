@@ -19,8 +19,8 @@ class TimeMapper(
         entity?.let {
             Time(
                 id = it.id,
-                student = it.studentJpaEntity.id,
-                mission = it.missionJpaEntity.id,
+                student = it.student.id,
+                mission = it.mission.id,
                 createdAt = entity.createdAt
             )
         }
@@ -31,8 +31,8 @@ class TimeMapper(
 
         return TimeJpaEntity(
             id = domain.id,
-            studentJpaEntity = student,
-            missionJpaEntity = mission,
+            student = student,
+            mission = mission,
         )
     }
 }

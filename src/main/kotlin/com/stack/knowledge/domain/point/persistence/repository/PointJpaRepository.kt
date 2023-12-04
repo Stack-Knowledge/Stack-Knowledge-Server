@@ -8,9 +8,9 @@ import org.springframework.data.repository.CrudRepository
 import java.util.*
 
 interface PointJpaRepository : CrudRepository<PointJpaEntity, Long> {
-    fun findBySolve(solveJpaEntity: SolveJpaEntity): PointJpaEntity?
+    fun findBySolve(solve: SolveJpaEntity): PointJpaEntity?
     fun findTopByMissionIdOrderByMissionPointAsc(missionId: UUID): PointJpaEntity?
     @Modifying
     @Query("delete from PointJpaEntity p where p.mission in :missionIds")
-    fun deleteAllByMissionJpaEntityIds(missionIds: List<UUID>)
+    fun deleteAllByMissionIds(missionIds: List<UUID>)
 }

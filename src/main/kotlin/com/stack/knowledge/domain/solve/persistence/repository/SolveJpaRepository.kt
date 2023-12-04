@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository
 import java.util.*
 
 interface SolveJpaRepository : CrudRepository<SolveJpaEntity, UUID> {
-    fun findAllBySolveStatusAndMissionOrderByCreatedAtDesc(solveStatus: SolveStatus, missionJpaEntity: MissionJpaEntity): List<SolveJpaEntity>
+    fun findAllBySolveStatusAndMissionOrderByCreatedAtDesc(solveStatus: SolveStatus, mission: MissionJpaEntity): List<SolveJpaEntity>
     fun findAllByStudentId(studentId: UUID): List<SolveJpaEntity>
     fun existsByStudentIdAndMissionId(studentId: UUID, missionId: UUID): Boolean
 }
