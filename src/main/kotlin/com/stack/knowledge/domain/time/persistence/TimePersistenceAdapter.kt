@@ -9,6 +9,7 @@ import com.stack.knowledge.domain.time.domain.Time
 import com.stack.knowledge.domain.time.persistence.mapper.TimeMapper
 import com.stack.knowledge.domain.time.persistence.repository.TimeJpaRepository
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class TimePersistenceAdapter(
@@ -19,6 +20,10 @@ class TimePersistenceAdapter(
 ) : TimePort {
     override fun save(time: Time) {
         timeJpaRepository.save(timeMapper.toEntity(time))
+    }
+
+    override fun deleteAllByMissionIds(missionIds: List<UUID>) {
+        timeJpaRepository.deleteAllByMissionJpaEntities(missionIds)
     }
 
     override fun queryTimeByMissionAndStudentId(mission: Mission, student: Student): Time? =

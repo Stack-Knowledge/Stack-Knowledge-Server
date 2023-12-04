@@ -19,6 +19,10 @@ class PointPersistenceAdapter(
         pointJpaRepository.save(pointMapper.toEntity(point))
     }
 
+    override fun deleteAllByMissionIds(missionIds: List<UUID>) {
+        pointJpaRepository.deleteAllByMissionJpaEntityIds(missionIds)
+    }
+
     override fun queryPointBySolve(solve: Solve): Point? =
         pointMapper.toDomain(pointJpaRepository.findBySolve(solveMapper.toEntity(solve)))
 
