@@ -10,5 +10,5 @@ interface StudentJpaRepository : CrudRepository<StudentJpaEntity, UUID> {
     @Query("SELECT s FROM StudentJpaEntity s JOIN FETCH s.user order by s.cumulatePoint DESC")
     fun findAllByOrderByCumulatePointDesc(): List<StudentJpaEntity>
     fun findByUserId(userId: UUID): StudentJpaEntity
-    fun existsByUser(userJpaEntity: UserJpaEntity): Boolean
+    fun existsByUser(user: UserJpaEntity): Boolean
 }
