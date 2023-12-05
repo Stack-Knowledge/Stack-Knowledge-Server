@@ -42,7 +42,7 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
 
-	// GAuth
+	// gAuth
 	implementation("com.github.GSM-MSG:GAuth-SDK-Java:v2.0.0")
 
 	// aws
@@ -54,6 +54,9 @@ dependencies {
 
 	// test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	// actuator
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
 }
 
 tasks.withType<KotlinCompile> {
