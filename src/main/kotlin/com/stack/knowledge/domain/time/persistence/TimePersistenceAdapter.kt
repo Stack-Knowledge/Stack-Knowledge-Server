@@ -26,6 +26,6 @@ class TimePersistenceAdapter(
         timeJpaRepository.deleteAllByMissionIds(missionIds)
     }
 
-    override fun queryTimeByMissionAndStudentId(mission: Mission, student: Student): Time? =
+    override fun queryTimeByMissionAndStudent(mission: Mission, student: Student): Time? =
         timeMapper.toDomain(timeJpaRepository.findByMissionAndStudent(missionMapper.toEntity(mission), studentMapper.toEntity(student)))
 }

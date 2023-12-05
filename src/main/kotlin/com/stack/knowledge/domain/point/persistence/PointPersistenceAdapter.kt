@@ -26,6 +26,6 @@ class PointPersistenceAdapter(
     override fun queryPointBySolve(solve: Solve): Point? =
         pointMapper.toDomain(pointJpaRepository.findBySolve(solveMapper.toEntity(solve)))
 
-    override fun queryTopByMissionIdOrderByMissionPointAsc(missionId: UUID): Point? =
-        pointMapper.toDomain(pointJpaRepository.findTopByMissionIdOrderByMissionPointAsc(missionId))
+    override fun queryTopByMissionIdOrderByMissionPoint(missionId: UUID): Point? =
+        pointMapper.toDomain(pointJpaRepository.findTopByMissionIdOrderByMissionPoint(missionId))
 }

@@ -5,5 +5,5 @@ import com.stack.knowledge.domain.student.domain.Student
 import com.stack.knowledge.domain.time.domain.Time
 
 interface QueryTimePort {
-    fun queryTimeByMissionAndStudentId(mission: Mission, student: Student): Time?
+    fun queryTimeByMissionAndStudent(mission: Mission, student: Student): Time?
 }

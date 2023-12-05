@@ -30,7 +30,7 @@ class QueryMissionDetailsUseCase(
         if (mission.missionStatus != MissionStatus.OPENED)
             throw MissionNotOpenedException()
 
-        timePort.queryTimeByMissionAndStudentId(mission, student)
+        timePort.queryTimeByMissionAndStudent(mission, student)
             ?: timePort.save(
                 Time(
                     id = UUID.randomUUID(),

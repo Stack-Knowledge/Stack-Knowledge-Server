@@ -45,7 +45,7 @@ class ScoreSolveUseCase(
     private fun calculatePoints(solveStatus: SolveStatus, student: Student, point: Point, mission: Mission): Pair<Int, Int> =
         when (solveStatus) {
             SolveStatus.CORRECT_ANSWER -> {
-                val lowPoint = queryPointPort.queryTopByMissionIdOrderByMissionPointAsc(mission.id) ?: throw PointNotFoundException()
+                val lowPoint = queryPointPort.queryTopByMissionIdOrderByMissionPoint(mission.id) ?: throw PointNotFoundException()
                 missionPort.save(mission.copy(point = lowPoint.missionPoint))
                 Pair(student.currentPoint + point.missionPoint, student.cumulatePoint + point.missionPoint)
             }

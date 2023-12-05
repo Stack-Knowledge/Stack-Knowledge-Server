@@ -47,12 +47,12 @@ class SolveMissionUseCase(
         if (solvePort.existByStudentIdAndMissionId(student.id, mission.id))
             throw AlreadySolvedException()
 
-        val time = queryTimePort.queryTimeByMissionAndStudentId(mission, student) ?: throw TimeNotFoundException()
+        val time = queryTimePort.queryTimeByMissionAndStudent(mission, student) ?: throw TimeNotFoundException()
         val timeElapsed = (Duration.between(time.createdAt, LocalDateTime.now())).toSeconds()
 
         val solve = createSolve(timeElapsed, mission, solveMissionRequest.solvation, student.id)
 
-        val topPoint = (pointPort.queryTopByMissionIdOrderByMissionPointAsc(mission.id)?.missionPoint?.times(0.97))?.toInt()
+        val topPoint = (pointPort.queryTopByMissionIdOrderByMissionPoint(mission.id)?.missionPoint?.times(0.97))?.toInt()
 
         val point = Point(
             missionPoint = topPoint ?: 1000,
