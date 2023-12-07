@@ -21,6 +21,6 @@ class RefreshTokenPersistenceAdapter(
         refreshTokenRepository.deleteById(refreshToken)
     }
 
-    override fun queryByRefreshToken(refreshToken: String): RefreshToken? =
+    override fun queryById(refreshToken: String): RefreshToken? =
         refreshTokenMapper.toDomain(refreshTokenRepository.findByIdOrNull(refreshToken))
 }
