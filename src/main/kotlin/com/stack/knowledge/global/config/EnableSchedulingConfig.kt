@@ -3,6 +3,6 @@ package com.stack.knowledge.global.config
 import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.annotation.EnableScheduling
 
-@Configuration
-@EnableScheduling
-class EnableSchedulingConfig
+//@Configuration
+//@EnableScheduling
+//class EnableSchedulingConfig
