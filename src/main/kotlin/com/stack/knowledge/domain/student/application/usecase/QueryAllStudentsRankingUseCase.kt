@@ -21,7 +21,6 @@ class QueryAllStudentsRankingUseCase(
                 cumulatePoint = it.cumulatePoint,
                 user = UserResponse(
                     id = it.user,
-                    email = user.email,
                     name = user.name,
                     profileImage = user.profileImage
                 )

@@ -22,7 +22,6 @@ class QueryStudentPointInfoUseCase(
             cumulatePoint = student.cumulatePoint,
             user = UserResponse(
                 id = user.id,
-                email = user.email,
                 name = user.name,
                 profileImage = user.profileImage
             )

@@ -6,13 +6,9 @@ import com.stack.knowledge.global.security.exception.ExpiredTokenException
 import com.stack.knowledge.global.security.exception.InvalidTokenException
 import com.stack.knowledge.global.security.principal.StudentDetailsService
 import com.stack.knowledge.global.security.principal.TeacherDetailsService
-import com.stack.knowledge.global.security.token.properties.JwtProperties
 import com.stack.knowledge.global.security.spi.JwtParserPort
-import io.jsonwebtoken.Claims
-import io.jsonwebtoken.ExpiredJwtException
-import io.jsonwebtoken.InvalidClaimException
-import io.jsonwebtoken.JwtException
-import io.jsonwebtoken.Jwts
+import com.stack.knowledge.global.security.token.properties.JwtProperties
+import io.jsonwebtoken.*
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetails
