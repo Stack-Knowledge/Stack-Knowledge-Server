@@ -14,7 +14,7 @@ class LogoutUseCase(
     fun execute(refreshToken: String) {
         val userId = securityService.queryCurrentUserId()
 
-        val token = refreshTokenPort.queryByRefreshToken(refreshToken) ?: throw RefreshTokenNotFoundException()
+        val token = refreshTokenPort.queryById(refreshToken) ?: throw RefreshTokenNotFoundException()
 
         if (userId != token.userId)
             throw UserNotFoundException()
