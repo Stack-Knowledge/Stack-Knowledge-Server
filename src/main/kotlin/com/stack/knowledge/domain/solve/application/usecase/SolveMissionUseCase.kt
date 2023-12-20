@@ -52,7 +52,7 @@ class SolveMissionUseCase(
 
         val solve = createSolve(timeElapsed, mission, solveMissionRequest.solvation, student.id)
 
-        val topPoint = (pointPort.queryTopByMissionIdOrderByMissionPointAsc(mission.id)?.missionPoint?.times(0.97))?.toInt()
+        val topPoint = (pointPort.queryTopByMissionIdOrderByMissionPoint(mission.id)?.missionPoint?.times(0.97))?.toInt()
 
         val point = Point(
             missionPoint = topPoint ?: 1000,
