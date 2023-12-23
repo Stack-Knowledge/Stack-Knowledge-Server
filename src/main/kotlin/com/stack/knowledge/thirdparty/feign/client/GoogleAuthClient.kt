@@ -1,7 +1,7 @@
 package com.stack.knowledge.thirdparty.feign.client
 
-import com.stack.knowledge.thirdparty.dto.request.GoogleCodeRequest
-import com.stack.knowledge.thirdparty.dto.response.GoogleTokenResponse
+import com.stack.knowledge.thirdparty.feign.dto.request.GoogleCodeRequest
+import com.stack.knowledge.thirdparty.feign.dto.response.GoogleTokenResponse
 import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.PostMapping
 

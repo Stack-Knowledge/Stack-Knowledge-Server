@@ -1,4 +1,4 @@
-package com.stack.knowledge.thirdparty.dto.request
+package com.stack.knowledge.thirdparty.feign.dto.request
 
 class GoogleCodeRequest(
     val code: String,
