@@ -1,4 +1,4 @@
-package com.stack.knowledge.domain.order.application.usecase
+package com.stack.knowledge.domain.order.application.service
 
 import com.stack.knowledge.common.annotation.usecase.UseCase
 import com.stack.knowledge.common.service.SecurityService
@@ -14,7 +14,7 @@ import com.stack.knowledge.domain.student.exception.StudentNotFoundException
 import java.util.*
 
 @UseCase
-class OrderItemUseCase(
+class OrderItemService(
     private val queryItemPort: QueryItemPort,
     private val securityService: SecurityService,
     private val studentPort: StudentPort,

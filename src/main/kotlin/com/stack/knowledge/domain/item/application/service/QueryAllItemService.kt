@@ -1,8 +1,8 @@
-package com.stack.knowledge.domain.item.application.usecase
+package com.stack.knowledge.domain.item.application.service
 
+import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
 import com.stack.knowledge.domain.item.application.spi.QueryItemPort
 import com.stack.knowledge.domain.item.presentation.data.response.ItemResponse
-import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
 
 @ReadOnlyUseCase
 class QueryAllItemUseCase(

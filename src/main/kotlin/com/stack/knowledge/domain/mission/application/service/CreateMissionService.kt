@@ -1,4 +1,4 @@
-package com.stack.knowledge.domain.mission.application.usecase
+package com.stack.knowledge.domain.mission.application.service
 
 import com.stack.knowledge.common.annotation.usecase.UseCase
 import com.stack.knowledge.common.service.SecurityService
@@ -9,7 +9,7 @@ import com.stack.knowledge.domain.mission.presentation.data.request.CreateMissio
 import java.util.*
 
 @UseCase
-class CreateMissionUseCase(
+class CreateMissionService(
     private val commandMissionPort: CommandMissionPort,
     private val securityService: SecurityService
 ) {

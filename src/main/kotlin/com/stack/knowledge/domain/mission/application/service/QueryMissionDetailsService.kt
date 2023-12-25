@@ -1,4 +1,4 @@
-package com.stack.knowledge.domain.mission.application.usecase
+package com.stack.knowledge.domain.mission.application.service
 
 import com.stack.knowledge.common.annotation.usecase.UseCase
 import com.stack.knowledge.common.service.SecurityService
@@ -15,7 +15,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 @UseCase
-class QueryMissionDetailsUseCase(
+class QueryMissionDetailsService(
     private val queryMissionPort: QueryMissionPort,
     private val timePort: TimePort,
     private val securityService: SecurityService,

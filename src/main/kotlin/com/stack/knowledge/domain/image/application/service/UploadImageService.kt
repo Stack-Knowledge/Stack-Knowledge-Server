@@ -1,4 +1,4 @@
-package com.stack.knowledge.domain.image.application.usecase
+package com.stack.knowledge.domain.image.application.service
 
 import com.stack.knowledge.common.annotation.usecase.UseCase
 import com.stack.knowledge.common.service.SecurityService

@@ -1,4 +1,4 @@
-package com.stack.knowledge.domain.user.application.usecase
+package com.stack.knowledge.domain.user.application.service
 
 import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
 import com.stack.knowledge.domain.mission.application.spi.QueryMissionPort
@@ -9,7 +9,7 @@ import com.stack.knowledge.domain.user.presentation.data.response.ScoringDetails
 import java.util.*
 
 @ReadOnlyUseCase
-class QueryScoringPageDetailsUseCase(
+class QueryScoringPageDetailsService(
     private val querySolvePort: QuerySolvePort,
     private val queryMissionPort: QueryMissionPort
 ) {

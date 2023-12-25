@@ -1,4 +1,4 @@
-package com.stack.knowledge.domain.user.application.usecase
+package com.stack.knowledge.domain.user.application.service
 
 import com.stack.knowledge.common.annotation.usecase.UseCase
 import com.stack.knowledge.domain.mission.application.spi.MissionPort
@@ -20,7 +20,7 @@ import com.stack.knowledge.domain.user.presentation.data.request.ScoreSolveReque
 import java.util.*
 
 @UseCase
-class ScoreSolveUseCase(
+class ScoreSolveService(
     private val solvePort: SolvePort,
     private val queryStudentPort: QueryStudentPort,
     private val commandStudentPort: CommandStudentPort,

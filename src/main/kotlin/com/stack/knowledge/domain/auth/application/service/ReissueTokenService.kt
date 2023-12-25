@@ -1,4 +1,4 @@
-package com.stack.knowledge.domain.auth.application.usecase
+package com.stack.knowledge.domain.auth.application.service
 
 import com.stack.knowledge.common.annotation.usecase.UseCase
 import com.stack.knowledge.domain.auth.application.spi.RefreshTokenPort
@@ -9,7 +9,7 @@ import com.stack.knowledge.global.security.spi.JwtGeneratorPort
 import com.stack.knowledge.global.security.spi.JwtParserPort
 
 @UseCase
-class ReissueTokenUseCase(
+class ReissueTokenService(
     private val jwtParserPort: JwtParserPort,
     private val jwtGeneratorPort: JwtGeneratorPort,
     private val refreshTokenPort: RefreshTokenPort

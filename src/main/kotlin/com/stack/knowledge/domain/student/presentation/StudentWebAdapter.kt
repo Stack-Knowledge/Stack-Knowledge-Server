@@ -1,8 +1,8 @@
 package com.stack.knowledge.domain.student.presentation
 
-import com.stack.knowledge.domain.image.application.usecase.UploadImageUseCase
-import com.stack.knowledge.domain.student.application.usecase.QueryAllStudentsRankingUseCase
-import com.stack.knowledge.domain.student.application.usecase.QueryStudentPointInfoUseCase
+import com.stack.knowledge.domain.image.application.service.UploadImageUseCase
+import com.stack.knowledge.domain.student.application.service.QueryAllStudentsRankingService
+import com.stack.knowledge.domain.student.application.service.QueryStudentPointInfoService
 import com.stack.knowledge.domain.student.presentation.data.response.AllStudentsRankingResponse
 import com.stack.knowledge.domain.student.presentation.data.response.StudentPointResponse
 import org.springframework.http.ResponseEntity
@@ -12,18 +12,18 @@ import org.springframework.web.multipart.MultipartFile
 @RestController
 @RequestMapping("/student")
 class StudentWebAdapter(
-    private val queryAllStudentsRankingUseCase: QueryAllStudentsRankingUseCase,
-    private val queryStudentPointInfoUseCase: QueryStudentPointInfoUseCase,
+    private val queryAllStudentsRankingService: QueryAllStudentsRankingService,
+    private val queryStudentPointInfoService: QueryStudentPointInfoService,
     private val uploadImageUseCase: UploadImageUseCase
 ) {
     @GetMapping("/ranking")
     fun queryAllStudentsRanking(): ResponseEntity<List<AllStudentsRankingResponse>> =
-        queryAllStudentsRankingUseCase.execute()
+        queryAllStudentsRankingService.execute()
             .let { ResponseEntity.ok(it) }
 
     @GetMapping("/my")
     fun queryStudentPointInfo(): ResponseEntity<StudentPointResponse> =
-        queryStudentPointInfoUseCase.execute()
+        queryStudentPointInfoService.execute()
             .let { ResponseEntity.ok(it) }
 
     @PostMapping("/image")

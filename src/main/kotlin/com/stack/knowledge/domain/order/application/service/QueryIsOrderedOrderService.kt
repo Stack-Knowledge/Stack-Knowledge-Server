@@ -1,4 +1,4 @@
-package com.stack.knowledge.domain.order.application.usecase
+package com.stack.knowledge.domain.order.application.service
 
 import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
 import com.stack.knowledge.domain.item.application.spi.QueryItemPort
@@ -13,7 +13,7 @@ import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.response.UserResponse
 
 @ReadOnlyUseCase
-class QueryIsOrderedOrderUseCase(
+class QueryIsOrderedOrderService(
     private val queryOrderPort: QueryOrderPort,
     private val queryItemPort: QueryItemPort,
     private val queryUserPort: QueryUserPort,

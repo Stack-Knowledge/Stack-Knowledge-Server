@@ -1,4 +1,4 @@
-package com.stack.knowledge.domain.order.application.usecase
+package com.stack.knowledge.domain.order.application.service
 
 import com.stack.knowledge.common.annotation.usecase.UseCase
 import com.stack.knowledge.domain.item.application.spi.QueryItemPort
@@ -9,7 +9,7 @@ import com.stack.knowledge.domain.order.exception.OrderNotFoundException
 import com.stack.knowledge.domain.order.presentation.data.request.UpdateOrderRequest
 
 @UseCase
-class UpdateOrderUseCase(
+class UpdateOrderService(
     private val orderPort: OrderPort,
     private val queryItemPort: QueryItemPort
 ) {

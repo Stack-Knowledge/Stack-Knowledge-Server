@@ -1,4 +1,4 @@
-package com.stack.knowledge.domain.student.application.usecase
+package com.stack.knowledge.domain.student.application.service
 
 import com.stack.knowledge.domain.student.application.spi.CommandStudentPort
 import com.stack.knowledge.domain.student.domain.Student
@@ -7,7 +7,7 @@ import com.stack.knowledge.common.annotation.usecase.UseCase
 import java.util.*
 
 @UseCase
-class CreateStudentUseCase(
+class CreateStudentService(
     private val commandStudentPort: CommandStudentPort
 ) {
     fun execute(user: User) {

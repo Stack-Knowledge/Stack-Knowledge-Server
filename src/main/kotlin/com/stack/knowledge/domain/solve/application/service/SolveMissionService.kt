@@ -1,4 +1,4 @@
-package com.stack.knowledge.domain.solve.application.usecase
+package com.stack.knowledge.domain.solve.application.service
 
 import com.stack.knowledge.common.service.SecurityService
 import com.stack.knowledge.domain.mission.application.spi.MissionPort
@@ -26,7 +26,7 @@ import java.time.LocalDateTime
 import java.util.*
 
 @Service
-class SolveMissionUseCase(
+class SolveMissionService(
     private val missionPort: MissionPort,
     private val solvePort: SolvePort,
     private val securityService: SecurityService,
