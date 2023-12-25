@@ -10,6 +10,7 @@ enum class ErrorCode(
     INVALID_TOKEN("유효하지 않은 토큰", 401),
     INVALID_ROLE("검증 되지 않은 권합입니다.", 401),
     REFRESH_TOKEN_NOT_FOUND("존재하지 않는 Refresh-token 입니다.", 404),
+    UNAUTHORIZED("UnAuthorized", 401),
 
     // item
     ITEM_NOT_FOUND("존재하지 않는 상품입니다.", 404),

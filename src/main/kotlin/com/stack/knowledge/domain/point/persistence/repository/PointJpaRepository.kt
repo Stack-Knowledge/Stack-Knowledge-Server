@@ -9,7 +9,7 @@ import java.util.*
 
 interface PointJpaRepository : CrudRepository<PointJpaEntity, Long> {
     fun findBySolve(solve: SolveJpaEntity): PointJpaEntity?
-    fun findTopByMissionIdOrderByMissionPointAsc(missionId: UUID): PointJpaEntity?
+    fun findTopByMissionIdOrderByMissionPoint(missionId: UUID): PointJpaEntity?
     @Modifying
     @Query("delete from PointJpaEntity p where p.mission in :missionIds")
     fun deleteAllByMissionIds(missionIds: List<UUID>)

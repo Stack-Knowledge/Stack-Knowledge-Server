@@ -3,9 +3,9 @@ spring:
     throw-exception-if-no-handler-found: true
 
   datasource:
-    url: jdbc:mariadb://${DB_URL}/${DB_NAME:knowledge}?useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mariadb://${DB_URL:localhost:3306}/${DB_NAME:knowledge}?useUnicode=true&characterEncoding=utf8&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true
     username: ${DB_USER:root}
-    password: ${DB_PASSWORD:12345678a}
+    password: ${DB_PASSWORD:123456789a@}
     driver-class-name: org.mariadb.jdbc.Driver
 
   jpa:
@@ -41,6 +41,12 @@ gauth:
   clientId: ${CLIENT_ID}
   clientSecret: ${CLIENT_SECRET}
   redirectUri: ${REDIRECT_URI}
+
+auth:
+  google:
+    client-id: ${GOOGLE_CLIENT_ID}
+    client-secret: ${GOOGLE_CLIENT_SECRET}
+    redirect-url: ${GOOGLE_REDIRECT_URL}
 
 cloud:
   aws:

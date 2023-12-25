@@ -1,8 +1,8 @@
 package com.stack.knowledge.domain.user.presentation
 
-import com.stack.knowledge.domain.user.application.usecase.QueryScoringPageDetailsUseCase
-import com.stack.knowledge.domain.user.application.usecase.QueryScoringPageUseCase
-import com.stack.knowledge.domain.user.application.usecase.ScoreSolveUseCase
+import com.stack.knowledge.domain.user.application.service.QueryScoringPageDetailsService
+import com.stack.knowledge.domain.user.application.service.QueryScoringPageService
+import com.stack.knowledge.domain.user.application.service.ScoreSolveService
 import com.stack.knowledge.domain.user.presentation.data.request.ScoreSolveRequest
 import com.stack.knowledge.domain.user.presentation.data.response.AllScoringResponse
 import com.stack.knowledge.domain.user.presentation.data.response.ScoringDetailsResponse
@@ -15,18 +15,18 @@ import javax.validation.Valid
 @RestController
 @RequestMapping("/user")
 class UserWebAdapter(
-    private val queryScoringPageUseCase: QueryScoringPageUseCase,
-    private val queryScoringPageDetailsUseCase: QueryScoringPageDetailsUseCase,
-    private val scoreSolveUseCase: ScoreSolveUseCase
+    private val queryScoringPageService: QueryScoringPageService,
+    private val queryScoringPageDetailsService: QueryScoringPageDetailsService,
+    private val scoreSolveUseCase: ScoreSolveService
 ) {
     @GetMapping("/scoring")
     fun queryAllSolve(): ResponseEntity<List<AllScoringResponse>> =
-        queryScoringPageUseCase.execute()
+        queryScoringPageService.execute()
             .let { ResponseEntity.ok(it) }
 
     @GetMapping("/scoring/{solve_id}")
     fun querySolveDetails(@PathVariable("solve_id") solveId: UUID): ResponseEntity<ScoringDetailsResponse> =
-        queryScoringPageDetailsUseCase.execute(solveId)
+        queryScoringPageDetailsService.execute(solveId)
             .let { ResponseEntity.ok(it) }
 
     @PostMapping("/scoring/{solve_id}")

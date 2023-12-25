@@ -52,8 +52,17 @@ dependencies {
 	runtimeOnly("org.mariadb.jdbc:mariadb-java-client")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
+	// feign
+	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+
 	// test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+dependencyManagement {
+	imports {
+		mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.5")
+	}
 }
 
 tasks.withType<KotlinCompile> {
