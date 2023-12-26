@@ -3,6 +3,7 @@ package com.stack.knowledge.domain.auth.application.service
 import com.stack.knowledge.common.annotation.usecase.UseCase
 import com.stack.knowledge.domain.user.application.spi.UserPort
 import com.stack.knowledge.domain.user.domain.User
+import com.stack.knowledge.domain.user.domain.constant.ApproveStatus
 import com.stack.knowledge.domain.user.domain.constant.Authority
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.global.security.spi.JwtGeneratorPort
@@ -41,7 +42,8 @@ class GoogleTeacherSignInService(
                 email = email,
                 name = name,
                 profileImage = null,
-                authority = Authority.ROLE_TEACHER
+                authority = Authority.ROLE_TEACHER,
+                approveStatus = ApproveStatus.PENDING
             )
         )
 
