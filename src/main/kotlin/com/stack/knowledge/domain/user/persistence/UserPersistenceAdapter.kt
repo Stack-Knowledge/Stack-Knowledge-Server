@@ -2,6 +2,7 @@ package com.stack.knowledge.domain.user.persistence
 
 import com.stack.knowledge.domain.user.application.spi.UserPort
 import com.stack.knowledge.domain.user.domain.User
+import com.stack.knowledge.domain.user.domain.constant.ApproveStatus
 import com.stack.knowledge.domain.user.domain.constant.Authority
 import com.stack.knowledge.domain.user.persistence.mapper.UserMapper
 import com.stack.knowledge.domain.user.persistence.repository.UserJpaRepository
@@ -40,4 +41,7 @@ class UserPersistenceAdapter(
 
     override fun queryExistByEmail(email: String): Boolean =
         userJpaRepository.existsByEmail(email)
+
+    override fun queryAllUserByApproveStatus(approveStatus: ApproveStatus): List<User> =
+        userJpaRepository.findAllByApproveStatus(approveStatus).map { userMapper.toDomain(it)!! }
 }
