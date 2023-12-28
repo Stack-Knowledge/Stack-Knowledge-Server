@@ -56,6 +56,7 @@ class SecurityConfig(
             // user
             .antMatchers(HttpMethod.GET, "/user/scoring").hasRole(teacher)
             .antMatchers(HttpMethod.GET, "/user/scoring/{solve_id}").hasRole(teacher)
+            .antMatchers(HttpMethod.GET, "/user/teacher").hasRole(teacher)
             .antMatchers(HttpMethod.POST, "/user/scoring/{solve_id}").hasRole(teacher)
             .antMatchers(HttpMethod.PATCH, "/user/{user_id}").hasRole(teacher)
 
