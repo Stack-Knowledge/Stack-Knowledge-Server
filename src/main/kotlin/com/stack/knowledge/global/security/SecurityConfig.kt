@@ -45,6 +45,8 @@ class SecurityConfig(
 
             // auth
             .antMatchers(HttpMethod.POST, "/auth").permitAll()
+            .antMatchers(HttpMethod.POST, "/auth/teacher").permitAll()
+            .antMatchers(HttpMethod.GET, "/auth/student").permitAll()
             .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
             .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
 

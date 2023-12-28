@@ -2,6 +2,8 @@ package com.stack.knowledge.domain.auth.presentation
 
 import com.stack.knowledge.domain.auth.application.service.*
 import com.stack.knowledge.domain.auth.presentation.data.request.GAuthSignInRequest
+import com.stack.knowledge.domain.auth.presentation.data.request.GoogleStudentSignInRequest
+import com.stack.knowledge.domain.auth.presentation.data.request.GoogleTeacherSignInRequest
 import com.stack.knowledge.domain.auth.presentation.data.response.TokenResponse
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -12,11 +14,23 @@ import javax.validation.Valid
 class AuthWebAdapter(
     private val gAuthSignInService: GAuthSignInService,
     private val reissueTokenService: ReissueTokenService,
-    private val logoutService: LogoutService
+    private val logoutService: LogoutService,
+    private val googleTeacherSignInService: GoogleTeacherSignInService,
+    private val googleStudentSignInService: GoogleStudentSignInService
 ) {
     @PostMapping
-    fun signIn(@RequestBody @Valid gAuthSignInRequest: GAuthSignInRequest): ResponseEntity<TokenResponse> =
+    fun gAuthSignIn(@RequestBody @Valid gAuthSignInRequest: GAuthSignInRequest): ResponseEntity<TokenResponse> =
         gAuthSignInService.execute(gAuthSignInRequest)
+            .let { ResponseEntity.ok(it) }
+
+    @PostMapping("/teacher")
+    fun googleTeacherSignIn(@RequestBody @Valid googleTeacherSignInRequest: GoogleTeacherSignInRequest): ResponseEntity<TokenResponse> =
+        googleTeacherSignInService.execute(googleTeacherSignInRequest)
+            .let { ResponseEntity.ok(it) }
+
+    @PostMapping("/student")
+    fun googleStudentSignIn(@RequestBody @Valid googleStudentSignInRequest: GoogleStudentSignInRequest): ResponseEntity<TokenResponse> =
+        googleStudentSignInService.execute(googleStudentSignInRequest)
             .let { ResponseEntity.ok(it) }
 
     @PatchMapping

@@ -5,5 +5,5 @@ class GoogleCodeRequest(
     val clientId: String,
     val clientSecret: String,
     val redirectUri: String,
-    val grantType: String
+    val grantType: String = "authorization_code"
 )

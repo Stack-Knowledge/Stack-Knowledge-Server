@@ -9,6 +9,7 @@ import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledge.domain.student.exception.StudentNotFoundException
 import com.stack.knowledge.domain.user.application.spi.UserPort
 import com.stack.knowledge.domain.user.domain.User
+import com.stack.knowledge.domain.user.domain.constant.ApproveStatus
 import com.stack.knowledge.domain.user.domain.constant.Authority
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.global.security.spi.JwtGeneratorPort
@@ -33,7 +34,8 @@ class GAuthSignInService(
                 email = gAuthUserInfo.email,
                 name = gAuthUserInfo.name,
                 profileImage = "",
-                authority = authority
+                authority = authority,
+                approveStatus = ApproveStatus.APPROVED
             )
         )
 

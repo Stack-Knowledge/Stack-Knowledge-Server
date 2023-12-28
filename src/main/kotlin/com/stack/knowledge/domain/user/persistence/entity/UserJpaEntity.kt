@@ -1,7 +1,8 @@
 package com.stack.knowledge.domain.user.persistence.entity
 
-import com.stack.knowledge.domain.user.domain.constant.Authority
 import com.stack.knowledge.common.entity.BaseIdEntity
+import com.stack.knowledge.domain.user.domain.constant.ApproveStatus
+import com.stack.knowledge.domain.user.domain.constant.Authority
 import java.util.*
 import javax.persistence.*
 
@@ -22,6 +23,10 @@ class UserJpaEntity(
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    val authority: Authority
+    val authority: Authority,
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    val approveStatus: ApproveStatus
 
 ) : BaseIdEntity(id)
