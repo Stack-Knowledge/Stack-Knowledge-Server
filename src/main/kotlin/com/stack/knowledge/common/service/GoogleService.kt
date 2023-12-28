@@ -26,6 +26,6 @@ class GoogleService(
 
         val googleInfoResponse = googleInfoClient.googleInfo(response.access_token)
 
-        return Pair(googleInfoResponse.email, googleInfoResponse.name   )
+        return Pair(googleInfoResponse.email, googleInfoResponse.name)
     }
 }
