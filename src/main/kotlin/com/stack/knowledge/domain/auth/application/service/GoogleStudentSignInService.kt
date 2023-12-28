@@ -1,6 +1,7 @@
 package com.stack.knowledge.domain.auth.application.service
 
 import com.stack.knowledge.common.annotation.usecase.UseCase
+import com.stack.knowledge.common.service.GoogleService
 import com.stack.knowledge.domain.auth.exception.InvalidEmailException
 import com.stack.knowledge.domain.auth.presentation.data.request.GoogleStudentSignInRequest
 import com.stack.knowledge.domain.auth.presentation.data.response.TokenResponse
@@ -10,36 +11,16 @@ import com.stack.knowledge.domain.user.domain.constant.ApproveStatus
 import com.stack.knowledge.domain.user.domain.constant.Authority
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.global.security.spi.JwtGeneratorPort
-import com.stack.knowledge.thirdparty.feign.client.GoogleAuthClient
-import com.stack.knowledge.thirdparty.feign.client.GoogleInfoClient
-import com.stack.knowledge.thirdparty.feign.dto.request.GoogleCodeRequest
-import com.stack.knowledge.thirdparty.google.GoogleProperties
-import java.net.URLDecoder
-import java.nio.charset.StandardCharsets
 import java.util.*
 
 @UseCase
 class GoogleStudentSignInService(
-    private val googleAuthClient: GoogleAuthClient,
-    private val googleInfoClient: GoogleInfoClient,
-    private val googleProperties: GoogleProperties,
     private val jwtGeneratorPort: JwtGeneratorPort,
-    private val userPort: UserPort
+    private val userPort: UserPort,
+    private val googleService: GoogleService
 ) {
     fun execute(googleStudentSignInRequest: GoogleStudentSignInRequest): TokenResponse {
-        val googleCodeRequest = GoogleCodeRequest(
-            code = URLDecoder.decode(googleStudentSignInRequest.code, StandardCharsets.UTF_8),
-            clientId = googleProperties.clientId,
-            clientSecret = googleProperties.clientSecret,
-            redirectUri = googleProperties.redirectUrl
-        )
-
-        val response = googleAuthClient.googleAuth(googleCodeRequest)
-
-        val googleInfoResponse = googleInfoClient.googleInfo(response.access_token)
-
-        val email = googleInfoResponse.email
-        val name = googleInfoResponse.name
+        val (email, name) = googleService.queryGoogleEmailAndName(googleStudentSignInRequest.code)
 
         if (!email.matches(Regex("s2\\d0([0-6][0-9]|7[0-2])@gsm\\.hs\\.kr")))
             throw InvalidEmailException()
