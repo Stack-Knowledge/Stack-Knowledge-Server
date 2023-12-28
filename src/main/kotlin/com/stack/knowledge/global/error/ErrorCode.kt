@@ -12,6 +12,7 @@ enum class ErrorCode(
     REFRESH_TOKEN_NOT_FOUND("존재하지 않는 Refresh-token 입니다.", 404),
     UNAUTHORIZED("UnAuthorized", 401),
     INVALID_EMAIL("유효하지 않은 이메일입니다.", 401),
+    NOT_APPROVED_USER("아직 승인되지 않은 유저입니다.", 401),
 
     // item
     ITEM_NOT_FOUND("존재하지 않는 상품입니다.", 404),
@@ -41,6 +42,7 @@ enum class ErrorCode(
 
     // user
     USER_NOT_FOUND("존재하지 않는 유저입니다.", 404),
+    ALREADY_APPROVED("이미 허락된 유저입니다.", 409),
 
     // student
     STUDENT_NOT_FOUND("존재하지 않는 학생입니다.", 404),
