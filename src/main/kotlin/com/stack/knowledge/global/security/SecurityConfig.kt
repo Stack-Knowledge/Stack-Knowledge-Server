@@ -46,7 +46,7 @@ class SecurityConfig(
             // auth
             .antMatchers(HttpMethod.POST, "/auth").permitAll()
             .antMatchers(HttpMethod.POST, "/auth/teacher").permitAll()
-            .antMatchers(HttpMethod.GET, "/auth/student").permitAll()
+            .antMatchers(HttpMethod.POST, "/auth/student").permitAll()
             .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
             .antMatchers(HttpMethod.DELETE, "/auth").authenticated()
 
@@ -57,6 +57,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/user/scoring").hasRole(teacher)
             .antMatchers(HttpMethod.GET, "/user/scoring/{solve_id}").hasRole(teacher)
             .antMatchers(HttpMethod.POST, "/user/scoring/{solve_id}").hasRole(teacher)
+            .antMatchers(HttpMethod.PATCH, "/user/{user_id}").hasRole(teacher)
 
             // student
             .antMatchers(HttpMethod.GET, "/student/ranking").authenticated()
