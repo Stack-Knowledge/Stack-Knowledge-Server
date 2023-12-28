@@ -5,6 +5,8 @@ import com.stack.knowledge.common.service.GoogleService
 import com.stack.knowledge.domain.auth.exception.InvalidEmailException
 import com.stack.knowledge.domain.auth.presentation.data.request.GoogleStudentSignInRequest
 import com.stack.knowledge.domain.auth.presentation.data.response.TokenResponse
+import com.stack.knowledge.domain.student.application.service.CreateStudentService
+import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledge.domain.user.application.spi.UserPort
 import com.stack.knowledge.domain.user.domain.User
 import com.stack.knowledge.domain.user.domain.constant.ApproveStatus
@@ -17,7 +19,9 @@ import java.util.*
 class GoogleStudentSignInService(
     private val jwtGeneratorPort: JwtGeneratorPort,
     private val userPort: UserPort,
-    private val googleService: GoogleService
+    private val googleService: GoogleService,
+    private val queryStudentPort: QueryStudentPort,
+    private val createStudentService: CreateStudentService
 ) {
     fun execute(googleStudentSignInRequest: GoogleStudentSignInRequest): TokenResponse {
         val (email, name) = googleService.queryGoogleEmailAndName(googleStudentSignInRequest.code)
@@ -35,6 +39,9 @@ class GoogleStudentSignInService(
                 approveStatus = ApproveStatus.APPROVED
             )
         )
+
+        if (!queryStudentPort.existStudentByUser(user))
+            createStudentService.execute(user)
 
         return jwtGeneratorPort.receiveToken(user.id, Authority.ROLE_STUDENT)
     }
