@@ -13,6 +13,7 @@ import com.stack.knowledge.domain.user.domain.constant.ApproveStatus
 import com.stack.knowledge.domain.user.domain.constant.Authority
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.global.security.spi.JwtGeneratorPort
+import java.time.LocalDateTime
 import java.util.*
 
 @UseCase
@@ -35,7 +36,8 @@ class GAuthSignInService(
                 name = gAuthUserInfo.name,
                 profileImage = "",
                 authority = authority,
-                approveStatus = ApproveStatus.APPROVED
+                approveStatus = ApproveStatus.APPROVED,
+                createdAt = LocalDateTime.now()
             )
         )
 
