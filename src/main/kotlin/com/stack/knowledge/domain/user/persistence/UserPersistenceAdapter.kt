@@ -18,6 +18,10 @@ class UserPersistenceAdapter(
     override fun save(user: User): User =
         userMapper.toDomain(userJpaRepository.save(userMapper.toEntity(user)))!!
 
+    override fun deleteByUserId(userId: UUID) {
+        userJpaRepository.deleteById(userId)
+    }
+
     override fun queryUserById(id: UUID): User? =
         userMapper.toDomain(userJpaRepository.findByIdOrNull(id))
 

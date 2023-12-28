@@ -3,13 +3,15 @@ package com.stack.knowledge.domain.user.presentation
 import com.stack.knowledge.domain.user.application.service.QueryScoringPageDetailsService
 import com.stack.knowledge.domain.user.application.service.QueryScoringPageService
 import com.stack.knowledge.domain.user.application.service.ScoreSolveService
+import com.stack.knowledge.domain.user.application.service.UpdateUserApproveStatusService
 import com.stack.knowledge.domain.user.presentation.data.request.ScoreSolveRequest
+import com.stack.knowledge.domain.user.presentation.data.request.UpdateUserApproveStatusRequest
 import com.stack.knowledge.domain.user.presentation.data.response.AllScoringResponse
 import com.stack.knowledge.domain.user.presentation.data.response.ScoringDetailsResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.UUID
+import java.util.*
 import javax.validation.Valid
 
 @RestController
@@ -17,7 +19,8 @@ import javax.validation.Valid
 class UserWebAdapter(
     private val queryScoringPageService: QueryScoringPageService,
     private val queryScoringPageDetailsService: QueryScoringPageDetailsService,
-    private val scoreSolveUseCase: ScoreSolveService
+    private val scoreSolveUseCase: ScoreSolveService,
+    private val updateUserApproveStatusService: UpdateUserApproveStatusService
 ) {
     @GetMapping("/scoring")
     fun queryAllSolve(): ResponseEntity<List<AllScoringResponse>> =
@@ -33,4 +36,9 @@ class UserWebAdapter(
     fun scoreSolve(@PathVariable("solve_id") solveId: UUID, @RequestBody @Valid scoreSolveRequest: ScoreSolveRequest): ResponseEntity<Void> =
         scoreSolveUseCase.execute(solveId, scoreSolveRequest)
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
+
+    @PatchMapping
+    fun updateUserApproveStatus(userId: UUID, @RequestBody updateUserApproveStatusRequest: UpdateUserApproveStatusRequest): ResponseEntity<Void> =
+        updateUserApproveStatusService.execute(userId, updateUserApproveStatusRequest)
+            .let { ResponseEntity.noContent().build() }
 }
