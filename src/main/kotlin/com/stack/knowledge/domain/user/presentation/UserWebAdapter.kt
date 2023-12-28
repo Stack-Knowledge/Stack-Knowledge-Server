@@ -1,12 +1,10 @@
 package com.stack.knowledge.domain.user.presentation
 
-import com.stack.knowledge.domain.user.application.service.QueryScoringPageDetailsService
-import com.stack.knowledge.domain.user.application.service.QueryScoringPageService
-import com.stack.knowledge.domain.user.application.service.ScoreSolveService
-import com.stack.knowledge.domain.user.application.service.UpdateUserApproveStatusService
+import com.stack.knowledge.domain.user.application.service.*
 import com.stack.knowledge.domain.user.presentation.data.request.ScoreSolveRequest
 import com.stack.knowledge.domain.user.presentation.data.request.UpdateUserApproveStatusRequest
 import com.stack.knowledge.domain.user.presentation.data.response.AllScoringResponse
+import com.stack.knowledge.domain.user.presentation.data.response.AllSignInRequestTeacherResponse
 import com.stack.knowledge.domain.user.presentation.data.response.ScoringDetailsResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -20,7 +18,8 @@ class UserWebAdapter(
     private val queryScoringPageService: QueryScoringPageService,
     private val queryScoringPageDetailsService: QueryScoringPageDetailsService,
     private val scoreSolveUseCase: ScoreSolveService,
-    private val updateUserApproveStatusService: UpdateUserApproveStatusService
+    private val updateUserApproveStatusService: UpdateUserApproveStatusService,
+    private val queryAllSignInRequestedTeacherService: QueryAllSignInRequestedTeacherService
 ) {
     @GetMapping("/scoring")
     fun queryAllSolve(): ResponseEntity<List<AllScoringResponse>> =
@@ -30,6 +29,11 @@ class UserWebAdapter(
     @GetMapping("/scoring/{solve_id}")
     fun querySolveDetails(@PathVariable("solve_id") solveId: UUID): ResponseEntity<ScoringDetailsResponse> =
         queryScoringPageDetailsService.execute(solveId)
+            .let { ResponseEntity.ok(it) }
+
+    @GetMapping("/teacher")
+    fun queryAllSignUpRequestedTeacher(): ResponseEntity<List<AllSignInRequestTeacherResponse>> =
+        queryAllSignInRequestedTeacherService.execute()
             .let { ResponseEntity.ok(it) }
 
     @PostMapping("/scoring/{solve_id}")
