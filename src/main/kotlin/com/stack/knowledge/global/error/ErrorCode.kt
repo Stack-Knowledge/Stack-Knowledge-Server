@@ -41,6 +41,7 @@ enum class ErrorCode(
 
     // user
     USER_NOT_FOUND("존재하지 않는 유저입니다.", 404),
+    ALREADY_APPROVED("이미 허락된 유저입니다.", 409),
 
     // student
     STUDENT_NOT_FOUND("존재하지 않는 학생입니다.", 404),
