@@ -1,7 +1,8 @@
 package com.stack.knowledge.domain.auth.application.service
 
 import com.stack.knowledge.common.annotation.usecase.UseCase
-import com.stack.knowledge.domain.auth.presentation.data.request.GoogleTeacherSignInRequest
+import com.stack.knowledge.domain.auth.exception.InvalidEmailException
+import com.stack.knowledge.domain.auth.presentation.data.request.GoogleStudentSignInRequest
 import com.stack.knowledge.domain.auth.presentation.data.response.TokenResponse
 import com.stack.knowledge.domain.user.application.spi.UserPort
 import com.stack.knowledge.domain.user.domain.User
@@ -25,9 +26,9 @@ class GoogleStudentSignInService(
     private val jwtGeneratorPort: JwtGeneratorPort,
     private val userPort: UserPort
 ) {
-    fun execute(googleTeacherSignInRequest: GoogleTeacherSignInRequest): TokenResponse {
+    fun execute(googleStudentSignInRequest: GoogleStudentSignInRequest): TokenResponse {
         val googleCodeRequest = GoogleCodeRequest(
-            code = URLDecoder.decode(googleTeacherSignInRequest.code, StandardCharsets.UTF_8),
+            code = URLDecoder.decode(googleStudentSignInRequest.code, StandardCharsets.UTF_8),
             clientId = googleProperties.clientId,
             clientSecret = googleProperties.clientSecret,
             redirectUri = googleProperties.redirectUrl
@@ -39,6 +40,9 @@ class GoogleStudentSignInService(
 
         val email = googleInfoResponse.email
         val name = googleInfoResponse.name
+
+        if (!email.matches(Regex("s2\\d0([0-6][0-9]|7[0-2])@gsm\\.hs\\.kr")))
+            throw InvalidEmailException()
 
         val user = createUser(
             User(
