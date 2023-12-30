@@ -6,7 +6,6 @@ import com.stack.knowledge.domain.auth.presentation.data.request.GAuthSignInRequ
 import com.stack.knowledge.domain.auth.presentation.data.response.TokenResponse
 import com.stack.knowledge.domain.student.application.service.CreateStudentService
 import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
-import com.stack.knowledge.domain.student.exception.StudentNotFoundException
 import com.stack.knowledge.domain.user.application.spi.UserPort
 import com.stack.knowledge.domain.user.domain.User
 import com.stack.knowledge.domain.user.domain.constant.ApproveStatus
@@ -41,13 +40,14 @@ class GAuthSignInService(
             )
         )
 
-        if (!queryStudentPort.existStudentByUser(user) && authority == Authority.ROLE_STUDENT)
-            createStudentService.execute(user)
-
         return when (authority) {
             Authority.ROLE_STUDENT -> {
-                val student = queryStudentPort.queryStudentByUserId(user.id) ?: throw StudentNotFoundException()
-                jwtGeneratorPort.receiveToken(student.id, authority)
+                val studentId = if (!queryStudentPort.existStudentByUser(user)) {
+                    createStudentService.execute(user).id
+                } else {
+                    queryStudentPort.queryStudentByUserId(user.id)?.id ?: throw UserNotFoundException()
+                }
+                jwtGeneratorPort.receiveToken(studentId, authority)
             }
             Authority.ROLE_TEACHER -> jwtGeneratorPort.receiveToken(user.id, authority)
         }

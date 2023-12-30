@@ -17,9 +17,8 @@ class StudentPersistenceAdapter(
     private val userMapper: UserMapper
 ) : StudentPort {
 
-    override fun save(student: Student) {
-        studentJpaRepository.save(studentMapper.toEntity(student))
-    }
+    override fun save(student: Student): Student =
+        studentMapper.toDomain(studentJpaRepository.save(studentMapper.toEntity(student)))!!
 
     override fun queryStudentById(id: UUID): Student? =
         studentMapper.toDomain(studentJpaRepository.findByIdOrNull(id))
