@@ -39,11 +39,13 @@ class GoogleStudentSignInService(
                 approveStatus = ApproveStatus.APPROVED
             )
         )
+        val studentId = if (!queryStudentPort.existStudentByUser(user)) {
+            createStudentService.execute(user).id
+        } else {
+            queryStudentPort.queryStudentByUserId(user.id)?.id ?: throw UserNotFoundException()
+        }
 
-        if (!queryStudentPort.existStudentByUser(user))
-            createStudentService.execute(user)
-
-        return jwtGeneratorPort.receiveToken(user.id, Authority.ROLE_STUDENT)
+        return jwtGeneratorPort.receiveToken(studentId, Authority.ROLE_STUDENT)
     }
 
     private fun createUser(user: User): User =

@@ -1,16 +1,16 @@
 package com.stack.knowledge.domain.student.application.service
 
+import com.stack.knowledge.common.annotation.usecase.UseCase
 import com.stack.knowledge.domain.student.application.spi.CommandStudentPort
 import com.stack.knowledge.domain.student.domain.Student
 import com.stack.knowledge.domain.user.domain.User
-import com.stack.knowledge.common.annotation.usecase.UseCase
 import java.util.*
 
 @UseCase
 class CreateStudentService(
     private val commandStudentPort: CommandStudentPort
 ) {
-    fun execute(user: User) {
+    fun execute(user: User): Student {
         val student = Student(
             id = UUID.randomUUID(),
             currentPoint = 0,
@@ -18,6 +18,6 @@ class CreateStudentService(
             user = user.id
         )
 
-        commandStudentPort.save(student)
+        return commandStudentPort.save(student)
     }
 }
