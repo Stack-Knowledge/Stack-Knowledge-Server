@@ -1,6 +1,6 @@
 package com.stack.knowledge.domain.auth.application.service
 
-import com.stack.knowledge.common.annotation.usecase.UseCase
+import com.stack.knowledge.common.annotation.service.ServiceWithTransaction
 import com.stack.knowledge.domain.auth.application.spi.GAuthPort
 import com.stack.knowledge.domain.auth.presentation.data.request.GAuthSignInRequest
 import com.stack.knowledge.domain.auth.presentation.data.response.TokenResponse
@@ -15,7 +15,7 @@ import com.stack.knowledge.global.security.spi.JwtGeneratorPort
 import java.time.LocalDateTime
 import java.util.*
 
-@UseCase
+@ServiceWithTransaction
 class GAuthSignInService(
     private val gAuthPort: GAuthPort,
     private val userPort: UserPort,
@@ -47,9 +47,9 @@ class GAuthSignInService(
                 } else {
                     queryStudentPort.queryStudentByUserId(user.id)?.id ?: throw UserNotFoundException()
                 }
-                jwtGeneratorPort.receiveToken(studentId, authority)
+                jwtGeneratorPort.generateToken(studentId, authority)
             }
-            Authority.ROLE_TEACHER -> jwtGeneratorPort.receiveToken(user.id, authority)
+            Authority.ROLE_TEACHER -> jwtGeneratorPort.generateToken(user.id, authority)
         }
     }
 

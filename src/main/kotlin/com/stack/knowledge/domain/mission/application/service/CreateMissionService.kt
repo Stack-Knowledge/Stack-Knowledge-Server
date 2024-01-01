@@ -1,6 +1,6 @@
 package com.stack.knowledge.domain.mission.application.service
 
-import com.stack.knowledge.common.annotation.usecase.UseCase
+import com.stack.knowledge.common.annotation.service.ServiceWithTransaction
 import com.stack.knowledge.common.service.SecurityService
 import com.stack.knowledge.domain.mission.application.spi.CommandMissionPort
 import com.stack.knowledge.domain.mission.domain.Mission
@@ -8,7 +8,7 @@ import com.stack.knowledge.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledge.domain.mission.presentation.data.request.CreateMissionRequest
 import java.util.*
 
-@UseCase
+@ServiceWithTransaction
 class CreateMissionService(
     private val commandMissionPort: CommandMissionPort,
     private val securityService: SecurityService

@@ -1,6 +1,6 @@
 package com.stack.knowledge.domain.user.application.service
 
-import com.stack.knowledge.common.annotation.usecase.UseCase
+import com.stack.knowledge.common.annotation.service.ServiceWithTransaction
 import com.stack.knowledge.domain.user.application.spi.UserPort
 import com.stack.knowledge.domain.user.domain.constant.ApproveStatus
 import com.stack.knowledge.domain.user.exception.AlreadyApprovedUserException
@@ -8,7 +8,7 @@ import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.request.UpdateUserApproveStatusRequest
 import java.util.*
 
-@UseCase
+@ServiceWithTransaction
 class UpdateUserApproveStatusService(
     private val userPort: UserPort
 ) {

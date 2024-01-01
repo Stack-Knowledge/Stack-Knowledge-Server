@@ -1,6 +1,6 @@
 package com.stack.knowledge.domain.auth.application.service
 
-import com.stack.knowledge.common.annotation.usecase.UseCase
+import com.stack.knowledge.common.annotation.service.ServiceWithTransaction
 import com.stack.knowledge.common.service.GoogleService
 import com.stack.knowledge.domain.auth.exception.InvalidEmailException
 import com.stack.knowledge.domain.auth.presentation.data.request.GoogleStudentSignInRequest
@@ -15,7 +15,7 @@ import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.global.security.spi.JwtGeneratorPort
 import java.util.*
 
-@UseCase
+@ServiceWithTransaction
 class GoogleStudentSignInService(
     private val jwtGeneratorPort: JwtGeneratorPort,
     private val userPort: UserPort,
@@ -45,7 +45,7 @@ class GoogleStudentSignInService(
             queryStudentPort.queryStudentByUserId(user.id)?.id ?: throw UserNotFoundException()
         }
 
-        return jwtGeneratorPort.receiveToken(studentId, Authority.ROLE_STUDENT)
+        return jwtGeneratorPort.generateToken(studentId, Authority.ROLE_STUDENT)
     }
 
     private fun createUser(user: User): User =

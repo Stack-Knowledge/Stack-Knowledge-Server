@@ -1,6 +1,6 @@
 package com.stack.knowledge.domain.image.application.service
 
-import com.stack.knowledge.common.annotation.usecase.UseCase
+import com.stack.knowledge.common.annotation.service.ServiceWithTransaction
 import com.stack.knowledge.common.service.SecurityService
 import com.stack.knowledge.domain.image.application.spi.CommandImagePort
 import com.stack.knowledge.domain.image.exception.FileSizeTooSmallException
@@ -9,7 +9,7 @@ import com.stack.knowledge.domain.user.application.spi.CommandUserPort
 import org.springframework.web.multipart.MultipartFile
 import java.util.*
 
-@UseCase
+@ServiceWithTransaction
 class UploadImageUseCase(
     private val commandImagePort: CommandImagePort,
     private val commandUserPort: CommandUserPort,

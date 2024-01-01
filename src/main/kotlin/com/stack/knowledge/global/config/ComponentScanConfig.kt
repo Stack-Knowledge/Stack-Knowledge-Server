@@ -1,7 +1,7 @@
 package com.stack.knowledge.global.config
 
-import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
-import com.stack.knowledge.common.annotation.usecase.UseCase
+import com.stack.knowledge.common.annotation.service.ServiceWithReadOnlyTransaction
+import com.stack.knowledge.common.annotation.service.ServiceWithTransaction
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.FilterType
@@ -13,8 +13,8 @@ import org.springframework.context.annotation.FilterType
         ComponentScan.Filter(
             type = FilterType.ANNOTATION,
             classes = [
-                UseCase::class,
-                ReadOnlyUseCase::class
+                ServiceWithTransaction::class,
+                ServiceWithReadOnlyTransaction::class
             ]
         )
     ]

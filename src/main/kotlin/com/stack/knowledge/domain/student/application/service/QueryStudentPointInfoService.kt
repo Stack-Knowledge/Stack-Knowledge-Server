@@ -1,13 +1,13 @@
 package com.stack.knowledge.domain.student.application.service
 
-import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
+import com.stack.knowledge.common.annotation.service.ServiceWithReadOnlyTransaction
 import com.stack.knowledge.common.service.SecurityService
 import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledge.domain.student.presentation.data.response.StudentPointResponse
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.response.UserResponse
 
-@ReadOnlyUseCase
+@ServiceWithReadOnlyTransaction
 class QueryStudentPointInfoService(
     private val queryStudentPort: QueryStudentPort,
     private val securityService: SecurityService
