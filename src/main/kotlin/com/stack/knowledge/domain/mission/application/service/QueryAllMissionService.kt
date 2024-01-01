@@ -1,6 +1,6 @@
 package com.stack.knowledge.domain.mission.application.service
 
-import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
+import com.stack.knowledge.common.annotation.service.ServiceWithReadOnlyTransaction
 import com.stack.knowledge.common.spi.SecurityPort
 import com.stack.knowledge.domain.mission.application.spi.QueryMissionPort
 import com.stack.knowledge.domain.mission.domain.constant.MissionStatus
@@ -10,7 +10,7 @@ import com.stack.knowledge.domain.user.application.spi.QueryUserPort
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.response.UserResponse
 
-@ReadOnlyUseCase
+@ServiceWithReadOnlyTransaction
 class QueryAllMissionService(
     private val queryMissionPort: QueryMissionPort,
     private val queryUserPort: QueryUserPort,

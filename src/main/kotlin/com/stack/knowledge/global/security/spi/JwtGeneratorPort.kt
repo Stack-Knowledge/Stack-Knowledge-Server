@@ -5,5 +5,5 @@ import com.stack.knowledge.domain.user.domain.constant.Authority
 import java.util.UUID
 
 interface JwtGeneratorPort {
-    fun receiveToken(userId: UUID, authority: Authority): TokenResponse
+    fun generateToken(userId: UUID, authority: Authority): TokenResponse
 }

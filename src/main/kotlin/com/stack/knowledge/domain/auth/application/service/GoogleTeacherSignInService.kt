@@ -39,7 +39,7 @@ class GoogleTeacherSignInService(
                 throw NotApprovedUserException()
             }
             ApproveStatus.PENDING -> throw NotApprovedUserException()
-            ApproveStatus.APPROVED -> return jwtGeneratorPort.receiveToken(user.id, Authority.ROLE_TEACHER)
+            ApproveStatus.APPROVED -> return jwtGeneratorPort.generateToken(user.id, Authority.ROLE_TEACHER)
         }
     }
 }

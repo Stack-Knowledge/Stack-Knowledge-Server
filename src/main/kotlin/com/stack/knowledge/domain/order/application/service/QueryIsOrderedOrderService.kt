@@ -1,6 +1,6 @@
 package com.stack.knowledge.domain.order.application.service
 
-import com.stack.knowledge.common.annotation.usecase.ReadOnlyUseCase
+import com.stack.knowledge.common.annotation.service.ServiceWithReadOnlyTransaction
 import com.stack.knowledge.domain.item.application.spi.QueryItemPort
 import com.stack.knowledge.domain.item.exception.ItemNotFoundException
 import com.stack.knowledge.domain.item.presentation.data.response.ItemResponse
@@ -12,7 +12,7 @@ import com.stack.knowledge.domain.user.application.spi.QueryUserPort
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.response.UserResponse
 
-@ReadOnlyUseCase
+@ServiceWithReadOnlyTransaction
 class QueryIsOrderedOrderService(
     private val queryOrderPort: QueryOrderPort,
     private val queryItemPort: QueryItemPort,

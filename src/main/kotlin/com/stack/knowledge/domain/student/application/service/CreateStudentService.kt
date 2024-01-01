@@ -1,12 +1,12 @@
 package com.stack.knowledge.domain.student.application.service
 
-import com.stack.knowledge.common.annotation.usecase.UseCase
+import com.stack.knowledge.common.annotation.service.ServiceWithTransaction
 import com.stack.knowledge.domain.student.application.spi.CommandStudentPort
 import com.stack.knowledge.domain.student.domain.Student
 import com.stack.knowledge.domain.user.domain.User
 import java.util.*
 
-@UseCase
+@ServiceWithTransaction
 class CreateStudentService(
     private val commandStudentPort: CommandStudentPort
 ) {
