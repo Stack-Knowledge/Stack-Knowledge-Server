@@ -30,7 +30,7 @@ class MissionWebAdapter(
             .let { ResponseEntity.ok(it) }
 
     @PostMapping
-    fun createMission(@RequestBody @Valid createMissionRequest: CreateMissionRequest): ResponseEntity<Void> =
+    fun createMission(@RequestBody @Valid createMissionRequest: CreateMissionRequest): ResponseEntity<Unit> =
         createMissionService.execute(createMissionRequest)
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
 }

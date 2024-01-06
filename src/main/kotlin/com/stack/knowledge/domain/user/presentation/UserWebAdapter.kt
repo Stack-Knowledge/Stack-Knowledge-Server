@@ -37,12 +37,12 @@ class UserWebAdapter(
             .let { ResponseEntity.ok(it) }
 
     @PostMapping("/scoring/{solve_id}")
-    fun scoreSolve(@PathVariable("solve_id") solveId: UUID, @RequestBody @Valid scoreSolveRequest: ScoreSolveRequest): ResponseEntity<Void> =
+    fun scoreSolve(@PathVariable("solve_id") solveId: UUID, @RequestBody @Valid scoreSolveRequest: ScoreSolveRequest): ResponseEntity<Unit> =
         scoreSolveUseCase.execute(solveId, scoreSolveRequest)
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
 
     @PatchMapping("/{user_id}")
-    fun updateUserApproveStatus(@PathVariable("user_id") userId: UUID, @RequestBody updateUserApproveStatusRequest: UpdateUserApproveStatusRequest): ResponseEntity<Void> =
+    fun updateUserApproveStatus(@PathVariable("user_id") userId: UUID, @RequestBody updateUserApproveStatusRequest: UpdateUserApproveStatusRequest): ResponseEntity<Unit> =
         updateUserApproveStatusService.execute(userId, updateUserApproveStatusRequest)
             .let { ResponseEntity.noContent().build() }
 }

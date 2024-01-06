@@ -19,7 +19,7 @@ class OrderWebAdapter(
     private val updateOrderService: UpdateOrderService
 ) {
     @PostMapping
-    fun orderItem(@RequestBody @Valid orderItemRequest: List<OrderItemRequest>): ResponseEntity<Void> =
+    fun orderItem(@RequestBody @Valid orderItemRequest: List<OrderItemRequest>): ResponseEntity<Unit> =
         orderItemService.execute(orderItemRequest)
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
 
@@ -29,7 +29,7 @@ class OrderWebAdapter(
             .let { ResponseEntity.ok(it) }
 
     @PatchMapping
-    fun updateOrder(@RequestBody @Valid updateOrderRequest: List<UpdateOrderRequest>): ResponseEntity<Void> =
+    fun updateOrder(@RequestBody @Valid updateOrderRequest: List<UpdateOrderRequest>): ResponseEntity<Unit> =
         updateOrderService.execute(updateOrderRequest)
             .let { ResponseEntity.status(HttpStatus.NO_CONTENT).build() }
 }
