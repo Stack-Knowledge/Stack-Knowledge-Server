@@ -14,7 +14,7 @@ class SolveWebAdapter(
     private val solveMissionService: SolveMissionService
 ) {
     @PostMapping("/{mission_id}")
-    fun solveMission(@PathVariable("mission_id") missionId: UUID, @RequestBody @Valid solveMissionRequest: SolveMissionRequest): ResponseEntity<Void> =
+    fun solveMission(@PathVariable("mission_id") missionId: UUID, @RequestBody @Valid solveMissionRequest: SolveMissionRequest): ResponseEntity<Unit> =
         solveMissionService.execute(missionId, solveMissionRequest)
             .let { ResponseEntity.status(HttpStatus.CREATED).build() }
 }
