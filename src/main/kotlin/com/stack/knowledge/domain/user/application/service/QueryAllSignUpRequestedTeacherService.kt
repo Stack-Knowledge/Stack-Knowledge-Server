@@ -14,6 +14,7 @@ class QueryAllSignUpRequestedTeacherService(
 
         return users.map {
             AllSignUpRequestTeacherResponse(
+                userId = it.id,
                 name = it.name,
                 createdAt = it.createdAt
             )
