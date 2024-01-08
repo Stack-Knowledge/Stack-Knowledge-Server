@@ -10,7 +10,7 @@ class QueryAllSignUpRequestedTeacherService(
     private val queryUserPort: QueryUserPort
 ) {
     fun execute(): List<AllSignUpRequestTeacherResponse> {
-        val users = queryUserPort.queryAllUserByApproveStatus(ApproveStatus.PENDING)
+        val users = queryUserPort.queryAllUserByApproveStatus(ApproveStatus.REJECT)
 
         return users.map {
             AllSignUpRequestTeacherResponse(

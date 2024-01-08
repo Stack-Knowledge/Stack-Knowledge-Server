@@ -33,12 +33,12 @@ class GoogleTeacherSignInService(
                     name = name,
                     profileImage = "",
                     authority = Authority.ROLE_TEACHER,
-                    approveStatus = ApproveStatus.PENDING
+                    approveStatus = ApproveStatus.REJECT
                 )
                 userPort.save(user)
                 throw NotApprovedUserException()
             }
-            ApproveStatus.PENDING -> throw NotApprovedUserException()
+            ApproveStatus.REJECT -> throw NotApprovedUserException()
             ApproveStatus.APPROVED -> return jwtGeneratorPort.generateToken(user.id, Authority.ROLE_TEACHER)
         }
     }

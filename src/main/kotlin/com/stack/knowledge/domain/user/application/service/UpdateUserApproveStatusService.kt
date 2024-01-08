@@ -19,7 +19,7 @@ class UpdateUserApproveStatusService(
             throw AlreadyApprovedUserException()
 
         when (updateUserApproveStatusRequest.approveStatus) {
-            ApproveStatus.PENDING -> userPort.deleteByUserId(userId)
+            ApproveStatus.REJECT -> userPort.deleteByUserId(userId)
             ApproveStatus.APPROVED -> userPort.save(user.copy(approveStatus = updateUserApproveStatusRequest.approveStatus))
         }
     }
