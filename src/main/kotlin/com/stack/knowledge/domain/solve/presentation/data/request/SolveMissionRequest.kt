@@ -4,5 +4,5 @@ import javax.validation.constraints.NotNull
 
 data class SolveMissionRequest(
     @field:NotNull
-    val solvation: String
+    val solution: String
 )

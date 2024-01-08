@@ -20,7 +20,7 @@ class QueryScoringPageDetailsService(
         return ScoringDetailsResponse(
             solveId = solveId,
             title = mission.title,
-            solvation = solve.solvation
+            solution = solve.solution
         )
     }
 }

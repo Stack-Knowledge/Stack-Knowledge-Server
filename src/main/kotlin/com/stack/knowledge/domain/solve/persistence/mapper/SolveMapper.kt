@@ -19,7 +19,7 @@ class SolveMapper(
         entity?.let {
             Solve(
                 id = it.id,
-                solvation = it.solvation,
+                solution = it.solution,
                 solveStatus = it.solveStatus,
                 student = it.student.id,
                 mission = it.mission.id
@@ -32,7 +32,7 @@ class SolveMapper(
 
         return SolveJpaEntity(
             id = domain.id,
-            solvation = domain.solvation,
+            solution = domain.solution,
             solveStatus = domain.solveStatus,
             student = student,
             mission = mission

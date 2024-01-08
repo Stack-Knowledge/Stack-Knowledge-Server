@@ -50,7 +50,7 @@ class SolveMissionService(
         val time = queryTimePort.queryTimeByMissionAndStudentId(mission, student) ?: throw TimeNotFoundException()
         val timeElapsed = (Duration.between(time.createdAt, LocalDateTime.now())).toSeconds()
 
-        val solve = createSolve(timeElapsed, mission, solveMissionRequest.solvation, student.id)
+        val solve = createSolve(timeElapsed, mission, solveMissionRequest.solution, student.id)
 
         val topPoint = (pointPort.queryTopByMissionIdOrderByMissionPoint(mission.id)?.missionPoint?.times(0.97))?.toInt()
 
@@ -62,7 +62,7 @@ class SolveMissionService(
         pointPort.save(point)
     }
 
-    private fun createSolve(timeElapsed: Long, mission: Mission, solvation: String, studentId: UUID): Solve {
+    private fun createSolve(timeElapsed: Long, mission: Mission, solution: String, studentId: UUID): Solve {
         val solveStatus = when {
             timeElapsed > mission.timeLimit + 5 -> {
                 SolveStatus.WRONG_ANSWER
@@ -73,7 +73,7 @@ class SolveMissionService(
 
         val solve = Solve(
             id = UUID.randomUUID(),
-            solvation = solvation,
+            solution = solution,
             solveStatus = solveStatus,
             student = studentId,
             mission = mission.id
