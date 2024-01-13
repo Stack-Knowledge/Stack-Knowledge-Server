@@ -2,6 +2,7 @@ package com.stack.knowledge.domain.user.application.service
 
 import com.stack.knowledge.common.annotation.service.ServiceWithTransaction
 import com.stack.knowledge.domain.user.application.spi.UserPort
+import com.stack.knowledge.domain.user.domain.User
 import com.stack.knowledge.domain.user.domain.constant.ApproveStatus
 import com.stack.knowledge.domain.user.exception.AlreadyApprovedUserException
 import com.stack.knowledge.domain.user.exception.MessageSendFailedException
@@ -25,11 +26,18 @@ class UpdateUserApproveStatusService(
         if (user.approveStatus == ApproveStatus.APPROVED)
             throw AlreadyApprovedUserException()
 
+        sendEmail(user)
+
         when (updateUserApproveStatusRequest.approveStatus) {
             ApproveStatus.REJECT -> userPort.deleteByUserId(userId)
-            ApproveStatus.APPROVED -> userPort.save(user.copy(approveStatus = updateUserApproveStatusRequest.approveStatus))
+            ApproveStatus.APPROVED -> {
+                sendEmail(user)
+                userPort.save(user.copy(approveStatus = updateUserApproveStatusRequest.approveStatus))
+            }
         }
+    }
 
+    private fun sendEmail(user: User) {
         runCatching {
             val message = mailSender.createMimeMessage()
             val helper = MimeMessageHelper(message, "UTF-8")
