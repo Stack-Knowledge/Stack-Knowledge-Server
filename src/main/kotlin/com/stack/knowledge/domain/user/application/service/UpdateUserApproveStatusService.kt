@@ -5,6 +5,7 @@ import com.stack.knowledge.domain.user.application.spi.UserPort
 import com.stack.knowledge.domain.user.domain.User
 import com.stack.knowledge.domain.user.domain.constant.ApproveStatus
 import com.stack.knowledge.domain.user.exception.AlreadyApprovedUserException
+import com.stack.knowledge.domain.user.exception.InvalidApproveStatusException
 import com.stack.knowledge.domain.user.exception.MessageSendFailedException
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.request.UpdateUserApproveStatusRequest
@@ -29,11 +30,12 @@ class UpdateUserApproveStatusService(
         sendEmail(user)
 
         when (updateUserApproveStatusRequest.approveStatus) {
-            ApproveStatus.REJECT -> userPort.deleteByUserId(userId)
+            ApproveStatus.PENDING -> throw InvalidApproveStatusException()
             ApproveStatus.APPROVED -> {
                 sendEmail(user)
                 userPort.save(user.copy(approveStatus = updateUserApproveStatusRequest.approveStatus))
             }
+            ApproveStatus.REJECTED -> userPort.deleteByUserId(userId)
         }
     }
 
