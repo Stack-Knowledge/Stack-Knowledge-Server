@@ -27,25 +27,32 @@ class UpdateUserApproveStatusService(
         if (user.approveStatus == ApproveStatus.APPROVED)
             throw AlreadyApprovedUserException()
 
-        sendEmail(user)
-
         when (updateUserApproveStatusRequest.approveStatus) {
             ApproveStatus.PENDING -> throw InvalidApproveStatusException()
             ApproveStatus.APPROVED -> {
-                sendEmail(user)
+                sendEmail(user, ApproveStatus.APPROVED)
                 userPort.save(user.copy(approveStatus = updateUserApproveStatusRequest.approveStatus))
             }
-            ApproveStatus.REJECTED -> userPort.deleteByUserId(userId)
+            ApproveStatus.REJECTED -> {
+                sendEmail(user, ApproveStatus.REJECTED)
+                userPort.deleteByUserId(userId)
+            }
         }
     }
 
-    private fun sendEmail(user: User) {
+    private fun sendEmail(user: User, approveStatus: ApproveStatus) {
         runCatching {
             val message = mailSender.createMimeMessage()
             val helper = MimeMessageHelper(message, "UTF-8")
 
             val context = Context()
-            val template = templateEngine.process("mail", context)
+            val templateName = when (approveStatus) {
+                ApproveStatus.APPROVED -> "approval"
+                ApproveStatus.REJECTED -> "reject"
+                else -> null
+            }
+
+            val template = templateEngine.process(templateName, context)
 
             helper.setSubject("Stack-Knowledge 이메일 인증")
             helper.setTo(user.email)
