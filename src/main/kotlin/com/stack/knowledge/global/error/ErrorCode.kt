@@ -53,5 +53,6 @@ enum class ErrorCode(
     POINT_NOT_FOUND("존재하지 않는 미션 포인트입니다.", 404),
 
     // server
+    MAIL_SEND_FAILED("이메일을 보내는데 실패했습니다.", 500),
     INTERNAL_SERVER_ERROR("서버 내부 에러", 500)
 }

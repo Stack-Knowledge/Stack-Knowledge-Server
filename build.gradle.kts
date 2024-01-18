@@ -57,6 +57,12 @@ dependencies {
 
 	// test
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	// mail sender
+	implementation("org.springframework.boot:spring-boot-starter-mail")
+
+	// thymeleaf
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 }
 
 dependencyManagement {
