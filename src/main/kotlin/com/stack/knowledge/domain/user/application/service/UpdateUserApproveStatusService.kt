@@ -21,6 +21,10 @@ class UpdateUserApproveStatusService(
     private val mailSender: JavaMailSender,
     private val templateEngine: SpringTemplateEngine
 ) {
+    companion object {
+        val EMAIL_SUBJECT = "Stack-Knowledge 이메일 인증"
+    }
+
     fun execute(userId: UUID, updateUserApproveStatusRequest: UpdateUserApproveStatusRequest) {
         val user = userPort.queryUserById(userId) ?: throw UserNotFoundException()
 
@@ -41,23 +45,22 @@ class UpdateUserApproveStatusService(
     }
 
     private fun sendEmail(user: User, approveStatus: ApproveStatus) {
+        val templateName = when (approveStatus) {
+            ApproveStatus.APPROVED -> "approval"
+            ApproveStatus.REJECTED -> "reject"
+            else -> throw InvalidApproveStatusException()
+        }
+
+        val context = Context()
+        val template = templateEngine.process(templateName, context)
+
+        val message = mailSender.createMimeMessage()
+        val helper = MimeMessageHelper(message, "UTF-8")
+        helper.setSubject(EMAIL_SUBJECT)
+        helper.setTo(user.email)
+        helper.setText(template, true)
+
         runCatching {
-            val message = mailSender.createMimeMessage()
-            val helper = MimeMessageHelper(message, "UTF-8")
-
-            val context = Context()
-            val templateName = when (approveStatus) {
-                ApproveStatus.APPROVED -> "approval"
-                ApproveStatus.REJECTED -> "reject"
-                else -> null
-            }
-
-            val template = templateEngine.process(templateName, context)
-
-            helper.setSubject("Stack-Knowledge 이메일 인증")
-            helper.setTo(user.email)
-            helper.setText(template, true)
-
             mailSender.send(message)
         }.onFailure {
             throw MessageSendFailedException()
