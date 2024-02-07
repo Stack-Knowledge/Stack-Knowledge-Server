@@ -1,16 +1,16 @@
 package com.stack.knowledge.domain.order.persistence.entity
 
+import com.stack.knowledge.common.entity.BaseIdEntity
 import com.stack.knowledge.domain.item.persistence.entity.ItemJpaEntity
 import com.stack.knowledge.domain.student.persistence.entity.StudentJpaEntity
-import com.stack.knowledge.common.entity.BaseIdEntity
-import java.util.UUID
+import java.util.*
 import javax.persistence.*
 
 @Entity
 @Table(name = "orders")
 class OrderJpaEntity(
-
-    override val id: UUID,
+    @get:JvmName(name = "getIdentifier")
+    override var id: UUID,
 
     @Column(nullable = false)
     val count: Int,

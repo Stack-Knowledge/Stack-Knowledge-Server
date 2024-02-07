@@ -1,16 +1,16 @@
 package com.stack.knowledge.domain.mission.persistence.entity
 
+import com.stack.knowledge.common.entity.BaseIdEntity
 import com.stack.knowledge.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledge.domain.user.persistence.entity.UserJpaEntity
-import com.stack.knowledge.common.entity.BaseIdEntity
 import java.util.*
 import javax.persistence.*
 
 @Entity
 @Table(name = "mission")
 class MissionJpaEntity(
-
-    override val id: UUID,
+//
+//    override var id: UUID,
 
     @Column(nullable = false, length = 50)
     val title: String,
@@ -32,4 +32,4 @@ class MissionJpaEntity(
     @JoinColumn(name = "user_Id")
     val user: UserJpaEntity
 
-) : BaseIdEntity(id)
+) : BaseIdEntity()

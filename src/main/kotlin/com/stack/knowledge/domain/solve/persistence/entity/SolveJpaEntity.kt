@@ -10,8 +10,8 @@ import javax.persistence.*
 @Entity
 @Table(name = "solve")
 class SolveJpaEntity(
-
-    override val id: UUID,
+    @get:JvmName(name = "getIdentifier")
+    override var id: UUID,
 
     @Column(nullable = false, length = 500)
     val solution: String,

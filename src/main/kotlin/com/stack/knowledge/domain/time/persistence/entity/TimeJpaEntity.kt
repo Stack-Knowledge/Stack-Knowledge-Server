@@ -9,8 +9,8 @@ import javax.persistence.*
 @Entity
 @Table(name = "time")
 class TimeJpaEntity(
-
-    override val id: UUID,
+    @get:JvmName(name = "getIdentifier")
+    override var id: UUID,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
