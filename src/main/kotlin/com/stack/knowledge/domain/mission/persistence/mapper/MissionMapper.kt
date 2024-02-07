@@ -29,7 +29,7 @@ class MissionMapper(
         val user = userJpaRepository.findByIdOrNull(domain.userId) ?: throw UserNotFoundException()
 
         return MissionJpaEntity(
-//            id = domain.id,
+            id = domain.id,
             title = domain.title,
             content = domain.content,
             timeLimit = domain.timeLimit,

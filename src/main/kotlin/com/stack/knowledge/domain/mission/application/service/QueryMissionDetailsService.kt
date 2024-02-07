@@ -33,7 +33,7 @@ class QueryMissionDetailsService(
         timePort.queryTimeByMissionAndStudentId(mission, student)
             ?: timePort.save(
                 Time(
-                    id = UUID.randomUUID(),
+                    id = UUID(0, 0),
                     student = student.id,
                     mission = mission.id,
                     createdAt = LocalDateTime.now()

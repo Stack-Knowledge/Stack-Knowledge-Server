@@ -9,8 +9,9 @@ import javax.persistence.*
 @Entity
 @Table(name = "mission")
 class MissionJpaEntity(
-//
-//    override var id: UUID,
+
+    @get:JvmName(name = "getIdentifier")
+    override var id: UUID,
 
     @Column(nullable = false, length = 50)
     val title: String,

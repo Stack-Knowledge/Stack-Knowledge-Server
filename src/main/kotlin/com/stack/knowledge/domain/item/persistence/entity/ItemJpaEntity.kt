@@ -9,6 +9,7 @@ import javax.persistence.Table
 @Entity
 @Table(name = "item")
 class ItemJpaEntity(
+
     @get:JvmName(name = "getIdentifier")
     override var id: UUID,
 

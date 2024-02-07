@@ -31,7 +31,7 @@ class GoogleStudentSignInService(
 
         val user = createUser(
             User(
-                id = UUID.randomUUID(),
+                id = UUID(0 ,0),
                 email = email,
                 name = name,
                 profileImage = "",

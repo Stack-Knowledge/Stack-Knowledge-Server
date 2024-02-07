@@ -72,7 +72,7 @@ class SolveMissionService(
         }
 
         val solve = Solve(
-            id = UUID.randomUUID(),
+            id = UUID(0, 0),
             solution = solution,
             solveStatus = solveStatus,
             student = studentId,

@@ -48,7 +48,7 @@ class OrderItemService(
                     price = order.price + price
                 )
             } ?: Order(
-                id = UUID.randomUUID(),
+                id = UUID(0, 0),
                 count = it.count,
                 price = price,
                 itemId = it.itemId,

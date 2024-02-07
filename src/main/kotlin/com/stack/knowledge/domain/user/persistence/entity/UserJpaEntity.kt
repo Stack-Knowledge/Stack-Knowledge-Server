@@ -9,6 +9,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "user")
 class UserJpaEntity(
+
     @get:JvmName(name = "getIdentifier")
     override var id: UUID,
 
