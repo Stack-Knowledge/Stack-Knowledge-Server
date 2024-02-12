@@ -11,7 +11,7 @@ import javax.persistence.*
 class MissionJpaEntity(
 
     @get:JvmName(name = "getIdentifier")
-    override var id: UUID,
+    override var id: UUID = UUID(0, 0),
 
     @Column(nullable = false, length = 50)
     val title: String,
@@ -33,4 +33,4 @@ class MissionJpaEntity(
     @JoinColumn(name = "user_Id")
     val user: UserJpaEntity
 
-) : BaseIdEntity()
+) : BaseIdEntity(id)

@@ -13,7 +13,7 @@ abstract class BaseIdEntity(
     @Id
     @Column(columnDefinition = "BINARY(16)", nullable = false)
     @get:JvmName(name = "getIdentifier")
-    open var id: UUID = UUID(0, 0)
+    open var id: UUID
 ) : BaseTimeEntity(), Persistable<UUID> {
 
     override fun getId(): UUID? = id
