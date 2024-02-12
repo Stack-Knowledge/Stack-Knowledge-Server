@@ -30,7 +30,7 @@ class GAuthSignInService(
 
         val user = createUser(
             User(
-                id = UUID.randomUUID(),
+                id = UUID(0, 0),
                 email = gAuthUserInfo.email,
                 name = gAuthUserInfo.name,
                 profileImage = "",

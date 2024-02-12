@@ -1,8 +1,8 @@
 package com.stack.knowledge.domain.mission.domain
 
-import com.stack.knowledge.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledge.common.annotation.Aggregate
-import java.util.UUID
+import com.stack.knowledge.domain.mission.domain.constant.MissionStatus
+import java.util.*
 
 @Aggregate
 data class Mission(

@@ -1,8 +1,8 @@
 package com.stack.knowledge.domain.mission.persistence.entity
 
+import com.stack.knowledge.common.entity.BaseIdEntity
 import com.stack.knowledge.domain.mission.domain.constant.MissionStatus
 import com.stack.knowledge.domain.user.persistence.entity.UserJpaEntity
-import com.stack.knowledge.common.entity.BaseIdEntity
 import java.util.*
 import javax.persistence.*
 
@@ -10,7 +10,8 @@ import javax.persistence.*
 @Table(name = "mission")
 class MissionJpaEntity(
 
-    override val id: UUID,
+    @get:JvmName(name = "getIdentifier")
+    override var id: UUID,
 
     @Column(nullable = false, length = 50)
     val title: String,

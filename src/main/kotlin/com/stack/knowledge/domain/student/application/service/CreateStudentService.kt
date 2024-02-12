@@ -12,7 +12,7 @@ class CreateStudentService(
 ) {
     fun execute(user: User): Student {
         val student = Student(
-            id = UUID.randomUUID(),
+            id = UUID(0, 0),
             currentPoint = 0,
             cumulatePoint = 0,
             user = user.id

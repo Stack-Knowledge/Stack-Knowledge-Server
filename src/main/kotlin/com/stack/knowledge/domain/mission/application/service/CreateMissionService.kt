@@ -17,7 +17,7 @@ class CreateMissionService(
         val userId = securityService.queryCurrentUserId()
 
         val mission = Mission(
-            id = UUID.randomUUID(),
+            id = UUID(0, 0),
             title = createMissionRequest.title,
             content = createMissionRequest.content,
             timeLimit = createMissionRequest.timeLimit,
