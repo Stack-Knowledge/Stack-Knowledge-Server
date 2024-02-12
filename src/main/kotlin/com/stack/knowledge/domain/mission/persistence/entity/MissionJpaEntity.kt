@@ -11,7 +11,7 @@ import javax.persistence.*
 class MissionJpaEntity(
 
     @get:JvmName(name = "getIdentifier")
-    override var id: UUID = UUID(0, 0),
+    override var id: UUID,
 
     @Column(nullable = false, length = 50)
     val title: String,
