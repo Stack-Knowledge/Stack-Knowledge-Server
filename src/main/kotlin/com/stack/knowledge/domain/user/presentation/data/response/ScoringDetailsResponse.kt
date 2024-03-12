@@ -5,5 +5,6 @@ import java.util.*
 data class ScoringDetailsResponse(
     val solveId: UUID,
     val title: String,
+    val content: String,
     val solution: String
 )
