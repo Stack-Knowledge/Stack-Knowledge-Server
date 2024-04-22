@@ -43,7 +43,7 @@ dependencies {
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
 
 	// GAuth
-	implementation("com.github.GSM-MSG:GAuth-SDK-Java:v2.0.0")
+	implementation("com.github.GSM-MSG:GAuth-SDK-Java:v3.0.0")
 
 	// aws
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE")
