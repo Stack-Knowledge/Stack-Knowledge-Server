@@ -5,6 +5,7 @@ import com.stack.knowledge.domain.user.presentation.data.request.ScoreSolveReque
 import com.stack.knowledge.domain.user.presentation.data.request.UpdateUserApproveStatusRequest
 import com.stack.knowledge.domain.user.presentation.data.response.AllScoringResponse
 import com.stack.knowledge.domain.user.presentation.data.response.AllSignUpRequestTeacherResponse
+import com.stack.knowledge.domain.user.presentation.data.response.QueryScoringResponse
 import com.stack.knowledge.domain.user.presentation.data.response.ScoringDetailsResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -22,7 +23,7 @@ class UserWebAdapter(
     private val queryAllSignUpRequestedTeacherService: QueryAllSignUpRequestedTeacherService
 ) {
     @GetMapping("/scoring")
-    fun queryAllSolve(): ResponseEntity<List<AllScoringResponse>> =
+    fun queryAllSolve(): ResponseEntity<AllScoringResponse> =
         queryScoringPageService.execute()
             .let { ResponseEntity.ok(it) }
 

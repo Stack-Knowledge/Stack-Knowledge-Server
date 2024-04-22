@@ -12,7 +12,9 @@ import com.stack.knowledge.domain.student.exception.StudentNotFoundException
 import com.stack.knowledge.domain.user.application.spi.QueryUserPort
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.response.AllScoringResponse
+import com.stack.knowledge.domain.user.presentation.data.response.QueryScoringResponse
 import com.stack.knowledge.domain.user.presentation.data.response.UserResponse
+import org.springframework.cache.annotation.Cacheable
 
 @ServiceWithReadOnlyTransaction
 class QueryScoringPageService(
@@ -23,27 +25,34 @@ class QueryScoringPageService(
     private val securityService: SecurityService,
     private val queryStudentPort: QueryStudentPort
 ) {
-    fun execute(): List<AllScoringResponse> {
+    @Cacheable(
+        value = ["QueryScoringResponse"],
+        key = "'all'",
+        cacheManager = "contentCacheManager"
+    )
+    fun execute(): AllScoringResponse {
         val userId = securityService.queryCurrentUserId()
 
-        return queryMissionPort.queryAllMissionsByUserIdOrderByCreatedAtDesc(userId).flatMap {
-            querySolvePort.queryAllSolveBySolveStatusAndMissionOrderByCreatedAtDesc(SolveStatus.SCORING, it).map { solve ->
-                val point = queryPointPort.queryPointBySolve(solve) ?: throw PointNotFoundException()
-                val student = queryStudentPort.queryStudentById(solve.student) ?: throw StudentNotFoundException()
-                val user = queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
+        return AllScoringResponse(
+            queryMissionPort.queryAllMissionsByUserIdOrderByCreatedAtDesc(userId).flatMap {
+                querySolvePort.queryAllSolveBySolveStatusAndMissionOrderByCreatedAtDesc(SolveStatus.SCORING, it).map { solve ->
+                    val point = queryPointPort.queryPointBySolve(solve) ?: throw PointNotFoundException()
+                    val student = queryStudentPort.queryStudentById(solve.student) ?: throw StudentNotFoundException()
+                    val user = queryUserPort.queryUserById(student.user) ?: throw UserNotFoundException()
 
-                AllScoringResponse(
-                    solveId = solve.id,
-                    solveStatus = solve.solveStatus,
-                    title = it.title,
-                    point = point.missionPoint,
-                    user = UserResponse(
-                        id = user.id,
-                        name = user.name,
-                        profileImage = user.profileImage
+                    QueryScoringResponse(
+                        solveId = solve.id,
+                        solveStatus = solve.solveStatus,
+                        title = it.title,
+                        point = point.missionPoint,
+                        user = UserResponse(
+                            id = user.id,
+                            name = user.name,
+                            profileImage = user.profileImage
+                        )
                     )
-                )
+                }
             }
-        }
+        )
     }
 }
