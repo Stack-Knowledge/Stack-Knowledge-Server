@@ -5,7 +5,6 @@ import com.stack.knowledge.domain.user.presentation.data.request.ScoreSolveReque
 import com.stack.knowledge.domain.user.presentation.data.request.UpdateUserApproveStatusRequest
 import com.stack.knowledge.domain.user.presentation.data.response.AllScoringResponse
 import com.stack.knowledge.domain.user.presentation.data.response.AllSignUpRequestTeacherResponse
-import com.stack.knowledge.domain.user.presentation.data.response.QueryScoringResponse
 import com.stack.knowledge.domain.user.presentation.data.response.ScoringDetailsResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity

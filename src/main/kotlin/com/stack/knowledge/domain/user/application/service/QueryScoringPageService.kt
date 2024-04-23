@@ -14,7 +14,6 @@ import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.response.AllScoringResponse
 import com.stack.knowledge.domain.user.presentation.data.response.QueryScoringResponse
 import com.stack.knowledge.domain.user.presentation.data.response.UserResponse
-import org.springframework.cache.annotation.Cacheable
 
 @ServiceWithReadOnlyTransaction
 class QueryScoringPageService(
@@ -25,11 +24,6 @@ class QueryScoringPageService(
     private val securityService: SecurityService,
     private val queryStudentPort: QueryStudentPort
 ) {
-    @Cacheable(
-        value = ["QueryScoringResponse"],
-        key = "'all'",
-        cacheManager = "contentCacheManager"
-    )
     fun execute(): AllScoringResponse {
         val userId = securityService.queryCurrentUserId()
 

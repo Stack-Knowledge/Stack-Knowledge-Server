@@ -39,6 +39,7 @@ class SolveMissionService(
         val student = securityService.queryCurrentUserId().let {
             queryStudentPort.queryStudentById(it) ?: throw StudentNotFoundException()
         }
+
         val mission = missionPort.queryMissionById(id) ?: throw MissionNotFoundException()
 
         if (mission.missionStatus != MissionStatus.OPENED)
