@@ -13,7 +13,7 @@ class CreateMissionService(
     private val commandMissionPort: CommandMissionPort,
     private val securityService: SecurityService
 ) {
-    fun execute(createMissionRequest: CreateMissionRequest): Mission {
+    fun execute(createMissionRequest: CreateMissionRequest) {
         val userId = securityService.queryCurrentUserId()
 
         val mission = Mission(
@@ -27,7 +27,7 @@ class CreateMissionService(
             userId = userId
         )
 
-        return commandMissionPort.save(mission)
+        commandMissionPort.save(mission)
     }
 
 //    private fun queryMissionStatusBasedOnTime(): MissionStatus {

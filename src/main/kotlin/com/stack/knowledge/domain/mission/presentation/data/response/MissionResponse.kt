@@ -10,6 +10,4 @@ data class MissionResponse(
     val point: Int,
     val missionStatus: MissionStatus,
     val user: UserResponse
-) {
-    constructor(): this(UUID(0, 0), "", 0, MissionStatus.OPENED, UserResponse(UUID(0, 0), "", null))
-}
+)

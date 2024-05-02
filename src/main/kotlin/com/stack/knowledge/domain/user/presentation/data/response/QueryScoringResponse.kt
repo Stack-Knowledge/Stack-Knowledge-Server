@@ -9,6 +9,4 @@ data class QueryScoringResponse(
     val title: String,
     val point: Int,
     val user: UserResponse
-) {
-    constructor() : this(UUID(0, 0), SolveStatus.SCORING, "", 0, UserResponse(UUID(0, 0), "", ""))
-}
+)

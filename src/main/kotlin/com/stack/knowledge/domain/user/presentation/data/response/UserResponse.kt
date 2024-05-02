@@ -6,6 +6,4 @@ data class UserResponse(
     val id: UUID,
     val name: String,
     val profileImage: String?
-) {
-    constructor(): this(UUID(0, 0), "", "")
-}
+)
