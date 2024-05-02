@@ -9,7 +9,6 @@ import com.stack.knowledge.domain.solve.application.spi.QuerySolvePort
 import com.stack.knowledge.domain.user.application.spi.QueryUserPort
 import com.stack.knowledge.domain.user.exception.UserNotFoundException
 import com.stack.knowledge.domain.user.presentation.data.response.UserResponse
-import org.springframework.cache.annotation.Cacheable
 
 @ServiceWithReadOnlyTransaction
 class QueryAllMissionService(
@@ -18,11 +17,6 @@ class QueryAllMissionService(
     private val querySolvePort: QuerySolvePort,
     private val securityPort: SecurityPort
 ) {
-    @Cacheable(
-        value = ["MissionList"],
-        key = "'all'",
-        cacheManager = "contentCacheManager"
-    )
     fun execute(): List<MissionResponse> {
         val studentId = securityPort.queryCurrentUserId()
         val solvedMissionIds = querySolvePort.queryAllSolveByStudentId(studentId).map {

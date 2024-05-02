@@ -7,4 +7,6 @@ data class ItemResponse(
     val name: String,
     val price: Int,
     val image: String
-)
+) {
+    constructor(): this(UUID(0, 0), "", 0, "")
+}
