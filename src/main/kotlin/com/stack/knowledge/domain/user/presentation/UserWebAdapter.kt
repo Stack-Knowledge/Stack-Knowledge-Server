@@ -22,7 +22,7 @@ class UserWebAdapter(
     private val queryAllSignUpRequestedTeacherService: QueryAllSignUpRequestedTeacherService
 ) {
     @GetMapping("/scoring")
-    fun queryAllSolve(): ResponseEntity<List<AllScoringResponse>> =
+    fun queryAllSolve(): ResponseEntity<AllScoringResponse> =
         queryScoringPageService.execute()
             .let { ResponseEntity.ok(it) }
 
