@@ -9,6 +9,7 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
+import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
@@ -34,7 +35,7 @@ class CustomOauth2UserService(
 
         val authorities: Collection<GrantedAuthority> = ArrayList(oAuth2User.authorities)
 
-        return UserInfo(
+        return DefaultOAuth2User(
             authorities,
             attributes.attributes,
             nameAttributeName
