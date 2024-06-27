@@ -9,14 +9,13 @@ import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService
-import org.springframework.security.oauth2.core.user.DefaultOAuth2User
 import org.springframework.security.oauth2.core.user.OAuth2User
 import org.springframework.stereotype.Service
 import java.time.LocalDateTime
 import java.util.*
 
 @Service
-class CustomOauth2UserService(
+class CustomOAuth2UserService(
     private val userPort: UserPort
 ) : DefaultOAuth2UserService() {
 
@@ -26,23 +25,20 @@ class CustomOauth2UserService(
 
         val nameAttributeName = userRequest!!.clientRegistration.providerDetails.userInfoEndpoint.userNameAttributeName
 
-        val attributes = Attributes.of(
+        val authorities: Collection<GrantedAuthority> = ArrayList(oAuth2User.authorities)
+
+        val attributes = CustomOAuth2User.of(
             nameAttributeName,
-            oAuth2User.attributes
+            oAuth2User.attributes,
+            authorities
         )
 
         val user: User = createUser(attributes)
 
-        val authorities: Collection<GrantedAuthority> = ArrayList(oAuth2User.authorities)
-
-        return DefaultOAuth2User(
-            authorities,
-            attributes.attributes,
-            nameAttributeName
-        )
+        return attributes
     }
 
-    private fun createUser(attributes: Attributes): User {
+    private fun createUser(attributes: CustomOAuth2User): User {
         val email = attributes.email
 
         return when (userPort.queryExistByEmail(email)) {
