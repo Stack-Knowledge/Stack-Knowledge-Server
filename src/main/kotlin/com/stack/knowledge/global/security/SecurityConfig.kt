@@ -3,6 +3,7 @@ package com.stack.knowledge.global.security
 import com.stack.knowledge.global.config.FilterConfig
 import com.stack.knowledge.global.security.handler.CustomAccessDeniedHandler
 import com.stack.knowledge.global.security.handler.CustomAuthenticationEntryPoint
+import com.stack.knowledge.global.security.handler.CustomLoginSuccessHandler
 import com.stack.knowledge.global.security.spi.JwtParserPort
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -17,7 +18,8 @@ import org.springframework.web.cors.CorsUtils
 @Configuration
 @EnableWebSecurity
 class SecurityConfig(
-    private val jwtParserPort: JwtParserPort
+    private val jwtParserPort: JwtParserPort,
+    private val customLoginSuccessHandler: CustomLoginSuccessHandler
 ) {
     companion object {
         const val student = "STUDENT"
@@ -30,7 +32,11 @@ class SecurityConfig(
             .cors()
             .and()
             .csrf().disable()
+            .formLogin().disable()
             .httpBasic().disable()
+            .oauth2Login()
+            .successHandler(customLoginSuccessHandler)
+            .and()
 
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
