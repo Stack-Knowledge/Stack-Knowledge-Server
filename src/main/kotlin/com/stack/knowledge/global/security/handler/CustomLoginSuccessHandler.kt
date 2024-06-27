@@ -7,10 +7,12 @@ import com.stack.knowledge.global.security.spi.JwtGeneratorPort
 import org.springframework.security.core.Authentication
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler
+import org.springframework.stereotype.Component
 import org.springframework.web.util.UriComponentsBuilder
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+@Component
 class CustomLoginSuccessHandler(
     private val jwtGeneratorPort: JwtGeneratorPort,
     private val userPort: UserPort
