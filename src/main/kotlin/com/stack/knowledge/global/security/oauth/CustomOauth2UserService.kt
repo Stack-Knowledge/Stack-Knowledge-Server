@@ -27,15 +27,15 @@ class CustomOAuth2UserService(
 
         val authorities: Collection<GrantedAuthority> = ArrayList(oAuth2User.authorities)
 
-        val attributes = CustomOAuth2User.of(
+        val customOAuth2User = CustomOAuth2User.of(
             nameAttributeName,
             oAuth2User.attributes,
             authorities
         )
 
-        val user: User = createUser(attributes)
+        val user: User = createUser(customOAuth2User)
 
-        return attributes
+        return customOAuth2User
     }
 
     private fun createUser(attributes: CustomOAuth2User): User {

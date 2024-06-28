@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
-//@Service
-//@Transactional(readOnly = true)
-//class UserDetailsService(
-//    private val userJpaRepository: UserJpaRepository
-//) : UserDetailsService {
-//    override fun loadUserByUsername(username: String): UserDetails =
-//        userJpaRepository.findByIdOrNull(UUID.fromString(username))
-//            .let { it ?: throw UserNotFoundException() }
-//            .let { UserDetails(it) }
-//}
+@Service
+@Transactional(readOnly = true)
+class UserDetailsService(
+    private val userJpaRepository: UserJpaRepository
+) : UserDetailsService {
+    override fun loadUserByUsername(username: String): UserDetails =
+        userJpaRepository.findByIdOrNull(UUID.fromString(username))
+            .let { it ?: throw UserNotFoundException() }
+            .let { UserDetails(it) }
+}

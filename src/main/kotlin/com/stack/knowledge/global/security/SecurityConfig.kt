@@ -1,9 +1,12 @@
 package com.stack.knowledge.global.security
 
+import com.stack.knowledge.domain.user.application.spi.UserPort
 import com.stack.knowledge.global.config.FilterConfig
 import com.stack.knowledge.global.security.handler.CustomAccessDeniedHandler
 import com.stack.knowledge.global.security.handler.CustomAuthenticationEntryPoint
+import com.stack.knowledge.global.security.handler.CustomLoginFailureHandler
 import com.stack.knowledge.global.security.handler.CustomLoginSuccessHandler
+import com.stack.knowledge.global.security.spi.JwtGeneratorPort
 import com.stack.knowledge.global.security.spi.JwtParserPort
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -19,7 +22,10 @@ import org.springframework.web.cors.CorsUtils
 @EnableWebSecurity
 class SecurityConfig(
     private val jwtParserPort: JwtParserPort,
-    private val customLoginSuccessHandler: CustomLoginSuccessHandler
+    private val customLoginSuccessHandler: CustomLoginSuccessHandler,
+    private val customLoginFailureHandler: CustomLoginFailureHandler,
+    private val jwtGeneratorPort: JwtGeneratorPort,
+    private val userPort: UserPort
 ) {
     companion object {
         const val student = "STUDENT"
@@ -36,6 +42,7 @@ class SecurityConfig(
             .httpBasic().disable()
             .oauth2Login()
             .successHandler(customLoginSuccessHandler)
+            .failureHandler(customLoginFailureHandler)
             .and()
 
             .sessionManagement()
@@ -95,4 +102,12 @@ class SecurityConfig(
             .apply(FilterConfig(jwtParserPort))
             .and()
             .build()
+
+
+    @Bean
+    protected fun loginSuccessHandler() = CustomLoginSuccessHandler(jwtGeneratorPort, userPort)
+
+    @Bean
+    protected fun loginFailureHandler() = CustomLoginFailureHandler()
+
 }

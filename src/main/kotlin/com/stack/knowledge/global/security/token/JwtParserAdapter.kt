@@ -4,8 +4,7 @@ import com.stack.knowledge.domain.user.domain.constant.Authority
 import com.stack.knowledge.global.error.exception.InternalServerError
 import com.stack.knowledge.global.security.exception.ExpiredTokenException
 import com.stack.knowledge.global.security.exception.InvalidTokenException
-import com.stack.knowledge.global.security.principal.StudentDetailsService
-import com.stack.knowledge.global.security.principal.TeacherDetailsService
+import com.stack.knowledge.global.security.principal.UserDetailsService
 import com.stack.knowledge.global.security.spi.JwtParserPort
 import com.stack.knowledge.global.security.token.properties.JwtProperties
 import io.jsonwebtoken.*
@@ -19,8 +18,7 @@ import javax.servlet.http.HttpServletRequest
 @Component
 class JwtParserAdapter(
     private val jwtProperties: JwtProperties,
-    private val teacherDetailsService: TeacherDetailsService,
-    private val studentDetailsService: StudentDetailsService
+    private val userDetailsService: UserDetailsService
 ) : JwtParserPort {
     override fun parseAccessToken(request: HttpServletRequest): String? =
         request.getHeader(JwtProperties.tokenHeader)
@@ -55,9 +53,10 @@ class JwtParserAdapter(
         }
 
     private fun getAuthority(body: Claims): UserDetails =
-        when (body.get(JwtProperties.authority, String::class.java)) {
-            Authority.ROLE_TEACHER.name -> teacherDetailsService.loadUserByUsername(body.subject)
-            Authority.ROLE_STUDENT.name -> studentDetailsService.loadUserByUsername(body.subject)
-            else -> throw InvalidTokenException()
-        }
+        userDetailsService.loadUserByUsername(body.subject)
+//        when (body.get(JwtProperties.authority, String::class.java)) {
+//            Authority.ROLE_TEACHER.name -> userDetailsService.loadUserByUsername(body.subject)
+//            Authority.ROLE_STUDENT.name -> studentDetailsService.loadUserByUsername(body.subject)
+//            else -> throw InvalidTokenException()
+//        }
 }
