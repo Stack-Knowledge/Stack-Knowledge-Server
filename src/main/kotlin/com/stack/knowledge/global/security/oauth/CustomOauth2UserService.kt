@@ -17,9 +17,10 @@ import java.util.*
 @Service
 class CustomOAuth2UserService(
     private val userPort: UserPort
-) : DefaultOAuth2UserService() {
+) : OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     override fun loadUser(userRequest: OAuth2UserRequest?): OAuth2User {
+        println("==================================")
         val delegate: OAuth2UserService<OAuth2UserRequest, OAuth2User> = DefaultOAuth2UserService()
         val oAuth2User = delegate.loadUser(userRequest)
 

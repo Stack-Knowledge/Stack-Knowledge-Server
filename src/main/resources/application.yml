@@ -50,6 +50,7 @@ spring:
           google:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
+            redirect-uri: http://localhost:8080/login/oauth2/code/google
             scope:
               - email
               - profile
@@ -67,7 +68,12 @@ auth:
   google:
     client-id: ${GOOGLE_CLIENT_ID}
     client-secret: ${GOOGLE_CLIENT_SECRET}
-    redirect-url: ${GOOGLE_REDIRECT_URL}
+    redirect-url: http://localhost:8080/login/oauth2/code/google
+    redirect-student-url: http://localhost:8080/student
+    redirect-teacher-url: http://localhost:8080/teacher
+    redirect-login-failure-url: http://localhost:8080/auth/error
+    loginEndPointBaseUrl: /oauth2/authorization
+    loginProcessingUrl: /login/oauth2/code
 
 cloud:
   aws:

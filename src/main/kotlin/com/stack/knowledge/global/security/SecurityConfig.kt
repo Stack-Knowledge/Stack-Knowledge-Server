@@ -6,14 +6,22 @@ import com.stack.knowledge.global.security.handler.CustomAccessDeniedHandler
 import com.stack.knowledge.global.security.handler.CustomAuthenticationEntryPoint
 import com.stack.knowledge.global.security.handler.CustomLoginFailureHandler
 import com.stack.knowledge.global.security.handler.CustomLoginSuccessHandler
+import com.stack.knowledge.global.security.oauth.CustomOAuth2UserService
+import com.stack.knowledge.global.security.principal.UserDetailsService
 import com.stack.knowledge.global.security.spi.JwtGeneratorPort
 import com.stack.knowledge.global.security.spi.JwtParserPort
+import com.stack.knowledge.thirdparty.google.GoogleProperties
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authentication.ProviderManager
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.crypto.factory.PasswordEncoderFactories
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.util.matcher.RequestMatcher
 import org.springframework.web.cors.CorsUtils
@@ -22,10 +30,11 @@ import org.springframework.web.cors.CorsUtils
 @EnableWebSecurity
 class SecurityConfig(
     private val jwtParserPort: JwtParserPort,
-    private val customLoginSuccessHandler: CustomLoginSuccessHandler,
-    private val customLoginFailureHandler: CustomLoginFailureHandler,
     private val jwtGeneratorPort: JwtGeneratorPort,
-    private val userPort: UserPort
+    private val userPort: UserPort,
+    private val googleProperties: GoogleProperties,
+    private val customOAuth2UserService: CustomOAuth2UserService,
+    private val userDetailsService: UserDetailsService
 ) {
     companion object {
         const val student = "STUDENT"
@@ -40,9 +49,17 @@ class SecurityConfig(
             .csrf().disable()
             .formLogin().disable()
             .httpBasic().disable()
-            .oauth2Login()
-            .successHandler(customLoginSuccessHandler)
-            .failureHandler(customLoginFailureHandler)
+            .oauth2Login { oauth2Login ->
+                oauth2Login
+//                    .authorizationEndpoint { authorizationEndpointConfig ->
+//                        authorizationEndpointConfig.baseUri("/auth/oauth2/authorization/google")
+//                    }
+                    .loginProcessingUrl(googleProperties.loginProcessingUrl)
+                    .successHandler(CustomLoginSuccessHandler(jwtGeneratorPort, userPort, googleProperties))
+                    .failureHandler(CustomLoginFailureHandler())
+                    .userInfoEndpoint().userService(customOAuth2UserService)
+            }
+            .httpBasic()
             .and()
 
             .sessionManagement()
@@ -57,7 +74,7 @@ class SecurityConfig(
             .antMatchers(HttpMethod.GET, "/health").permitAll()
 
             // auth
-            .antMatchers(HttpMethod.POST, "/auth").permitAll()
+            .antMatchers(HttpMethod.POST, "/auth/**").permitAll()
             .antMatchers(HttpMethod.POST, "/auth/teacher").permitAll()
             .antMatchers(HttpMethod.POST, "/auth/student").permitAll()
             .antMatchers(HttpMethod.PATCH, "/auth").permitAll()
@@ -103,11 +120,35 @@ class SecurityConfig(
             .and()
             .build()
 
+    private fun oauth2Login(http: HttpSecurity) {
+        http.oauth2Login { oauth2Login ->
+            oauth2Login
+                .authorizationEndpoint { authorizationEndpointConfig ->
+                    authorizationEndpointConfig.baseUri(googleProperties.loginEndPointBaseUrl)
+                }
+                .loginProcessingUrl(googleProperties.loginProcessingUrl)
+                .successHandler(CustomLoginSuccessHandler(jwtGeneratorPort, userPort, googleProperties))
+                .failureHandler(CustomLoginFailureHandler())
+        }
+    }
 
     @Bean
-    protected fun loginSuccessHandler() = CustomLoginSuccessHandler(jwtGeneratorPort, userPort)
+    protected fun loginSuccessHandler() = CustomLoginSuccessHandler(jwtGeneratorPort, userPort, googleProperties)
 
     @Bean
     protected fun loginFailureHandler() = CustomLoginFailureHandler()
+
+    @Bean
+    fun authenticationManager(): AuthenticationManager? {
+        val provider = DaoAuthenticationProvider()
+        provider.setPasswordEncoder(passwordEncoder())
+        provider.setUserDetailsService(userDetailsService)
+        return ProviderManager(provider)
+    }
+
+    @Bean
+    fun passwordEncoder(): PasswordEncoder? {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder()
+    }
 
 }

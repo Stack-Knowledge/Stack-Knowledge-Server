@@ -8,5 +8,10 @@ import org.springframework.boot.context.properties.ConstructorBinding
 class GoogleProperties(
     val clientId: String,
     val clientSecret: String,
-    val redirectUrl: String
+    val redirectUrl: String,
+    val redirectStudentUrl: String,
+    val redirectTeacherUrl: String,
+    val redirectLoginFailureUrl: String,
+    val loginEndPointBaseUrl: String,
+    val loginProcessingUrl: String
 )
