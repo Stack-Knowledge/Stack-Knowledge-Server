@@ -5,6 +5,4 @@ import org.springframework.context.annotation.Configuration
 
 @EnableFeignClients(basePackages = ["com.stack.knowledge.thirdparty.feign"])
 @Configuration
-class FeignConfig {
-
-}
+class FeignConfig

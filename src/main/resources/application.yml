@@ -53,11 +53,6 @@ jwt:
   accessExp: ${ACCESS_EXP:1800}
   refreshExp: ${REFRESH_EXP:7200}
 
-gauth:
-  clientId: ${CLIENT_ID}
-  clientSecret: ${CLIENT_SECRET}
-  redirectUri: ${REDIRECT_URI}
-
 auth:
   google:
     client-id: ${GOOGLE_CLIENT_ID}
