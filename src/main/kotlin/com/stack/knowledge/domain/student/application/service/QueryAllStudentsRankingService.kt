@@ -20,7 +20,7 @@ class QueryAllStudentsRankingService(
                 id = it.id,
                 cumulatePoint = it.cumulatePoint,
                 user = UserResponse(
-                    id = it.user,
+                    userId = it.user,
                     name = user.name,
                     profileImage = user.profileImage
                 )

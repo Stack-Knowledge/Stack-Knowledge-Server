@@ -21,7 +21,7 @@ class QueryStudentPointInfoService(
             currentPoint = student.currentPoint,
             cumulatePoint = student.cumulatePoint,
             user = UserResponse(
-                id = user.id,
+                userId = user.id,
                 name = user.name,
                 profileImage = user.profileImage
             )

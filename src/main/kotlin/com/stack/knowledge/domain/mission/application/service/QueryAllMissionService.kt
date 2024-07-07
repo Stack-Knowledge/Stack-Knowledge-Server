@@ -36,7 +36,7 @@ class QueryAllMissionService(
                 point = it.point,
                 missionStatus = it.missionStatus,
                 user = UserResponse(
-                    id = user.id,
+                    userId = user.id,
                     name = user.name,
                     profileImage = user.profileImage
                 )

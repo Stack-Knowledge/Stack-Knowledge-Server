@@ -16,7 +16,6 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
-	maven { url = uri("https://jitpack.io") }
 }
 
 dependencies {
@@ -41,9 +40,6 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-api:0.11.2")
 	runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
 	runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
-
-	// GAuth
-	implementation("com.github.GSM-MSG:GAuth-SDK-Java:v3.0.0")
 
 	// aws
 	implementation("org.springframework.cloud:spring-cloud-starter-aws:2.0.1.RELEASE")
