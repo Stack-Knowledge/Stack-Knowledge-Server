@@ -22,7 +22,7 @@ class UpdateUserApproveStatusService(
     private val templateEngine: SpringTemplateEngine
 ) {
     companion object {
-        val EMAIL_SUBJECT = "Stack-Knowledge 이메일 인증"
+        const val EMAIL_SUBJECT = "Stack-Knowledge 이메일 인증"
     }
 
     fun execute(userId: UUID, updateUserApproveStatusRequest: UpdateUserApproveStatusRequest) {
