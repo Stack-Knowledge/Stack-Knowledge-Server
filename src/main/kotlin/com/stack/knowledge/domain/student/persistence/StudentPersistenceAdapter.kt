@@ -31,4 +31,7 @@ class StudentPersistenceAdapter(
 
     override fun existStudentByUser(user: User): Boolean =
         studentJpaRepository.existsByUser(userMapper.toEntity(user))
+
+    override fun queryStudentRankByStudentId(id: UUID): Int =
+        studentJpaRepository.findStudentRankByCumulatePoint(id)
 }

@@ -40,7 +40,7 @@ class QueryScoringPageService(
                         title = it.title,
                         point = point.missionPoint,
                         user = UserResponse(
-                            userId = user.id,
+                            id = user.id,
                             name = user.name,
                             profileImage = user.profileImage
                         )
