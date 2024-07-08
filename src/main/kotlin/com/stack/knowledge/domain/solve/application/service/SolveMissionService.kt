@@ -17,7 +17,6 @@ import com.stack.knowledge.domain.solve.presentation.data.request.SolveMissionRe
 import com.stack.knowledge.domain.student.application.spi.QueryStudentPort
 import com.stack.knowledge.domain.student.exception.StudentNotFoundException
 import com.stack.knowledge.domain.time.application.spi.QueryTimePort
-import com.stack.knowledge.domain.time.exception.TimeLimitExceededException
 import com.stack.knowledge.domain.time.exception.TimeNotFoundException
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -34,7 +33,7 @@ class SolveMissionService(
     private val queryTimePort: QueryTimePort,
     private val queryStudentPort: QueryStudentPort
 ) {
-    @Transactional(noRollbackFor = [TimeLimitExceededException::class], rollbackFor = [Exception::class])
+    @Transactional(rollbackFor = [Exception::class])
     fun execute(id: UUID, solveMissionRequest: SolveMissionRequest) {
         val student = securityService.queryCurrentUserId().let {
             queryStudentPort.queryStudentById(it) ?: throw StudentNotFoundException()
@@ -65,10 +64,7 @@ class SolveMissionService(
 
     private fun createSolve(timeElapsed: Long, mission: Mission, solution: String, studentId: UUID): Solve {
         val solveStatus = when {
-            timeElapsed > mission.timeLimit + 5 -> {
-                SolveStatus.WRONG_ANSWER
-                throw TimeLimitExceededException()
-            }
+            timeElapsed > mission.timeLimit + 5 -> SolveStatus.WRONG_ANSWER
             else -> SolveStatus.SCORING
         }
 
