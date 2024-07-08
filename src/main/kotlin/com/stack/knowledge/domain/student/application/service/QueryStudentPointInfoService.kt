@@ -23,7 +23,7 @@ class QueryStudentPointInfoService(
             cumulatePoint = student.cumulatePoint,
             ranking = rank,
             user = UserResponse(
-                userId = user.id,
+                id = user.id,
                 name = user.name,
                 profileImage = user.profileImage
             )

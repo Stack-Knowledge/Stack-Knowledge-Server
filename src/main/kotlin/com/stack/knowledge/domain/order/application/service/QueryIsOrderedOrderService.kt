@@ -36,7 +36,7 @@ class QueryIsOrderedOrderService(
                     image = item.image
                 ),
                 user = UserResponse(
-                    userId = user.id,
+                    id = user.id,
                     name = user.name,
                     profileImage = user.profileImage
                 )
