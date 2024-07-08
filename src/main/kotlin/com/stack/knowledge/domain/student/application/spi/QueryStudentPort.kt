@@ -9,4 +9,5 @@ interface QueryStudentPort {
     fun queryAllStudentsOrderByCumulatePointDesc(): List<Student>
     fun queryStudentByUserId(userId: UUID): Student?
     fun existStudentByUser(user: User): Boolean
+    fun queryStudentRankByStudentId(id: UUID): Int
 }

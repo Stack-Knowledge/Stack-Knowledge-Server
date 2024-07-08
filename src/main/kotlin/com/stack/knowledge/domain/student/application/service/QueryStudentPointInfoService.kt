@@ -15,11 +15,13 @@ class QueryStudentPointInfoService(
     fun execute(): StudentPointResponse {
         val user = securityService.queryCurrentUser()
         val student = queryStudentPort.queryStudentByUserId(user.id) ?: throw UserNotFoundException()
+        val rank = queryStudentPort.queryStudentRankByStudentId(student.id)
 
         return StudentPointResponse(
             id = student.id,
             currentPoint = student.currentPoint,
             cumulatePoint = student.cumulatePoint,
+            ranking = rank,
             user = UserResponse(
                 userId = user.id,
                 name = user.name,

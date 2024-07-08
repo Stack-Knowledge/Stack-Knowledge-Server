@@ -11,4 +11,6 @@ interface StudentJpaRepository : CrudRepository<StudentJpaEntity, UUID> {
     fun findAllByOrderByCumulatePointDesc(): List<StudentJpaEntity>
     fun findByUserId(userId: UUID): StudentJpaEntity
     fun existsByUser(user: UserJpaEntity): Boolean
+    @Query("SELECT COUNT(s) + 1 FROM StudentJpaEntity s WHERE s.cumulatePoint > (SELECT st.cumulatePoint FROM StudentJpaEntity st WHERE st.id = :id)")
+    fun findStudentRankByCumulatePoint(id: UUID): Int
 }
