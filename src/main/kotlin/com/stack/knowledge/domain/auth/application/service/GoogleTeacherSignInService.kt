@@ -22,7 +22,7 @@ class GoogleTeacherSignInService(
 ) {
     @Transactional(noRollbackFor = [PendingUserException::class], rollbackFor = [Exception::class])
     fun execute(googleTeacherSignInRequest: GoogleTeacherSignInRequest): TokenResponse {
-        val (email, name) = googleService.queryGoogleEmailAndName(googleTeacherSignInRequest.code)
+        val (email, name) = googleService.queryGoogleTeacherEmailAndName(googleTeacherSignInRequest.code)
 
         val user = userPort.queryUserByEmail(email)
 

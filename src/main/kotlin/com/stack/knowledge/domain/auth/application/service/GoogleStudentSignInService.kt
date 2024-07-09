@@ -24,7 +24,7 @@ class GoogleStudentSignInService(
     private val createStudentService: CreateStudentService
 ) {
     fun execute(googleStudentSignInRequest: GoogleStudentSignInRequest): TokenResponse {
-        val (email, name) = googleService.queryGoogleEmailAndName(googleStudentSignInRequest.code)
+        val (email, name) = googleService.queryGoogleStudentEmailAndName(googleStudentSignInRequest.code)
 
         if (!email.matches(Regex("s2\\d0([0-6][0-9]|7[0-2])@gsm\\.hs\\.kr")))
             throw InvalidEmailException()

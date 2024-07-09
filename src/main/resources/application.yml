@@ -57,7 +57,8 @@ auth:
   google:
     client-id: ${GOOGLE_CLIENT_ID}
     client-secret: ${GOOGLE_CLIENT_SECRET}
-    redirect-url: ${GOOGLE_REDIRECT_URL}
+    student-redirect-url: ${GOOGLE_STUDENT_REDIRECT_URL}
+    teacher-redirect-url: ${GOOGLE_TEACHER_REDIRECT_URL}
 
 cloud:
   aws:
