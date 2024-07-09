@@ -14,12 +14,27 @@ class GoogleService(
     private val googleAuthClient: GoogleAuthClient,
     private val googleInfoClient: GoogleInfoClient
 ) {
-    fun queryGoogleEmailAndName(code: String): Pair<String, String> {
+    fun queryGoogleStudentEmailAndName(code: String): Pair<String, String> {
         val googleCodeRequest = GoogleCodeRequest(
             code = URLDecoder.decode(code, StandardCharsets.UTF_8),
             clientId = googleProperties.clientId,
             clientSecret = googleProperties.clientSecret,
-            redirectUri = googleProperties.redirectUrl
+            redirectUri = googleProperties.studentRedirectUrl
+        )
+
+        val response = googleAuthClient.googleAuth(googleCodeRequest)
+
+        val googleInfoResponse = googleInfoClient.googleInfo(response.access_token)
+
+        return Pair(googleInfoResponse.email, googleInfoResponse.name)
+    }
+
+    fun queryGoogleTeacherEmailAndName(code: String): Pair<String, String> {
+        val googleCodeRequest = GoogleCodeRequest(
+            code = URLDecoder.decode(code, StandardCharsets.UTF_8),
+            clientId = googleProperties.clientId,
+            clientSecret = googleProperties.clientSecret,
+            redirectUri = googleProperties.teacherRedirectUrl
         )
 
         val response = googleAuthClient.googleAuth(googleCodeRequest)
