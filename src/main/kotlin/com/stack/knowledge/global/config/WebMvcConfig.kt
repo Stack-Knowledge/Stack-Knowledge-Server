@@ -16,6 +16,7 @@ class WebMvcConfig : WebMvcConfigurer {
                 "https://stackknowledge.vercel.app",
                 "https://stackknowledge-admin.vercel.app"
             )
+            .exposedHeaders("Set-Cookie")
             .allowCredentials(true)
     }
 }

@@ -4,6 +4,8 @@ import com.stack.knowledge.domain.auth.application.service.*
 import com.stack.knowledge.domain.auth.presentation.data.request.GoogleStudentSignInRequest
 import com.stack.knowledge.domain.auth.presentation.data.request.GoogleTeacherSignInRequest
 import com.stack.knowledge.domain.auth.presentation.data.response.TokenResponse
+import org.springframework.http.HttpHeaders
+import org.springframework.http.ResponseCookie
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import javax.servlet.http.Cookie
@@ -69,36 +71,40 @@ class AuthWebAdapter(
     fun googleStudentSignInCookie(@RequestBody @Valid googleStudentSignInRequest: GoogleStudentSignInRequest, response: HttpServletResponse): ResponseEntity<TokenResponse> {
         val serviceResponse = googleStudentSignInService.execute(googleStudentSignInRequest)
 
-        val accessToken = Cookie("access_token", serviceResponse.accessToken).apply {
-            path = "/"
-            isHttpOnly = true
-            maxAge = 60 * 60 // 1시간
-        }
+        val accessToken = ResponseCookie.from("access_token", serviceResponse.accessToken)
+            .path("/")
+            .httpOnly(false)
+            .maxAge(60 * 60)
+            .sameSite("None")
+            .build()
 
-        val refreshToken = Cookie("refresh_token", serviceResponse.refreshToken).apply {
-            path = "/"
-            isHttpOnly = true
-            maxAge = 60 * 60 * 24 * 30 // 30일
-        }
+        val refreshToken = ResponseCookie.from("refresh_token", serviceResponse.refreshToken)
+            .path("/")
+            .httpOnly(false)
+            .maxAge(60 * 60)
+            .sameSite("None")
+            .build()
 
-        val expiredAt = Cookie("expired_at", serviceResponse.expiredAt.toString()).apply {
-            path = "/"
-            isHttpOnly = true
-            maxAge = 60 * 60 // 1시간
-        }
+        val expiredAt = ResponseCookie.from("expired_at", serviceResponse.expiredAt.toString())
+            .path("/")
+            .httpOnly(false)
+            .maxAge(60 * 60)
+            .sameSite("None")
+            .build()
 
-        val authority = Cookie("authority", serviceResponse.authority.toString()).apply {
-            path = "/"
-            isHttpOnly = true
-            maxAge = 60 * 60 // 1시간
-        }
+        val authority = ResponseCookie.from("authority", serviceResponse.authority.toString())
+            .path("/")
+            .httpOnly(false)
+            .maxAge(60 * 60)
+            .sameSite("None")
+            .build()
 
-        response.addCookie(accessToken)
-        response.addCookie(refreshToken)
-        response.addCookie(expiredAt)
-        response.addCookie(authority)
+        response.addHeader("Set-Cookie", accessToken.toString())
+        response.addHeader("Set-Cookie", accessToken.toString())
+        response.addHeader("Set-Cookie", expiredAt.toString())
+        response.addHeader("Set-Cookie", authority.toString())
 
-        return ResponseEntity.ok().build()
+        return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, response.toString()).build()
     }
 
     @PatchMapping
